@@ -1,0 +1,20 @@
+# build output
+build/
+*.o
+*.out
+*.exe
+
+# large data (keep small samples only)
+data/raw/
+*.tif
+*.gpkg
+*.osm.pbf
+
+# big simulation output
+results/raw/
+*.bin
+*.h5
+
+# OS / editor
+.DS_Store
+.vscode/
