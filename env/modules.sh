@@ -9,4 +9,4 @@ case "${1:-cpu}" in
   *)   echo "Usage: source env/modules.sh [cpu|gpu]"; return 1 ;;
 esac
 module list
-which gcc mpicc nvc 2>/dev/null
+which gcc mpicc nvc 2>/dev/null || true
