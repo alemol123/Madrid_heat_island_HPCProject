@@ -1,7 +1,6 @@
 # build output
 build/
 *.o
-*.out
 *.exe
 
 # large data (keep small samples only)
@@ -13,8 +12,13 @@ data/raw/
 # big simulation output
 results/raw/
 *.bin
+!tests/ref/*.bin
 *.h5
 
 # OS / editor
 .DS_Store
 .vscode/
+# Python
+__pycache__/
+*.pyc
+.venv/
