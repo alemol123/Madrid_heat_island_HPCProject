@@ -26,7 +26,7 @@ TAG=${TAG:-serial}
 REPS=${REPS:-3}
 
 echo "=== job $SLURM_JOB_ID on $(hostname) at $(date -Is)"
-echo "=== git commit: $(git rev-parse --short HEAD)  ($(git status --porcelain | wc -l) uncommitted files)"
+echo "=== git commit: $(git rev-parse --short HEAD)  ($(git status --porcelain -- . ':(exclude)results' | wc -l) uncommitted files outside results/)"
 echo "=== nx=$NX ny=$NY steps=$STEPS city=$CITY seed=$SEED tag=$TAG reps=$REPS"
 lscpu | grep -E "Model name|^CPU\(s\)" || true
 
