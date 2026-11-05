@@ -1,7 +1,7 @@
 # Environment and cluster notes
 
-Cluster survey and environment tests by Aakriti (P5), 3 November 2026
-(sinfo, scontrol, module avail, lscpu, nvidia-smi, srun --mpi=list).
+Cluster survey and environment tests by Aakriti (P5), 3-4 November 2026
+(sinfo, scontrol, module avail, lscpu, nvidia-smi, srun --mpi=list, test jobs).
 
 ## Quick start
 
@@ -19,7 +19,8 @@ Never load both in the same session (see "GPU environment" below).
 | fortran | 2 x AMD EPYC 9755, 256 cores / 512 threads  | ~738 GB  | 2 x RTX PRO 6000 Blackwell (cc120), memory: TO CONFIRM |
 
 - Login node: `rust`. It has an older CPU (zen2). Do not compile or run experiments there.
-- fortran's CPU (AMD EPYC 9755) supports AVX-512; haskell and julia CPU models not checked yet.
+- Compute CPUs are AMD Zen 5 (fortran: EPYC 9755 per lscpu; haskell: znver5 per nvc)
+  and support AVX-512. julia not checked yet.
 
 ## Partitions
 
@@ -60,13 +61,18 @@ Compile our own code on a compute node (inside `srun` or `sbatch`) with
 
 - NVIDIA HPC SDK 25.7: `nvc` / `nvc++` / `nvfortran` (OpenACC), CUDA 12.9 (`nvcc`), its own MPI, NCCL.
 - Do not combine with the CPU environment: nvhpc changes which `mpicc` is found
-  and puts `/usr/bin` first in PATH.
+  and puts `/usr/bin` first in PATH. Never build CPU or MPI code in the GPU
+  environment; use `source env/modules.sh cpu` for that.
+- Tested 3 Nov 2026 on haskell (Ada): nvc 25.7 works; OpenACC test compiled and gave
+  correct results. With nvhpc loaded, gcc and mpicc point to /usr/bin (system versions).
 - OpenACC compile (on a GPU node):
 
       nvc -acc -gpu=ccnative -Minfo=accel prog.c -o prog
 
   `ccnative` targets the GPU of the node you compile on. To compile for a
   specific GPU type: `-gpu=cc89` (Ada, haskell) or `-gpu=cc120` (Blackwell, julia/fortran).
+- GPU timing without a profiler: run with `NVCOMPILER_ACC_TIME=1 ./prog` to print
+  kernel time and data-transfer time separately.
 - Course CUDA container (alternative): `module load hpc-course-cuda/12.8.1`, then
   `cuda-exec nvcc -arch=sm_89 ...` (Ada) or `-arch=sm_120` (Blackwell).
 
@@ -86,13 +92,16 @@ Compile our own code on a compute node (inside `srun` or `sbatch`) with
 
 - LIKWID: not available (no module).
 - perf: not found on the login node (compute nodes not checked).
-- Use instead: our own timers (MPI_Wtime / omp_get_wtime), STREAM for memory
+- Nsight Systems (`nsys`) and Nsight Compute (`ncu`): available in the GPU environment
+  (nvhpc 25.7). modules.sh adds the CUPTI library path, which fixes the
+  "libcupti.so not found" warning seen on 3 Nov (fix to be confirmed by a test job).
+- Use also: our own timers (MPI_Wtime / omp_get_wtime), STREAM for memory
   bandwidth, compiler reports (`-fopt-info-vec`, `-Minfo=accel`), `nvidia-smi`.
-- Nsight Systems (`nsys`): TO CONFIRM.
 
 ## Working tips
 
 - Use `sbatch` for anything that may wait in the queue; `srun` blocks your terminal.
 - `export LMOD_PAGER=none` makes `module show` / `module avail` print without a pager
   (already set by modules.sh).
-- Check your jobs: `squeue -u <username>`; job accounting: `sacct -j <jobid>`.
+- Check your jobs: `squeue -u <username>`; estimated start: `squeue --start -j <jobid>`;
+  job accounting: `sacct -j <jobid>`.
