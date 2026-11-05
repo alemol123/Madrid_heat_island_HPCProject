@@ -1,6 +1,6 @@
 # Shared contract
 
-Agreed by all five on Wed 4 November 2026. P1 keeps it up to date.
+Agreed Thu 5 November 2026 (decisions at the end). P1 keeps it up to date.
 Change it only with everyone's agreement (open a pull request and tag all five).
 
 ## Repository layout
@@ -95,27 +95,25 @@ Compile on a compute node (or inside the job), because `-march=native` depends o
 
 At least 3 repetitions per configuration; report mean and spread.
 
----
+## Decisions (Thu 5 November 2026)
 
-## To decide in the Wed 4 meeting
-
-Write the decision next to each item, then delete this heading.
-
-1. **Stability bound.** With the *average* form above, the scheme is stable for `alpha_c <= 1`;
-   the plan's `alpha_c <= 0.25` belongs to the *sum* form `alpha_c*(sum of 4 neighbours - 4T)`.
-   Proposal: keep the average form, require `alpha_c + cool_c <= 1` for every type (checked at startup).
-   Decision: ______
-2. **Verification tolerance.** 1e-5 absolute is below float32 precision at about 300 K (one ULP is about 3e-5),
-   so OpenMP SIMD, FMA and the GPU cannot pass it.
-   Proposal: `compare.py` passes when max |a - b| <= 1e-5 * max|T| (relative); MPI must also be bitwise identical.
-   Decision: ______
-3. **Boundary condition.** Proposal: fixed edges at T_air (Dirichlet). MPI edge ranks use MPI_PROC_NULL and
-   keep fixed ghost rows. Alternative: insulated edges.
-   Decision: ______
-4. **Units and time.** Temperatures in °C or K? Steps per simulated day (solar period)?
-   Proposal: °C, T_init = T_air = 25, one day = 1000 steps, solar(t) = S0 * max(0, sin(2*pi*t/1000)).
-   Decision: ______
-5. **Coefficient table** (alpha, absorb, cool per type) in src/params.h. P1 proposes values by Thu 5;
-   all versions include that header. Decision: ______
-6. **Branches and reviews.** Branch names p1-solver, p2-data, p3-mpi, p4-openmp, p5-gpu; pull request
-   to main with 1 approval from the review-chain reviewer. Decision: ______
+1. **Stability.** We use the *average* form of the update. Every cell type must satisfy
+   `alpha_c >= 0`, `cool_c >= 0`, `absorb_c >= 0` and `alpha_c + cool_c <= 1`; the solver checks this at
+   start-up (`check_stability()`) and refuses to run otherwise. (The plan's `alpha <= 0.25` belongs to the
+   *sum* form, `alpha*(sum of 4 neighbours - 4T)`, which we do not use.)
+2. **Verification tolerance.** `tools/compare.py` passes when `max|a - b| <= 1e-5 * max|T|` (relative).
+   MPI must additionally be bitwise identical to serial (`compare.py --exact`), because it performs the
+   same operations in the same order. OpenMP, hybrid and OpenACC use the relative tolerance (SIMD, FMA and
+   GPU change the order of floating-point operations).
+3. **Boundary condition.** Fixed edges at `T_air` (Dirichlet). MPI ranks on the top/bottom edge of the domain
+   use `MPI_PROC_NULL` for the missing neighbour and fill that ghost row with `apply_boundary()`.
+   Insulated edges (`--bc neumann`) exist only for the heat-conservation test.
+4. **Units and time.** Temperatures in degrees C. `T_init = T_air = 25`. One simulated day = 1000 steps;
+   `solar(t) = S0 * max(0, sin(2*pi*t/1000))`, so noon is step 250 and a 2000-step run is two days.
+5. **Coefficients.** The table in `src/params.h` (peak heating above air: road +10, building +7.5,
+   grass +1.3, tree +0.4, water +0.25, green roof +0.75 C). These are plausible model values, not
+   measurements; the report says so. Changing them means rerunning every experiment, so they are frozen.
+6. **Git workflow.** Branches `p1-solver`, `p2-data`, `p3-mpi`, `p4-openmp`, `p5-gpu`. No direct pushes to
+   `main`; every change goes through a pull request with 1 approval from the review chain
+   (P1 reviews P2, P2 reviews P3, P3 reviews P4, P4 reviews P5, P5 reviews P1).
+   Small environment/setup changes may be approved by the repo owner (P1).
