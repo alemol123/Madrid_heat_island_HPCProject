@@ -30,7 +30,7 @@ REPS=${REPS:-3}
 EXTRA=${EXTRA:-}           # version-specific options, e.g. "--overlap" or "--decomp blocks"
 
 echo "=== job $SLURM_JOB_ID on $SLURM_JOB_NODELIST at $(date -Is)"
-echo "=== nodes=$SLURM_NNODES ranks=$SLURM_NTASKS ranks/node=$SLURM_NTASKS_PER_NODE"
+echo "=== nodes=$SLURM_NNODES ranks=$SLURM_NTASKS ranks/node=${SLURM_NTASKS_PER_NODE:-n/a}"
 echo "=== git commit: $(git rev-parse --short HEAD)  ($(git status --porcelain -- . ':(exclude)results' | wc -l) uncommitted files outside results/)"
 echo "=== nx=$NX ny=$NY steps=$STEPS city=$CITY seed=$SEED tag=$TAG reps=$REPS extra=$EXTRA"
 lscpu | grep -E "Model name|^CPU\(s\)" || true
