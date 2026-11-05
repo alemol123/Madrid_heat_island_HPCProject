@@ -59,11 +59,32 @@ T_new = T + alpha_c*(avg of 4 neighbours - T) + solar(t)*absorb_c - cool_c*(T - 
 The kernel is one isolated function `step(in, out, ...)` with two buffers (ping-pong).
 OpenMP, MPI and OpenACC all wrap it unchanged.
 
+## Kernel interface (src/common/step.h, src/common/io.h)
+
+- Shared code lives in `src/common/` (kernel, file I/O, synthetic city, CSV, timer); every version links it.
+- Temperature arrays are **padded with one ghost cell on each side**: (nx+2) × (ny+2).
+  Interior cell (i, j) is at `IDX(i, j, nx) = (j+1)*(nx+2) + (i+1)`. The city array is not padded.
+- `step()` writes only interior cells and reads ghosts. The caller fills ghosts first:
+  `apply_boundary()` on real domain edges, halo exchange between MPI ranks.
+- `step_rows(..., j0, j1)` updates rows j0..j1-1 only (for the MPI overlap version).
+- `--city synthetic`: each cell's type is a pure function of (i, j, seed), so any rank can generate
+  its own rows and get the same city as serial. It is a minimal stand-in; P2's `tools/gen_city.py`
+  makes the realistic cities.
+
 ## Results CSV (one row per run, header written if the file is new)
 
 ```
-tag,version,nx,ny,steps,nodes,ranks,threads,gpus,time_total,time_compute,time_comm,time_io,checksum,git_commit,slurm_jobid
+tag,version,nx,ny,steps,nodes,ranks,threads,gpus,time_total,time_compute,time_comm,time_io,time_transfer,checksum,git_commit,slurm_jobid,node
 ```
+
+- `time_compute`: the time loop only. `time_comm`: MPI halo exchange (0 if not MPI).
+- `time_io`: reading the city and writing the output file.
+- `time_transfer`: CPU <-> GPU data copies (OpenACC); 0 for CPU versions. Not part of `time_compute`.
+- `time_total`: the whole run, start to finish (includes all of the above).
+- `node`: the compute node name (`SLURMD_NODENAME`), quoted; MPI runs list every node used,
+  comma-separated. Needed because the GPUs differ (Ada on haskell, Blackwell on julia/fortran)
+  and nodes are shared with other jobs.
+- Write the CSV through `append_csv()` in `src/common/io.c` so every version produces the same columns.
 
 ## Compiler flags
 
