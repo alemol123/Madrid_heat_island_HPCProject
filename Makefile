@@ -1,5 +1,6 @@
 # Urban Heat Island Simulator
 # Usage: source env/modules.sh; make serial mpi hybrid; make check
+#        source env/modules.sh gpu; make openacc   (on a GPU node)
 # Targets for versions that do not exist yet print a message instead of failing.
 
 CC      = gcc
@@ -41,8 +42,17 @@ hybrid:
 	  $(MPICC) $(CFLAGS) $(OMPFLAG) $(DEFS) src/hybrid/*.c $(COMMON) -o $(BUILD)/heat_hybrid $(LDLIBS) && echo "built $(BUILD)/heat_hybrid"; \
 	else echo "hybrid: not yet (src/hybrid/heat_hybrid.c missing)"; fi
 
+# OpenACC (P5): needs the GPU environment (source env/modules.sh gpu), built on a GPU node.
+# GPU_ARCH=ccnative targets the GPU of the build node; use cc89 (Ada) or cc120 (Blackwell) to choose.
+ACC      ?= nvc
+GPU_ARCH ?= ccnative
+ACCFLAGS ?= -O3 -acc -gpu=$(GPU_ARCH) -Minfo=accel
+
 openacc:
-	@echo "openacc: build rule added by P5 (compiler depends on the cluster, see env/README.md)"
+	@mkdir -p $(BUILD)
+	@if [ -f src/openacc/heat_openacc.c ]; then \
+	  $(ACC) $(ACCFLAGS) $(DEFS) src/openacc/*.c $(COMMON) -o $(BUILD)/heat_openacc $(LDLIBS) && echo "built $(BUILD)/heat_openacc with: $(ACC) $(ACCFLAGS)"; \
+	else echo "openacc: not yet (src/openacc/heat_openacc.c missing)"; fi
 
 # Unit tests (no optimisation flags needed, but use the same ones to test what we run).
 test: serial

@@ -1,6 +1,6 @@
 # Environment and cluster notes
 
-Cluster survey and environment tests by Aakriti (P5), 3-4 November 2026
+Cluster survey and environment tests by Aakriti (P5), 3-5 November 2026
 (sinfo, scontrol, module avail, lscpu, nvidia-smi, srun --mpi=list, test jobs).
 
 ## Quick start
@@ -16,7 +16,7 @@ Never load both in the same session (see "GPU environment" below).
 |---------|---------------------------------------------|----------|----------------------------------------------|
 | haskell | 2 sockets x 128 cores = 256 cores / 512 thr | ~397 GB  | 2 x RTX 6000 Ada, 48 GB each (cc89)          |
 | julia   | 512 threads                                 | ~503 GB  | 1 x RTX PRO 6000 Blackwell, 96 GB (cc120)    |
-| fortran | 2 x AMD EPYC 9755, 256 cores / 512 threads  | ~738 GB  | 2 x RTX PRO 6000 Blackwell (cc120), memory: TO CONFIRM |
+| fortran | 2 x AMD EPYC 9755, 256 cores / 512 threads  | ~738 GB  | 2 x RTX PRO 6000 Blackwell (cc120), same model as julia's (likely 96 GB, not measured) |
 
 - Login node: `rust`. It has an older CPU (zen2). Do not compile or run experiments there.
 - Compute CPUs are AMD Zen 5 (fortran: EPYC 9755 per lscpu; haskell: znver5 per nvc)
@@ -36,6 +36,8 @@ Important for measurements:
 - `OverSubscribe=FORCE:2`: up to two jobs can share the same resources.
   `--exclusive` cannot be guaranteed, so timings can be disturbed by other jobs.
   Always repeat runs (at least 3) and report mean and spread.
+  Example: the same OpenACC test run twice on haskell (3 and 5 Nov) had
+  CPU-GPU transfer times that differed by a factor of 2 to 4.
 - `PreemptMode=REQUEUE`: higher-priority jobs can stop and requeue yours.
   Keep jobs short.
 - CPU limits are enforced: always set `--cpus-per-task` and match
@@ -87,6 +89,9 @@ Compile our own code on a compute node (inside `srun` or `sbatch`) with
 - GPUs are busy: on 3 Nov all 5 GPUs were in use (also by jobs from the cpu
   partition), and a 5-minute test job was estimated to start about 13 hours later.
   Submit GPU jobs early with sbatch and keep them short.
+- Do not depend on fortran: on 5 Nov a 2-minute job requesting fortran was
+  estimated to start 5 days later (its GPUs were held for other jobs).
+  Haskell's Ada GPUs ran our test jobs within hours.
 
 ## Profiling tools
 
@@ -94,7 +99,7 @@ Compile our own code on a compute node (inside `srun` or `sbatch`) with
 - perf: not found on the login node (compute nodes not checked).
 - Nsight Systems (`nsys`) and Nsight Compute (`ncu`): available in the GPU environment
   (nvhpc 25.7). modules.sh adds the CUPTI library path, which fixes the
-  "libcupti.so not found" warning seen on 3 Nov (fix to be confirmed by a test job).
+  "libcupti.so not found" warning seen on 3 Nov (fix confirmed by a test job on 5 Nov).
 - Use also: our own timers (MPI_Wtime / omp_get_wtime), STREAM for memory
   bandwidth, compiler reports (`-fopt-info-vec`, `-Minfo=accel`), `nvidia-smi`.
 
