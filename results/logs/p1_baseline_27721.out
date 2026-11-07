@@ -48,3 +48,16 @@ checksum 1.0918696474e+08
 heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42 kernel=avx512-permute
 time_total=1.7958 s  time_compute=1.7761 s  time_io=0.0122 s  0.212 ns/cell-update
 checksum 1.0918696474e+08
+=== build/27721/heat_serial --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/runs.csv --tag baseline_avx512   (repeat 1)
+heat serial nx=4096 ny=4096 steps=2000 city=synthetic seed=42 kernel=avx512-permute
+time_total=8.9666 s  time_compute=8.8848 s  time_io=0.0486 s  0.265 ns/cell-update
+checksum 4.3673626717e+08
+=== build/27721/heat_serial --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/runs.csv --tag baseline_avx512   (repeat 2)
+heat serial nx=4096 ny=4096 steps=2000 city=synthetic seed=42 kernel=avx512-permute
+time_total=8.9634 s  time_compute=8.8840 s  time_io=0.0491 s  0.265 ns/cell-update
+checksum 4.3673626717e+08
+=== build/27721/heat_serial --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/runs.csv --tag baseline_avx512   (repeat 3)
+heat serial nx=4096 ny=4096 steps=2000 city=synthetic seed=42 kernel=avx512-permute
+time_total=8.9600 s  time_compute=8.8812 s  time_io=0.0489 s  0.265 ns/cell-update
+checksum 4.3673626717e+08
+=== done 2026-11-07T13:43:31+01:00
