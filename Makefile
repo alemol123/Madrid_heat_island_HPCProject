@@ -20,7 +20,7 @@ COMMON  := src/common/step.c src/common/io.c
 
 BUILD := build
 
-.PHONY: all serial mpi hybrid openacc check test clean
+.PHONY: all serial mpi hybrid openacc bench check test clean
 
 all: serial
 
@@ -54,11 +54,20 @@ openacc:
 	  $(ACC) $(ACCFLAGS) $(DEFS) src/openacc/*.c $(COMMON) -o $(BUILD)/heat_openacc $(LDLIBS) && echo "built $(BUILD)/heat_openacc with: $(ACC) $(ACCFLAGS)"; \
 	else echo "openacc: not yet (src/openacc/heat_openacc.c missing)"; fi
 
+# P1 optimization study: kernel variants (src/opt/bench_kernels.c), self-checking.
+# -fopenmp-simd enables only the "omp simd" pragmas (no threads).
+bench:
+	@mkdir -p $(BUILD)
+	$(CC) $(CFLAGS) -fopenmp-simd $(DEFS) src/opt/bench_kernels.c $(COMMON) -o $(BUILD)/bench_kernels $(LDLIBS)
+	@echo "built $(BUILD)/bench_kernels with: $(CC) $(CFLAGS) -fopenmp-simd"
+
 # Unit tests (no optimisation flags needed, but use the same ones to test what we run).
 test: serial
 	@mkdir -p $(BUILD)
 	$(CC) $(CFLAGS) $(DEFS) tests/test_serial.c $(COMMON) -o $(BUILD)/test_serial $(LDLIBS)
 	./$(BUILD)/test_serial
+	@$(MAKE) -s bench BUILD=$(BUILD) >/dev/null
+	./$(BUILD)/bench_kernels --nx 61 --ny 37 --steps 300 --reps 1 --quiet
 
 # Compares every built version against the serial output (tools/compare.py).
 check: serial

@@ -39,6 +39,14 @@ Single run:
 | Baseline, 3 sizes × 3 repeats | `sbatch slurm/p1_baseline.sh` | rows tagged `baseline` in `results/runs.csv`, log in `results/logs/` |
 | Problem-size sensitivity 256–8192 | `sbatch slurm/p1_sizes.sh` | rows tagged `sizes` |
 | Compiler flags before/after | `sbatch slurm/p1_flags.sh` | rows tagged `flags_*`, vectorization reports in `build/<jobid>/*/vec.txt` |
+| Kernel code variants (+ perf counters if available) | `sbatch slurm/p1_opt.sh` | rows tagged `opt_*` (version `serial-opt`); each variant is checked against the reference kernel |
+
+Jobs used in the report: 27714 (baseline), 27715 (sizes), 27716 (flags), 7 Nov 2026, node fortran,
+commit 36cd286. Figures and tables:
+
+```bash
+python3 analysis/p1_plots.py          # -> results/plots/p1_sizes.png, p1_flags.png, p1_tables.md
+```
 
 The reference file in `tests/ref/` was made with:
 
