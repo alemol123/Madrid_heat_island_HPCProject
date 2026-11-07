@@ -1,0 +1,63 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+ 
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== job 27721 on fortran at 2026-11-07T13:42:56+01:00
+=== git commit: cd46186  1 uncommitted file(s)
+CPU(s):                                  512
+Model name:                              AMD EPYC 9755 128-Core Processor
+CPU(s) scaling MHz:                      52%
+L1d cache:                               12 MiB (256 instances)
+L2 cache:                                256 MiB (256 instances)
+L3 cache:                                1 GiB (32 instances)
+gcc (GCC) 13.2.0
+built build/27721/heat_serial with: gcc -O3 -march=native -std=c11 -Wall -Wextra
+=== build/27721/heat_serial --nx 1024 --ny 1024 --steps 2000 --city synthetic --seed 42 --timing results/runs.csv --tag baseline_avx512   (repeat 1)
+heat serial nx=1024 ny=1024 steps=2000 city=synthetic seed=42 kernel=avx512-permute
+time_total=0.3498 s  time_compute=0.3450 s  time_io=0.0030 s  0.165 ns/cell-update
+checksum 2.7318517051e+07
+=== build/27721/heat_serial --nx 1024 --ny 1024 --steps 2000 --city synthetic --seed 42 --timing results/runs.csv --tag baseline_avx512   (repeat 2)
+heat serial nx=1024 ny=1024 steps=2000 city=synthetic seed=42 kernel=avx512-permute
+time_total=0.3465 s  time_compute=0.3419 s  time_io=0.0030 s  0.163 ns/cell-update
+checksum 2.7318517051e+07
+=== build/27721/heat_serial --nx 1024 --ny 1024 --steps 2000 --city synthetic --seed 42 --timing results/runs.csv --tag baseline_avx512   (repeat 3)
+heat serial nx=1024 ny=1024 steps=2000 city=synthetic seed=42 kernel=avx512-permute
+time_total=0.3473 s  time_compute=0.3428 s  time_io=0.0030 s  0.163 ns/cell-update
+checksum 2.7318517051e+07
+=== build/27721/heat_serial --nx 2048 --ny 2048 --steps 2000 --city synthetic --seed 42 --timing results/runs.csv --tag baseline_avx512   (repeat 1)
+heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42 kernel=avx512-permute
+time_total=1.7991 s  time_compute=1.7791 s  time_io=0.0122 s  0.212 ns/cell-update
+checksum 1.0918696474e+08
+=== build/27721/heat_serial --nx 2048 --ny 2048 --steps 2000 --city synthetic --seed 42 --timing results/runs.csv --tag baseline_avx512   (repeat 2)
+heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42 kernel=avx512-permute
+time_total=1.8019 s  time_compute=1.7822 s  time_io=0.0121 s  0.212 ns/cell-update
+checksum 1.0918696474e+08
+=== build/27721/heat_serial --nx 2048 --ny 2048 --steps 2000 --city synthetic --seed 42 --timing results/runs.csv --tag baseline_avx512   (repeat 3)
+heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42 kernel=avx512-permute
+time_total=1.7958 s  time_compute=1.7761 s  time_io=0.0122 s  0.212 ns/cell-update
+checksum 1.0918696474e+08
+=== build/27721/heat_serial --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/runs.csv --tag baseline_avx512   (repeat 1)
+heat serial nx=4096 ny=4096 steps=2000 city=synthetic seed=42 kernel=avx512-permute
+time_total=8.9666 s  time_compute=8.8848 s  time_io=0.0486 s  0.265 ns/cell-update
+checksum 4.3673626717e+08
+=== build/27721/heat_serial --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/runs.csv --tag baseline_avx512   (repeat 2)
+heat serial nx=4096 ny=4096 steps=2000 city=synthetic seed=42 kernel=avx512-permute
+time_total=8.9634 s  time_compute=8.8840 s  time_io=0.0491 s  0.265 ns/cell-update
+checksum 4.3673626717e+08
+=== build/27721/heat_serial --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/runs.csv --tag baseline_avx512   (repeat 3)
+heat serial nx=4096 ny=4096 steps=2000 city=synthetic seed=42 kernel=avx512-permute
+time_total=8.9600 s  time_compute=8.8812 s  time_io=0.0489 s  0.265 ns/cell-update
+checksum 4.3673626717e+08
+=== done 2026-11-07T13:43:31+01:00
