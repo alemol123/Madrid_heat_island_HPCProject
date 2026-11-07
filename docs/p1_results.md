@@ -1,7 +1,7 @@
 # P1 results: serial baseline, problem size, compiler flags
 
 Draft text for report Section 5.1. Numbers come from `results/runs.csv`
-(jobs 27714–27716, 7 Nov 2026, node fortran, AMD EPYC 9755 / Zen 5, GCC 13.2.0,
+(jobs 27714–27716 and 27718, 7 Nov 2026, node fortran, AMD EPYC 9755 / Zen 5, GCC 13.2.0,
 code at commit 36cd286). Regenerate the figures and tables with
 `python3 analysis/p1_plots.py`; tables are in `results/plots/p1_tables.md`.
 
@@ -85,24 +85,49 @@ checks each against the reference kernel (contract tolerance; "exact" = bitwise 
 | AVX-512 register lookup | 6-entry tables kept in one vector register, looked up with `vpermps` | exact |
 | double | same as reference in double precision | within tolerance |
 
-Cluster numbers: fill in from `results/plots/p1_tables.md` after the job.
-Expected from a test machine (AVX-512, 2048 × 2048): register lookup about 2.3× faster
-and bitwise identical; per-cell arrays about 1.2×; per-type factors no faster and
-noticeably less accurate (max difference 2.2·10⁻⁴, close to the tolerance); double
-about 1.5× slower.
+Results on fortran (job 27718, commit 520c642, mean of 3 runs; standard deviation below 0.6 % for every variant):
+
+| Variant | n = 512 (in L3): ns/update | n = 2048 (memory): ns/update | Correct? |
+|---|---|---|---|
+| reference | 0.809 (1.00×) | 0.888 (1.00×) | exact |
+| + omp simd | 0.824 (0.98×) | 0.904 (0.98×) | exact |
+| per-type factors | 0.781 (1.04×) | 0.850 (1.05×) | max diff 2.2·10⁻⁴ (tolerance 2.6·10⁻⁴) |
+| per-cell arrays | 0.258 (3.13×) | 0.515 (1.72×) | exact |
+| **AVX-512 register lookup** | **0.181 (4.48×)** | **0.231 (3.85×)** | **exact** |
+| double | 0.891 (0.91×) | 1.067 (0.83×) | max diff 2.5·10⁻⁵ |
+
+Estimated memory traffic (bytes moved per update ÷ time per update; 13 B for the
+lookup kernels, 24 B for per-cell arrays, 25 B for double):
+
+| Variant (n = 2048) | GB/s |
+|---|---|
+| reference | ≈ 15 |
+| per-cell arrays | ≈ 49 |
+| AVX-512 register lookup | ≈ 56 |
 
 What this shows:
 
-- **The coefficient lookup was the bottleneck.** Replacing the per-cell gathers
-  with an in-register permute halves the time, with bit-for-bit identical results.
-  This confirms the conclusion from the size sweep and the flag results.
+- **The coefficient lookup was the bottleneck.** Replacing the per-cell gathers with
+  an in-register permute makes the kernel 3.9–4.5× faster, with bit-for-bit identical
+  results. Per-cell arrays remove the lookup too (3.1× while the data fits in cache).
+  This confirms the conclusion from the size sweep and the compiler flags.
+- **Once the lookup is gone, memory becomes the limit.** The fast variants slow
+  down when the data no longer fits in cache (permute 0.18 → 0.23 ns; per-cell arrays
+  0.26 → 0.52 ns), and both reach about 50–56 GB/s, which looks like the
+  bandwidth one core can draw from memory. Per-cell arrays lose more because they
+  move about twice as many bytes per cell. The reference kernel used only about
+  15 GB/s, so it was limited by computation. Hardware counters were not available
+  (`perf` is not installed on fortran), so these are estimates from bytes per update.
+- **`omp simd` changes nothing.** GCC already vectorizes the loop at -O3, so
+  forcing it adds no speed; the cost is in the gathers, not in missing vectorization.
 - **Algebraically equal is not numerically equal.** The per-type form
-  `w·T + α·avg + src` is the same formula rearranged, but it loses accuracy:
-  the reference adds small corrections to T, while the rearranged form multiplies
-  the full temperature by a factor and rounds each large product.
-- **Precision costs memory bandwidth.** Double precision doubles the bytes per cell
-  and is clearly slower; the float/double difference (about 2.5·10⁻⁵) is far below
-  what the model's coefficients can justify, so float32 is the right choice.
+  `w·T + α·avg + src` is the same formula rearranged. It is barely faster and much less
+  accurate (88 % of the tolerance). The reference adds small corrections to T;
+  the rearranged form multiplies the full temperature by a factor and rounds large
+  products.
+- **Float32 is the right precision.** Double moves twice the data and is 10–17 %
+  slower here; its difference from float (2.5·10⁻⁵) is far below what the model's
+  coefficients can justify.
 
 Possible next step (team decision): use the register-lookup kernel inside `step()`
 for every CPU version when AVX-512 is available. Because it is bitwise identical,
@@ -112,5 +137,5 @@ for every CPU version when AVX-512 is available. Because it is bitwise identical
 
 - One node type (fortran). Nodes are shared (`OverSubscribe=FORCE:2`), but repeats
   agreed within 1.5 %, so interference was small during these runs.
-- No hardware counters yet (`perf` availability on compute nodes unconfirmed);
-  the bandwidth figure is an estimate from bytes per update.
+- No hardware counters: `perf` is not installed on fortran (checked by job 27718),
+  so bandwidth figures are estimates from bytes per update.

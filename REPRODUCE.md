@@ -41,8 +41,8 @@ Single run:
 | Compiler flags before/after | `sbatch slurm/p1_flags.sh` | rows tagged `flags_*`, vectorization reports in `build/<jobid>/*/vec.txt` |
 | Kernel code variants (+ perf counters if available) | `sbatch slurm/p1_opt.sh` | rows tagged `opt_*` (version `serial-opt`); each variant is checked against the reference kernel |
 
-Jobs used in the report: 27714 (baseline), 27715 (sizes), 27716 (flags), 7 Nov 2026, node fortran,
-commit 36cd286. Figures and tables:
+Jobs used in the report: 27714 (baseline), 27715 (sizes), 27716 (flags) at commit 36cd286, and
+27718 (code variants) at commit 520c642; 7 Nov 2026, node fortran. Figures and tables:
 
 ```bash
 python3 analysis/p1_plots.py          # -> results/plots/p1_sizes.png, p1_flags.png, p1_tables.md

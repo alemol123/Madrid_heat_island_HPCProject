@@ -32,3 +32,14 @@
 | `-O3` | 7.09 | 1.23× | 0.845 ± 0.000 |
 | `-O3 -march=native` | 7.39 | 1.18× | 0.881 ± 0.009 |
 | `-O3 -march=native -ffp-contract=fast` | 6.81 | 1.28× | 0.812 ± 0.003 |
+
+## Code variants (serial, -O3 -march=native)
+
+| Variant | n=512: ns/update (speed-up) | n=2048: ns/update (speed-up) |
+|---|---|---|
+| reference (table lookup) | 0.809 (1.00×) | 0.888 (1.00×) |
+| + omp simd | 0.824 (0.98×) | 0.904 (0.98×) |
+| per-type factors | 0.781 (1.04×) | 0.850 (1.05×) |
+| per-cell coefficient arrays | 0.258 (3.13×) | 0.515 (1.72×) |
+| AVX-512 register lookup | 0.181 (4.48×) | 0.231 (3.85×) |
+| double precision | 0.891 (0.91×) | 1.067 (0.83×) |
