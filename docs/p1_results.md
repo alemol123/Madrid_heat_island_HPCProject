@@ -129,9 +129,12 @@ What this shows:
   slower here; its difference from float (2.5·10⁻⁵) is far below what the model's
   coefficients can justify.
 
-Possible next step (team decision): use the register-lookup kernel inside `step()`
-for every CPU version when AVX-512 is available. Because it is bitwise identical,
-`make check` (including the exact MPI comparison) would still pass.
+**Adopted:** the shared kernel `step()` (src/common/step.c) now uses the register
+lookup whenever the build has AVX-512, and falls back to the scalar lookup otherwise.
+Both paths, and builds at -O0, -O3 and -O3 -march=native, give bitwise-identical results
+(`make test`, `make check`, `compare.py --exact`). All parallel versions therefore start
+from the fast kernel, and their speed-ups must be measured against the *new* serial
+baseline (tag `baseline_avx512`), not the old one, to be fair.
 
 ## Limitations
 

@@ -67,6 +67,10 @@ OpenMP, MPI and OpenACC all wrap it unchanged.
 - `step()` writes only interior cells and reads ghosts. The caller fills ghosts first:
   `apply_boundary()` on real domain edges, halo exchange between MPI ranks.
 - `step_rows(..., j0, j1)` updates rows j0..j1-1 only (for the MPI overlap version).
+- On CPUs with AVX-512 (the cluster, built with `-march=native`) the kernel looks up the coefficients with
+  vector-register permutes; elsewhere it uses the scalar table lookup. Both are bitwise identical
+  (`step_kernel_name()` says which one a build uses; `-DSTEP_SCALAR` forces the scalar one).
+  OpenMP versions should parallelize over rows by calling `step_rows()` per thread, so they keep the fast kernel.
 - `--city synthetic`: each cell's type is a pure function of (i, j, seed), so any rank can generate
   its own rows and get the same city as serial. It is a minimal stand-in; P2's `tools/gen_city.py`
   makes the realistic cities.

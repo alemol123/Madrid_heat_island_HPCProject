@@ -13,7 +13,9 @@
  * tag "opt_<variant>". Exit code 1 if any variant fails the check.
  *
  * Variants (what each one tests):
- *   ref      step() from src/common: per-cell table lookup alpha[k], absorb[k], cool[k]
+ *   ref      the original scalar kernel: per-cell table lookup alpha[k], absorb[k], cool[k]
+ *            (a private copy, so the study keeps its baseline after step() changed)
+ *   step     the shared step() from src/common as built (avx512-permute on AVX-512 CPUs)
  *   simd     same loop with #pragma omp simd (vectorization forced, no aliasing checks)
  *   pertype  per step, fold the coefficients into 3 per-type factors:
  *            T' = w[k]*T + a[k]*avg + src[k],  w = 1-a-c, src = S*absorb + c*T_air
@@ -43,6 +45,26 @@
 #endif
 
 /* ------------------------------------------------------------------ kernels */
+
+/* Original scalar kernel (step() before it adopted the AVX-512 lookup). */
+static void k_ref(const float *restrict in, float *restrict out, const int8_t *restrict city,
+                  int nx, int ny, float solar, const Coeffs *restrict c)
+{
+    const size_t w = (size_t)nx + 2;
+    const float t_air = c->t_air;
+    for (int j = 0; j < ny; j++) {
+        const float *restrict row = in + (size_t)(j + 1) * w + 1;
+        const float *restrict up = row - w, *restrict dn = row + w;
+        float *restrict o = out + (size_t)(j + 1) * w + 1;
+        const int8_t *restrict ct = city + (size_t)j * (size_t)nx;
+        for (int i = 0; i < nx; i++) {
+            const int k = ct[i];
+            const float t = row[i];
+            const float avg = 0.25f * ((up[i] + dn[i]) + (row[i - 1] + row[i + 1]));
+            o[i] = t + c->alpha[k] * (avg - t) + solar * c->absorb[k] - c->cool[k] * (t - t_air);
+        }
+    }
+}
 
 static void k_simd(const float *restrict in, float *restrict out, const int8_t *restrict city,
                    int nx, int ny, float solar, const Coeffs *restrict c)
@@ -175,8 +197,8 @@ static void k_double(const double *restrict in, double *restrict out, const int8
 
 /* ------------------------------------------------------------------ driver */
 
-enum { V_REF, V_SIMD, V_PERTYPE, V_PERCELL, V_PERMUTE, V_DOUBLE, NV };
-static const char *vname[NV] = { "ref", "simd", "pertype", "percell", "permute", "double" };
+enum { V_REF, V_STEP, V_SIMD, V_PERTYPE, V_PERCELL, V_PERMUTE, V_DOUBLE, NV };
+static const char *vname[NV] = { "ref", "step", "simd", "pertype", "percell", "permute", "double" };
 
 static float *alloc_field(size_t npad, float v)
 {
@@ -229,7 +251,8 @@ static double run_variant(int v, int nx, int ny, int steps, const int8_t *city, 
         apply_boundary(a, nx, ny, BC_DIRICHLET, SIDE_ALL, c->t_air);
         const float s = solar_at(t);
         switch (v) {
-        case V_REF:     step(a, b, city, nx, ny, s, c); break;
+        case V_REF:     k_ref(a, b, city, nx, ny, s, c); break;
+        case V_STEP:    step(a, b, city, nx, ny, s, c); break;
         case V_SIMD:    k_simd(a, b, city, nx, ny, s, c); break;
         case V_PERTYPE: k_pertype(a, b, city, nx, ny, s, c); break;
         case V_PERCELL: k_percell(a, b, &cc, nx, ny, s, c->t_air); break;
@@ -250,7 +273,7 @@ int main(int argc, char **argv)
 {
     int nx = 1024, ny = -1, steps = 200, reps = 3, quiet = 0, check = 1;
     unsigned long long seed = 42;
-    const char *csv = NULL, *list = "ref,simd,pertype,percell,permute,double";
+    const char *csv = NULL, *list = "ref,step,simd,pertype,percell,permute,double";
     static struct option opts[] = {
         { "nx", required_argument, 0, 'x' }, { "ny", required_argument, 0, 'y' },
         { "steps", required_argument, 0, 's' }, { "reps", required_argument, 0, 'r' },
@@ -295,8 +318,8 @@ int main(int argc, char **argv)
     const double tol = 1e-5 * scale;
 
     const char *job = getenv("SLURM_JOB_ID");
-    printf("bench_kernels nx=%d ny=%d steps=%d reps=%d seed=%llu tolerance=%.3e%s\n",
-           nx, ny, steps, reps, seed, tol, check ? "" : " (no check)");
+    printf("bench_kernels nx=%d ny=%d steps=%d reps=%d seed=%llu tolerance=%.3e%s step()=%s\n",
+           nx, ny, steps, reps, seed, tol, check ? "" : " (no check)", step_kernel_name());
     printf("%-8s %12s %12s %10s %12s  %s\n", "variant", "compute_s", "ns/update", "speedup", "max_diff", "check");
 
     int failures = 0;
