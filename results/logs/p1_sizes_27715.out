@@ -1,0 +1,156 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+ 
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== job 27715 on fortran at 2026-11-07T12:52:25+01:00
+=== git commit: 36cd286
+Model name:                              AMD EPYC 9755 128-Core Processor
+L1d cache:                               12 MiB (256 instances)
+L2 cache:                                256 MiB (256 instances)
+L3 cache:                                1 GiB (32 instances)
+built build/27715/heat_serial with: gcc -O3 -march=native -std=c11 -Wall -Wextra
+=== n=256 steps=61035 repeat 1  (two buffers = 520 KiB)
+heat serial nx=256 ny=256 steps=61035 city=synthetic seed=42
+time_total=3.1959 s  time_compute=3.1955 s  time_io=0.0002 s  0.799 ns/cell-update
+checksum 1.7003518783e+06
+=== n=256 steps=61035 repeat 2  (two buffers = 520 KiB)
+heat serial nx=256 ny=256 steps=61035 city=synthetic seed=42
+time_total=3.1953 s  time_compute=3.1950 s  time_io=0.0002 s  0.799 ns/cell-update
+checksum 1.7003518783e+06
+=== n=256 steps=61035 repeat 3  (two buffers = 520 KiB)
+heat serial nx=256 ny=256 steps=61035 city=synthetic seed=42
+time_total=3.1971 s  time_compute=3.1968 s  time_io=0.0002 s  0.799 ns/cell-update
+checksum 1.7003518783e+06
+=== n=362 steps=30524 repeat 1  (two buffers = 1035 KiB)
+heat serial nx=362 ny=362 steps=30524 city=synthetic seed=42
+time_total=3.2722 s  time_compute=3.2716 s  time_io=0.0004 s  0.818 ns/cell-update
+checksum 3.6601754152e+06
+=== n=362 steps=30524 repeat 2  (two buffers = 1035 KiB)
+heat serial nx=362 ny=362 steps=30524 city=synthetic seed=42
+time_total=3.2794 s  time_compute=3.2788 s  time_io=0.0004 s  0.820 ns/cell-update
+checksum 3.6601754152e+06
+=== n=362 steps=30524 repeat 3  (two buffers = 1035 KiB)
+heat serial nx=362 ny=362 steps=30524 city=synthetic seed=42
+time_total=3.2767 s  time_compute=3.2761 s  time_io=0.0004 s  0.819 ns/cell-update
+checksum 3.6601754152e+06
+=== n=512 steps=15258 repeat 1  (two buffers = 2064 KiB)
+heat serial nx=512 ny=512 steps=15258 city=synthetic seed=42
+time_total=3.2457 s  time_compute=3.2444 s  time_io=0.0008 s  0.811 ns/cell-update
+checksum 7.2440888102e+06
+=== n=512 steps=15258 repeat 2  (two buffers = 2064 KiB)
+heat serial nx=512 ny=512 steps=15258 city=synthetic seed=42
+time_total=3.2395 s  time_compute=3.2383 s  time_io=0.0008 s  0.810 ns/cell-update
+checksum 7.2440888102e+06
+=== n=512 steps=15258 repeat 3  (two buffers = 2064 KiB)
+heat serial nx=512 ny=512 steps=15258 city=synthetic seed=42
+time_total=3.2290 s  time_compute=3.2278 s  time_io=0.0008 s  0.807 ns/cell-update
+checksum 7.2440888102e+06
+=== n=724 steps=7631 repeat 1  (two buffers = 4117 KiB)
+heat serial nx=724 ny=724 steps=7631 city=synthetic seed=42
+time_total=3.2466 s  time_compute=3.2441 s  time_io=0.0015 s  0.811 ns/cell-update
+checksum 1.4337383738e+07
+=== n=724 steps=7631 repeat 2  (two buffers = 4117 KiB)
+heat serial nx=724 ny=724 steps=7631 city=synthetic seed=42
+time_total=3.2492 s  time_compute=3.2468 s  time_io=0.0015 s  0.812 ns/cell-update
+checksum 1.4337383738e+07
+=== n=724 steps=7631 repeat 3  (two buffers = 4117 KiB)
+heat serial nx=724 ny=724 steps=7631 city=synthetic seed=42
+time_total=3.2560 s  time_compute=3.2537 s  time_io=0.0015 s  0.813 ns/cell-update
+checksum 1.4337383738e+07
+=== n=1024 steps=3814 repeat 1  (two buffers = 8224 KiB)
+heat serial nx=1024 ny=1024 steps=3814 city=synthetic seed=42
+time_total=3.4223 s  time_compute=3.4175 s  time_io=0.0030 s  0.855 ns/cell-update
+checksum 2.7889829926e+07
+=== n=1024 steps=3814 repeat 2  (two buffers = 8224 KiB)
+heat serial nx=1024 ny=1024 steps=3814 city=synthetic seed=42
+time_total=3.4403 s  time_compute=3.4357 s  time_io=0.0030 s  0.859 ns/cell-update
+checksum 2.7889829926e+07
+=== n=1024 steps=3814 repeat 3  (two buffers = 8224 KiB)
+heat serial nx=1024 ny=1024 steps=3814 city=synthetic seed=42
+time_total=3.4411 s  time_compute=3.4365 s  time_io=0.0030 s  0.859 ns/cell-update
+checksum 2.7889829926e+07
+=== n=1448 steps=1907 repeat 1  (two buffers = 16425 KiB)
+heat serial nx=1448 ny=1448 steps=1907 city=synthetic seed=42
+time_total=3.3720 s  time_compute=3.3622 s  time_io=0.0060 s  0.841 ns/cell-update
+checksum 5.5087151174e+07
+=== n=1448 steps=1907 repeat 2  (two buffers = 16425 KiB)
+heat serial nx=1448 ny=1448 steps=1907 city=synthetic seed=42
+time_total=3.3759 s  time_compute=3.3665 s  time_io=0.0060 s  0.842 ns/cell-update
+checksum 5.5087151174e+07
+=== n=1448 steps=1907 repeat 3  (two buffers = 16425 KiB)
+heat serial nx=1448 ny=1448 steps=1907 city=synthetic seed=42
+time_total=3.3704 s  time_compute=3.3608 s  time_io=0.0060 s  0.841 ns/cell-update
+checksum 5.5087151174e+07
+=== n=2048 steps=953 repeat 1  (two buffers = 32832 KiB)
+heat serial nx=2048 ny=2048 steps=953 city=synthetic seed=42
+time_total=3.4842 s  time_compute=3.4644 s  time_io=0.0121 s  0.867 ns/cell-update
+checksum 1.0915363110e+08
+=== n=2048 steps=953 repeat 2  (two buffers = 32832 KiB)
+heat serial nx=2048 ny=2048 steps=953 city=synthetic seed=42
+time_total=3.5420 s  time_compute=3.5222 s  time_io=0.0123 s  0.881 ns/cell-update
+checksum 1.0915363110e+08
+=== n=2048 steps=953 repeat 3  (two buffers = 32832 KiB)
+heat serial nx=2048 ny=2048 steps=953 city=synthetic seed=42
+time_total=3.5100 s  time_compute=3.4904 s  time_io=0.0122 s  0.873 ns/cell-update
+checksum 1.0915363110e+08
+=== n=2896 steps=476 repeat 1  (two buffers = 65612 KiB)
+heat serial nx=2896 ny=2896 steps=476 city=synthetic seed=42
+time_total=3.4796 s  time_compute=3.4389 s  time_io=0.0245 s  0.861 ns/cell-update
+checksum 2.3416052280e+08
+=== n=2896 steps=476 repeat 2  (two buffers = 65612 KiB)
+heat serial nx=2896 ny=2896 steps=476 city=synthetic seed=42
+time_total=3.4913 s  time_compute=3.4518 s  time_io=0.0246 s  0.865 ns/cell-update
+checksum 2.3416052280e+08
+=== n=2896 steps=476 repeat 3  (two buffers = 65612 KiB)
+heat serial nx=2896 ny=2896 steps=476 city=synthetic seed=42
+time_total=3.4887 s  time_compute=3.4492 s  time_io=0.0246 s  0.864 ns/cell-update
+checksum 2.3416052280e+08
+=== n=4096 steps=238 repeat 1  (two buffers = 131200 KiB)
+heat serial nx=4096 ny=4096 steps=238 city=synthetic seed=42
+time_total=3.8841 s  time_compute=3.8027 s  time_io=0.0491 s  0.952 ns/cell-update
+checksum 4.5038242513e+08
+=== n=4096 steps=238 repeat 2  (two buffers = 131200 KiB)
+heat serial nx=4096 ny=4096 steps=238 city=synthetic seed=42
+time_total=3.8734 s  time_compute=3.7948 s  time_io=0.0492 s  0.950 ns/cell-update
+checksum 4.5038242513e+08
+=== n=4096 steps=238 repeat 3  (two buffers = 131200 KiB)
+heat serial nx=4096 ny=4096 steps=238 city=synthetic seed=42
+time_total=3.8032 s  time_compute=3.7239 s  time_io=0.0493 s  0.933 ns/cell-update
+checksum 4.5038242513e+08
+=== n=5792 steps=119 repeat 1  (two buffers = 262269 KiB)
+heat serial nx=5792 ny=5792 steps=119 city=synthetic seed=42
+time_total=3.9385 s  time_compute=3.7764 s  time_io=0.0985 s  0.946 ns/cell-update
+checksum 8.5838239371e+08
+=== n=5792 steps=119 repeat 2  (two buffers = 262269 KiB)
+heat serial nx=5792 ny=5792 steps=119 city=synthetic seed=42
+time_total=3.9296 s  time_compute=3.7711 s  time_io=0.0985 s  0.945 ns/cell-update
+checksum 8.5838239371e+08
+=== n=5792 steps=119 repeat 3  (two buffers = 262269 KiB)
+heat serial nx=5792 ny=5792 steps=119 city=synthetic seed=42
+time_total=3.9382 s  time_compute=3.7796 s  time_io=0.0988 s  0.947 ns/cell-update
+checksum 8.5838239371e+08
+=== n=8192 steps=59 repeat 1  (two buffers = 524544 KiB)
+heat serial nx=8192 ny=8192 steps=59 city=synthetic seed=42
+time_total=4.0024 s  time_compute=3.6790 s  time_io=0.1975 s  0.929 ns/cell-update
+checksum 1.6881705547e+09
+=== n=8192 steps=59 repeat 2  (two buffers = 524544 KiB)
+heat serial nx=8192 ny=8192 steps=59 city=synthetic seed=42
+time_total=3.9969 s  time_compute=3.6764 s  time_io=0.1976 s  0.929 ns/cell-update
+checksum 1.6881705547e+09
+=== n=8192 steps=59 repeat 3  (two buffers = 524544 KiB)
+heat serial nx=8192 ny=8192 steps=59 city=synthetic seed=42
+time_total=3.9550 s  time_compute=3.6350 s  time_io=0.1976 s  0.918 ns/cell-update
+checksum 1.6881705547e+09
+=== done 2026-11-07T12:54:21+01:00
