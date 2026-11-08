@@ -1,0 +1,26 @@
+{
+  "bbox_lonlat_west_south_east_north": [
+    -3.71,
+    40.406,
+    -3.672,
+    40.426
+  ],
+  "crs": "EPSG:25830",
+  "cell_size_m": 5.0,
+  "origin_nw_corner_x_y": [
+    439754.82246964256,
+    4475282.786900486
+  ],
+  "nx": 649,
+  "ny": 450,
+  "row0": "north",
+  "layers_used": [
+    "buildings",
+    "grass",
+    "trees",
+    "water"
+  ],
+  "tree_radius_m": 3.0,
+  "generated": "2026-11-08",
+  "source": "OpenStreetMap contributors (ODbL)"
+}
