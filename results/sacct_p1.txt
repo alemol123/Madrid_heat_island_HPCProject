@@ -1,0 +1,7 @@
+JobID|JobName|State|Elapsed|MaxRSS|TotalCPU|NodeList
+27714|p1_baseline|COMPLETED|00:02:04||02:03.042|fortran
+27714.batch|batch|COMPLETED|00:02:04|144M|02:03.042|fortran
+27715|p1_sizes|COMPLETED|00:01:56||01:56.637|fortran
+27715.batch|batch|COMPLETED|00:01:56|144M|01:56.637|fortran
+27716|p1_flags|COMPLETED|00:01:36||01:34.623|fortran
+27716.batch|batch|COMPLETED|00:01:36|36M|01:34.623|fortran

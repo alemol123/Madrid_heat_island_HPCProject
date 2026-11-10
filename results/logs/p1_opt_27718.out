@@ -1,0 +1,44 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+ 
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== job 27718 on fortran at 2026-11-07T13:12:30+01:00
+=== git commit: 520c642
+Model name:                              AMD EPYC 9755 128-Core Processor
+built build/27718/heat_serial with: gcc -O3 -march=native -std=c11 -Wall -Wextra
+gcc -O3 -march=native -std=c11 -Wall -Wextra -fopenmp-simd -DGIT_COMMIT=\"520c642\" -Isrc -Isrc/common src/opt/bench_kernels.c src/common/step.c src/common/io.c -o build/27718/bench_kernels -lm
+built build/27718/bench_kernels with: gcc -O3 -march=native -std=c11 -Wall -Wextra -fopenmp-simd
+=== n=512 steps=15258
+bench_kernels nx=512 ny=512 steps=15258 reps=3 seed=42 tolerance=2.851e-04
+variant     compute_s    ns/update    speedup     max_diff  check
+ref            3.2351        0.809      1.00x    0.000e+00  PASS (exact)
+simd           3.2942        0.824      0.98x    0.000e+00  PASS (exact)
+pertype        3.1244        0.781      1.04x    2.136e-04  PASS
+percell        1.0324        0.258      3.13x    0.000e+00  PASS (exact)
+permute        0.7229        0.181      4.48x    0.000e+00  PASS (exact)
+double         3.5619        0.891      0.91x    1.907e-05  PASS
+all variants match the reference
+=== n=2048 steps=2000
+bench_kernels nx=2048 ny=2048 steps=2000 reps=3 seed=42 tolerance=2.638e-04
+variant     compute_s    ns/update    speedup     max_diff  check
+ref            7.4498        0.888      1.00x    0.000e+00  PASS (exact)
+simd           7.5857        0.904      0.98x    0.000e+00  PASS (exact)
+pertype        7.1275        0.850      1.05x    2.232e-04  PASS
+percell        4.3221        0.515      1.72x    0.000e+00  PASS (exact)
+permute        1.9375        0.231      3.85x    0.000e+00  PASS (exact)
+double         8.9506        1.067      0.83x    2.480e-05  PASS
+all variants match the reference
+=== perf not available on fortran; hardware counters skipped
+=== done 2026-11-07T13:15:31+01:00

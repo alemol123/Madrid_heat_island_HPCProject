@@ -1,0 +1,112 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+ 
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== job 27716 on fortran at 2026-11-07T12:54:22+01:00
+=== git commit: 36cd286
+Model name:                              AMD EPYC 9755 128-Core Processor
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc 
+built build/27716/O2/heat_serial with: gcc -O2 -std=c11 -fopt-info-vec-optimized=build/27716/O2/vec.txt
+=== O2: -O2 -std=c11   vectorized loops reported: 3
+src/common/step.c:11:12: optimized: basic block part vectorized using 16 byte vectors
+src/common/step.c:11:12: optimized: basic block part vectorized using 16 byte vectors
+heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42
+time_total=8.8920 s  time_compute=8.7061 s  time_io=0.1765 s  1.038 ns/cell-update
+checksum 1.0918696474e+08
+heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42
+time_total=8.7928 s  time_compute=8.7089 s  time_io=0.0756 s  1.038 ns/cell-update
+checksum 1.0918696474e+08
+heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42
+time_total=8.7857 s  time_compute=8.7010 s  time_io=0.0762 s  1.037 ns/cell-update
+checksum 1.0918696474e+08
+PASS  2048x2048  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=2.638e-04  cells_differing=0
+built build/27716/O3/heat_serial with: gcc -O3 -std=c11 -fopt-info-vec-optimized=build/27716/O3/vec.txt
+=== O3: -O3 -std=c11   vectorized loops reported: 11
+src/common/step.c:11:12: optimized: basic block part vectorized using 16 byte vectors
+src/common/step.c:11:12: optimized: basic block part vectorized using 16 byte vectors
+src/common/step.c:45:27: optimized: loop vectorized using 16 byte vectors
+src/common/step.c:45:27: optimized: loop vectorized using 16 byte vectors
+src/common/step.c:45:27: optimized:  loop versioned for vectorization because of possible aliasing
+src/common/step.c:42:27: optimized: loop vectorized using 16 byte vectors
+src/common/step.c:42:27: optimized: loop vectorized using 16 byte vectors
+src/common/step.c:42:27: optimized:  loop versioned for vectorization because of possible aliasing
+src/common/step.c:68:27: optimized: loop vectorized using 16 byte vectors
+src/common/step.c:68:27: optimized: loop vectorized using 8 byte vectors
+src/common/step.c:73:18: optimized: basic block part vectorized using 16 byte vectors
+heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42
+time_total=7.1599 s  time_compute=7.0857 s  time_io=0.0657 s  0.845 ns/cell-update
+checksum 1.0918696474e+08
+heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42
+time_total=7.1696 s  time_compute=7.0935 s  time_io=0.0685 s  0.846 ns/cell-update
+checksum 1.0918696474e+08
+heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42
+time_total=7.1634 s  time_compute=7.0883 s  time_io=0.0673 s  0.845 ns/cell-update
+checksum 1.0918696474e+08
+PASS  2048x2048  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=2.638e-04  cells_differing=0
+built build/27716/O3_native/heat_serial with: gcc -O3 -march=native -std=c11 -fopt-info-vec-optimized=build/27716/O3_native/vec.txt
+=== O3_native: -O3 -march=native -std=c11   vectorized loops reported: 18
+src/common/step.c:11:12: optimized: basic block part vectorized using 64 byte vectors
+src/common/step.c:11:12: optimized: basic block part vectorized using 64 byte vectors
+src/common/step.c:45:27: optimized: loop vectorized using 64 byte vectors
+src/common/step.c:45:27: optimized: loop vectorized using 32 byte vectors
+src/common/step.c:45:27: optimized: loop vectorized using 64 byte vectors
+src/common/step.c:45:27: optimized:  loop versioned for vectorization because of possible aliasing
+src/common/step.c:45:27: optimized: loop vectorized using 32 byte vectors
+src/common/step.c:42:27: optimized: loop vectorized using 64 byte vectors
+src/common/step.c:42:27: optimized: loop vectorized using 32 byte vectors
+src/common/step.c:42:27: optimized: loop vectorized using 64 byte vectors
+src/common/step.c:42:27: optimized:  loop versioned for vectorization because of possible aliasing
+src/common/step.c:42:27: optimized: loop vectorized using 32 byte vectors
+src/common/step.c:68:27: optimized: loop vectorized using 64 byte vectors
+src/common/step.c:68:27: optimized: loop vectorized using 32 byte vectors
+src/common/step.c:73:18: optimized: basic block part vectorized using 64 byte vectors
+heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42
+time_total=7.3755 s  time_compute=7.3003 s  time_io=0.0676 s  0.870 ns/cell-update
+checksum 1.0918696474e+08
+heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42
+time_total=7.5186 s  time_compute=7.4383 s  time_io=0.0729 s  0.887 ns/cell-update
+checksum 1.0918696474e+08
+heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42
+time_total=7.5064 s  time_compute=7.4284 s  time_io=0.0705 s  0.886 ns/cell-update
+checksum 1.0918696474e+08
+PASS  2048x2048  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=2.638e-04  cells_differing=0
+built build/27716/O3_native_fma/heat_serial with: gcc -O3 -march=native -std=c11 -ffp-contract=fast -fopt-info-vec-optimized=build/27716/O3_native_fma/vec.txt
+=== O3_native_fma: -O3 -march=native -std=c11 -ffp-contract=fast   vectorized loops reported: 18
+src/common/step.c:11:12: optimized: basic block part vectorized using 64 byte vectors
+src/common/step.c:11:12: optimized: basic block part vectorized using 64 byte vectors
+src/common/step.c:45:27: optimized: loop vectorized using 64 byte vectors
+src/common/step.c:45:27: optimized: loop vectorized using 32 byte vectors
+src/common/step.c:45:27: optimized: loop vectorized using 64 byte vectors
+src/common/step.c:45:27: optimized:  loop versioned for vectorization because of possible aliasing
+src/common/step.c:45:27: optimized: loop vectorized using 32 byte vectors
+src/common/step.c:42:27: optimized: loop vectorized using 64 byte vectors
+src/common/step.c:42:27: optimized: loop vectorized using 32 byte vectors
+src/common/step.c:42:27: optimized: loop vectorized using 64 byte vectors
+src/common/step.c:42:27: optimized:  loop versioned for vectorization because of possible aliasing
+src/common/step.c:42:27: optimized: loop vectorized using 32 byte vectors
+src/common/step.c:68:27: optimized: loop vectorized using 64 byte vectors
+src/common/step.c:68:27: optimized: loop vectorized using 32 byte vectors
+src/common/step.c:73:18: optimized: basic block part vectorized using 64 byte vectors
+heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42
+time_total=6.9239 s  time_compute=6.8418 s  time_io=0.0741 s  0.816 ns/cell-update
+checksum 1.0918689180e+08
+heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42
+time_total=6.8839 s  time_compute=6.8082 s  time_io=0.0682 s  0.812 ns/cell-update
+checksum 1.0918689180e+08
+heat serial nx=2048 ny=2048 steps=2000 city=synthetic seed=42
+time_total=6.8512 s  time_compute=6.7936 s  time_io=0.0500 s  0.810 ns/cell-update
+checksum 1.0918689180e+08
+PASS  2048x2048  max_abs_diff=4.387e-05 at (i=2038, j=874)  tolerance=2.638e-04  cells_differing=3959818
+=== done 2026-11-07T12:55:57+01:00

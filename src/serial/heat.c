@@ -108,7 +108,8 @@ int main(int argc, char **argv)
     double t_total = wtime() - t_start;
 
     double updates = (double)ncell * (double)steps;
-    printf("heat serial nx=%d ny=%d steps=%d city=%s seed=%llu\n", nx, ny, steps, city_arg, seed);
+    printf("heat serial nx=%d ny=%d steps=%d city=%s seed=%llu kernel=%s\n", nx, ny, steps, city_arg, seed,
+           step_kernel_name());
     printf("time_total=%.4f s  time_compute=%.4f s  time_io=%.4f s  %.3f ns/cell-update\n",
            t_total, t_compute, t_io, updates > 0 ? 1e9 * t_compute / updates : 0.0);
     printf("checksum %.10e\n", sum);

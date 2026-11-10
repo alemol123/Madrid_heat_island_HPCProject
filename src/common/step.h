@@ -33,6 +33,10 @@ enum { BC_DIRICHLET = 0,   /* ghost = T_air (fixed edge; the default)     */
 /* Which sides apply_boundary() touches (bitmask). */
 enum { SIDE_TOP = 1, SIDE_BOTTOM = 2, SIDE_LEFT = 4, SIDE_RIGHT = 8, SIDE_ALL = 15 };
 
+/* Which kernel this build uses: "avx512-permute" or "scalar-lookup".
+ * Both give bitwise-identical results. Force the scalar one with -DSTEP_SCALAR. */
+const char *step_kernel_name(void);
+
 /* Coefficients from params.h. */
 Coeffs default_coeffs(void);
 
