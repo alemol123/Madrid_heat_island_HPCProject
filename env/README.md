@@ -55,6 +55,19 @@ Launching MPI: Slurm supports `pmix` (also `pmi2`), so use
 
     srun --mpi=pmix ./program
 
+Multi-node MPI (P3, 10 Nov 2026): with the default UCX transport, every job on
+fortran + haskell with a 2048x2048 grid crashed with a segfault inside libucs
+(jobs 28307, 28313, 28315). Small grids and single-node jobs were fine. The nodes
+have two networks: 10.205.20.x is shared, but 10.205.10.x is not reachable
+between them. `env/modules.sh cpu` therefore turns UCX off and restricts MPI
+to 10.205.20.x:
+
+    OMPI_MCA_pml=ob1 OMPI_MCA_osc=^ucx OMPI_MCA_btl=self,vader,tcp
+    OMPI_MCA_btl_tcp_if_include=10.205.20.0/24
+
+With these settings the 2-node run (8 ranks, 2048x2048, 200 steps, job 28316)
+gives the same checksum as the single-node run.
+
 Compiling: the shared software stack is built for an older CPU (zen2).
 Compile our own code on a compute node (inside `srun` or `sbatch`) with
 `-O3 -march=native` so it uses the compute nodes' CPU features.
