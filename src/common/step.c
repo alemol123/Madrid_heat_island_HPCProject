@@ -35,6 +35,36 @@ float solar_at(int t)
     return (float)(SOLAR_S0 * (s > 0.0 ? s : 0.0));
 }
 
+#ifdef _OPENACC
+/* OpenACC build (P5): the same four ghost loops, run on the GPU.
+ * T must already be on the GPU (present); nothing is copied here. */
+void apply_boundary(float *T, int nx, int ny, int bc, int sides, float t_air)
+{
+    const size_t w = (size_t)nx + 2;
+    const size_t npad = w * ((size_t)ny + 2);
+    const int neumann = (bc == BC_NEUMANN);
+    if (sides & SIDE_TOP) {        /* ghost row j = -1 */
+        #pragma acc parallel loop present(T[0:npad])
+        for (int i = 0; i < nx; i++)
+            T[IDX(i, -1, nx)] = neumann ? T[IDX(i, 0, nx)] : t_air;
+    }
+    if (sides & SIDE_BOTTOM) {     /* ghost row j = ny */
+        #pragma acc parallel loop present(T[0:npad])
+        for (int i = 0; i < nx; i++)
+            T[IDX(i, ny, nx)] = neumann ? T[IDX(i, ny - 1, nx)] : t_air;
+    }
+    if (sides & SIDE_LEFT) {       /* ghost column i = -1 */
+        #pragma acc parallel loop present(T[0:npad])
+        for (int j = 0; j < ny; j++)
+            T[(size_t)(j + 1) * w] = neumann ? T[IDX(0, j, nx)] : t_air;
+    }
+    if (sides & SIDE_RIGHT) {      /* ghost column i = nx */
+        #pragma acc parallel loop present(T[0:npad])
+        for (int j = 0; j < ny; j++)
+            T[(size_t)(j + 1) * w + (size_t)nx + 1] = neumann ? T[IDX(nx - 1, j, nx)] : t_air;
+    }
+}
+#else
 void apply_boundary(float *T, int nx, int ny, int bc, int sides, float t_air)
 {
     const size_t w = (size_t)nx + 2;
@@ -51,6 +81,7 @@ void apply_boundary(float *T, int nx, int ny, int bc, int sides, float t_air)
         for (int j = 0; j < ny; j++)
             T[(size_t)(j + 1) * w + (size_t)nx + 1] = (bc == BC_NEUMANN) ? T[IDX(nx - 1, j, nx)] : t_air;
 }
+#endif
 
 /* Kernel selection (compile time):
  *   AVX-512 available (e.g. -march=native on the cluster's Zen 5 nodes): the six
@@ -59,7 +90,8 @@ void apply_boundary(float *T, int nx, int ny, int bc, int sides, float t_air)
  *   3.9-4.5x faster than the scalar table lookup on fortran (docs/p1_results.md).
  *   The arithmetic is the same operations in the same order (separate multiply
  *   and add, no FMA), so results are bitwise identical to the scalar kernel.
- *   Otherwise (Mac, older CPUs, -DSTEP_SCALAR, the NVIDIA compiler): scalar loop. */
+ *   Otherwise (Mac, older CPUs, -DSTEP_SCALAR, the NVIDIA compiler): scalar loop.
+ *   OpenACC build (nvc -acc, P5): one GPU loop over all cells, see step_rows(). */
 #if defined(__AVX512F__) && !defined(STEP_SCALAR) && !defined(__NVCOMPILER)
 #define STEP_AVX512 1
 #include <immintrin.h>
@@ -67,13 +99,42 @@ void apply_boundary(float *T, int nx, int ny, int bc, int sides, float t_air)
 
 const char *step_kernel_name(void)
 {
-#ifdef STEP_AVX512
+#if defined(_OPENACC)
+    return "openacc-gpu";
+#elif defined(STEP_AVX512)
     return "avx512-permute";
 #else
     return "scalar-lookup";
 #endif
 }
 
+#ifdef _OPENACC
+/* OpenACC build (P5): one GPU thread per cell. Same formula and the same order
+ * of additions as row_scalar(); the arrays and the coefficients must already be
+ * on the GPU (present). */
+void step_rows(const float *restrict in, float *restrict out,
+               const int8_t *restrict city, int nx, int ny,
+               float solar, const Coeffs *restrict c, int j0, int j1)
+{
+    const size_t w = (size_t)nx + 2;
+    const size_t npad = w * ((size_t)ny + 2);
+    const size_t ncity = (size_t)nx * (size_t)ny;
+    const float t_air = c->t_air;
+    #pragma acc parallel loop collapse(2) present(in[0:npad], out[0:npad], city[0:ncity], c[0:1])
+    for (int j = j0; j < j1; j++) {
+        for (int i = 0; i < nx; i++) {
+            const size_t p = (size_t)(j + 1) * w + (size_t)(i + 1);
+            const int k = city[(size_t)j * (size_t)nx + (size_t)i];
+            const float t = in[p];
+            /* (up+down)+(left+right), as in row_scalar() */
+            const float avg = 0.25f * ((in[p - w] + in[p + w]) + (in[p - 1] + in[p + 1]));
+            out[p] = t + c->alpha[k] * (avg - t)
+                       + solar * c->absorb[k]
+                       - c->cool[k] * (t - t_air);
+        }
+    }
+}
+#else
 /* One row, cells i0 .. nx-1, scalar table lookup (also the AVX-512 remainder). */
 static inline void row_scalar(const float *restrict row, const float *restrict up,
                               const float *restrict dn, float *restrict o,
@@ -130,6 +191,7 @@ void step_rows(const float *restrict in, float *restrict out,
         row_scalar(row, up, dn, o, ct, i, nx, solar, c);
     }
 }
+#endif /* _OPENACC */
 
 void step(const float *restrict in, float *restrict out,
           const int8_t *restrict city, int nx, int ny,
