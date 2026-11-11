@@ -9,7 +9,12 @@ case "${1:-cpu}" in
        # 28313, 28315). Use Open MPI's own transports instead, and only the network
        # both nodes share (10.205.20.x; the 10.205.10.x one is not reachable between them).
        export OMPI_MCA_pml=ob1 OMPI_MCA_osc=^ucx OMPI_MCA_btl=self,vader,tcp
-       export OMPI_MCA_btl_tcp_if_include=10.205.20.0/24 ;;
+       export OMPI_MCA_btl_tcp_if_include=10.205.20.0/24
+       # If the GPU environment was loaded earlier in this shell, nvhpc left /usr/bin at
+       # the front of PATH, and sbatch --export=ALL copies that into jobs. gcc then uses
+       # the system linker, which cannot find Open MPI's libraries (hwloc, libevent), and
+       # MPI builds fail (job 28417). Move /usr/bin back to the end, as in a fresh login.
+       export PATH="$(printf '%s' "$PATH" | tr ':' '\n' | grep -vx '/usr/bin' | paste -sd: -):/usr/bin" ;;
   gpu) module load nvhpc/25.7
        # CUPTI library for GPU profiling (avoids "libcupti.so not found")
        export LD_LIBRARY_PATH="$NVHPC_ROOT/cuda/12.9/extras/CUPTI/lib64:${LD_LIBRARY_PATH}" ;;
