@@ -1,0 +1,2 @@
+tag,mode,nodes,ranks,workers,jobs,wall_s,sum_job_s,speedup,efficiency,busy_min_s,busy_max_s,imbalance,failed,slurm_jobid,jobs_file
+ens_dynamic,dynamic,1,9,8,61,0.6553,4.9712,7.586,0.9482,0.5834,0.6522,1.0496,0,28592,data/sweep/jobs_science.txt
