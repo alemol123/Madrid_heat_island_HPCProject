@@ -10,7 +10,8 @@
  *   naive:              copy the data to the GPU and back around every step.
  * The kernels (apply_boundary, step) are the shared ones in src/common/step.c,
  * built with nvc -acc. time_transfer = time spent in CPU<->GPU copies; it is
- * not part of time_compute (docs/contract.md).
+ * not part of time_compute (docs/contract.md). GPU start-up (acc_init) happens
+ * before the timers start: it counts in time_total, not as transfer or compute.
  */
 #define _POSIX_C_SOURCE 200809L
 #include "params.h"
@@ -18,6 +19,7 @@
 #include "io.h"
 
 #include <getopt.h>
+#include <openacc.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -77,6 +79,7 @@ int main(int argc, char **argv)
     }
 
     double t_start = wtime(), t_io = 0.0, t_transfer = 0.0;
+    acc_init(acc_device_nvidia);   /* start the GPU now: startup counts in time_total, not as transfer */
 
     Coeffs c = default_coeffs();
     if (check_stability(&c)) return 1;
