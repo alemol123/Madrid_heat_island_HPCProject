@@ -6,6 +6,8 @@
 #   sbatch --export=ALL,EXTRA="--acc-mode naive",TAG=gpu_sizes_naive slurm/sweep_gpu.sh
 # SIZES is a list of NX:STEPS pairs (square grids). Default = the same sizes and steps as P1's serial
 # size sweep (about 4e9 cell updates each), so every GPU point has a serial point with identical work.
+# WRITE=0 (default) does not write the field, like P1's size sweep, so time_io and time_total compare
+# like for like. WRITE=1 also writes it (adds the file write to time_io).
 #SBATCH --job-name=sweep_gpu
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:rtx6000ada:1
@@ -27,11 +29,12 @@ SEED=${SEED:-42}
 TAG=${TAG:-gpu_sizes}
 REPS=${REPS:-3}
 CSV=${CSV:-results/runs.csv}
+WRITE=${WRITE:-0}
 EXTRA=${EXTRA:-}
 
 echo "=== job $SLURM_JOB_ID on $(hostname) at $(date -Is)"
 echo "=== git commit: $(git rev-parse --short HEAD)  ($(git status --porcelain -- . ':(exclude)results' | wc -l) uncommitted files outside results/)"
-echo "=== sizes=\"$SIZES\" city=$CITY seed=$SEED tag=$TAG reps=$REPS csv=$CSV extra=$EXTRA"
+echo "=== sizes=\"$SIZES\" city=$CITY seed=$SEED tag=$TAG reps=$REPS csv=$CSV write=$WRITE extra=$EXTRA"
 nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
 nvc --version | head -2
 
@@ -40,9 +43,12 @@ BUILD=build/$SLURM_JOB_ID
 make openacc BUILD=$BUILD
 [ -x "$BUILD/heat_openacc" ] || { echo "=== ERROR: heat_openacc was not built"; exit 1; }
 
+OUT=""
+if [ "$WRITE" = "1" ]; then OUT="--out $BUILD/field.bin"; fi
+
 for p in $SIZES; do
   n=${p%:*}; s=${p#*:}
-  CMD="$BUILD/heat_openacc --nx $n --ny $n --steps $s --city $CITY --seed $SEED --out $BUILD/field.bin --timing $CSV --tag $TAG $EXTRA"
+  CMD="$BUILD/heat_openacc --nx $n --ny $n --steps $s --city $CITY --seed $SEED $OUT --timing $CSV --tag $TAG $EXTRA"
   echo "=== nx=$n steps=$s  command: $CMD"
   for rep in $(seq 1 "$REPS"); do
     echo "=== repeat $rep"
