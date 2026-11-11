@@ -12,6 +12,7 @@ sys.path.insert(0, TOOLS)
 import array_wall  # noqa: E402
 import gen_city  # noqa: E402
 import make_sweep as sw  # noqa: E402
+import summarize_sweep as ss  # noqa: E402
 import scenario_metrics as sm  # noqa: E402
 
 
@@ -57,6 +58,19 @@ def test_cli_makes_consistent_lists():
         # the scenario files are real, valid cities
         c = gen_city.read_city(sci[1][1])
         assert c.shape == city.shape
+
+
+def test_summarize_groups_and_std():
+    rows = []
+    for seed, v in ((1, -0.10), (2, -0.20)):
+        rows.append({"name": f"r{seed}", "strategy": "random", "n": 500, "seed": seed,
+                     **{m: v for m in ss.METRICS}})
+    rows.append({"name": "h", "strategy": "hottest", "n": 500, "seed": "", **{m: -0.3 for m in ss.METRICS}})
+    out = ss.summarize(rows)
+    assert [(o["strategy"], o["runs"]) for o in out] == [("hottest", 1), ("random", 2)]
+    r = out[1]
+    assert abs(r["d_mean_mean"] + 0.15) < 1e-12 and abs(r["d_mean_std"] - 0.0707106781) < 1e-9
+    assert out[0]["d_mean_std"] == 0.0                              # single run: no spread
 
 
 def test_array_wall():
