@@ -4,12 +4,15 @@
  *          --out results/field.bin --timing results/runs.csv --tag baseline
  *
  * Extra options: --bc dirichlet|neumann (default dirichlet, see docs/contract.md),
- *                --city <file> (a city file; nx/ny then come from the file).
+ *                --city <file> (a city file; nx/ny then come from the file),
+ *                --diag <csv> [--threshold C] (peak / mean / fraction above the
+ *                threshold of the final field, see src/common/diag.h; default 30 C).
  */
 #define _POSIX_C_SOURCE 200809L
 #include "params.h"
 #include "step.h"
 #include "io.h"
+#include "diag.h"
 
 #include <getopt.h>
 #include <stdio.h>
@@ -24,7 +27,8 @@ static void usage(const char *prog)
 {
     fprintf(stderr,
             "usage: %s [--nx N] [--ny N] [--steps N] [--city synthetic|FILE] [--seed S]\n"
-            "          [--out FILE] [--timing CSV] [--tag TAG] [--bc dirichlet|neumann]\n", prog);
+            "          [--out FILE] [--timing CSV] [--tag TAG] [--bc dirichlet|neumann]\n"
+            "          [--diag CSV] [--threshold C]\n", prog);
 }
 
 int main(int argc, char **argv)
@@ -32,13 +36,16 @@ int main(int argc, char **argv)
     int nx = 256, ny = 256, steps = 1000, bc = BC_DIRICHLET;
     unsigned long long seed = 42;
     const char *city_arg = "synthetic", *out_path = NULL, *csv_path = NULL, *tag = "run";
+    const char *diag_path = NULL;
+    float threshold = 30.0f;
 
     static struct option opts[] = {
         { "nx", required_argument, 0, 'x' },     { "ny", required_argument, 0, 'y' },
         { "steps", required_argument, 0, 's' },  { "city", required_argument, 0, 'c' },
         { "seed", required_argument, 0, 'r' },   { "out", required_argument, 0, 'o' },
         { "timing", required_argument, 0, 't' }, { "tag", required_argument, 0, 'g' },
-        { "bc", required_argument, 0, 'b' },     { "help", no_argument, 0, 'h' },
+        { "bc", required_argument, 0, 'b' },     { "diag", required_argument, 0, 'd' },
+        { "threshold", required_argument, 0, 'T' }, { "help", no_argument, 0, 'h' },
         { 0, 0, 0, 0 }
     };
     int ch;
@@ -57,6 +64,8 @@ int main(int argc, char **argv)
             else if (strcmp(optarg, "neumann") == 0) bc = BC_NEUMANN;
             else { usage(argv[0]); return 2; }
             break;
+        case 'd': diag_path = optarg; break;
+        case 'T': threshold = (float)atof(optarg); break;
         default: usage(argv[0]); return 2;
         }
     }
@@ -113,6 +122,14 @@ int main(int argc, char **argv)
     printf("time_total=%.4f s  time_compute=%.4f s  time_io=%.4f s  %.3f ns/cell-update\n",
            t_total, t_compute, t_io, updates > 0 ? 1e9 * t_compute / updates : 0.0);
     printf("checksum %.10e\n", sum);
+
+    /* ---- diagnostics (after the timers, on the final field) ---- */
+    if (diag_path) {
+        Diag d = diag_compute(a, nx, ny, threshold);
+        printf("diag peak=%.3f C  mean=%.3f C  above %.1f C: %.2f%% of cells\n",
+               d.peak, diag_mean(&d), d.threshold, 100.0 * diag_frac(&d));
+        if (diag_append_csv(diag_path, tag, "serial", nx, ny, steps, &d)) return 1;
+    }
 
     if (csv_path) {
         const char *job = getenv("SLURM_JOB_ID");

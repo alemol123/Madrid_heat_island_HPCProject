@@ -16,7 +16,7 @@ OMPFLAG ?= -fopenmp
 LDLIBS  ?= -lm
 GIT_COMMIT := $(shell git rev-parse --short HEAD 2>/dev/null || echo unknown)
 DEFS    := -DGIT_COMMIT=\"$(GIT_COMMIT)\" -Isrc -Isrc/common
-COMMON  := src/common/step.c src/common/io.c
+COMMON  := src/common/step.c src/common/io.c src/common/diag.c
 
 BUILD := build
 
