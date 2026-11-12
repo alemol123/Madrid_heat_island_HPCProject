@@ -22,6 +22,7 @@ Usage:
 import argparse
 import json
 import os
+import subprocess
 import sys
 
 import numpy as np
@@ -31,7 +32,7 @@ import gen_city  # noqa: E402
 import make_scenarios as ms  # noqa: E402
 import scenario_metrics as sm  # noqa: E402
 
-SHORT = {"random": "rand", "hottest": "hot", "adjacent": "adj", "greenroof": "roof"}
+SHORT = {"random": "rand", "hottest": "hot", "adjacent": "adj", "greenroof": "roof", "scored": "scored"}
 RANDOMISED = ("random", "adjacent")          # these use the seed; hottest and greenroof do not
 
 
@@ -76,6 +77,9 @@ def main():
     ap.add_argument("--bench-steps", type=int, default=1420, help="steps of a weight-1 benchmark job")
     ap.add_argument("--bench-uniform-weight", type=int, default=4)
     ap.add_argument("--seed", type=int, default=7, help="seed of the cost weights")
+    ap.add_argument("--scored-exe", help="path of the built score_candidates program: adds the heat-relief 'scored' strategy")
+    ap.add_argument("--scored-radius", type=int, default=10)
+    ap.add_argument("--scored-spacing", type=int, default=2)
     a = ap.parse_args()
 
     city = sm.read_city(a.city)
@@ -93,6 +97,18 @@ def main():
         gen_city.write_city(path, new)
         made.append({"name": name, "city": path, "strategy": strat, "n": n, "seed": seed,
                      "cells_changed": info["cells_changed"]})
+    if a.scored_exe:                                   # heat-relief scoring (OpenMP program), one city per budget
+        for n in a.budgets:
+            name = scenario_name("scored", n, None)
+            path = os.path.join(scen_dir, name + ".city")
+            r = subprocess.run([a.scored_exe, "--city", a.city, "--field", a.field, "--radius", str(a.scored_radius),
+                                "--spacing", str(a.scored_spacing), "--top", str(n), "--out", path],
+                               capture_output=True, text=True)
+            if r.returncode != 0:
+                sys.exit(f"error: score_candidates failed: {r.stderr.strip()}")
+            changed = int((gen_city.read_city(path) != city).sum())
+            made.append({"name": name, "city": path, "strategy": "scored", "n": n, "seed": None,
+                         "cells_changed": changed})
     print(f"wrote {len(made)} scenario cities in {scen_dir}")
 
     science = [("baseline", a.city, a.steps)] + [(m["name"], m["city"], a.steps) for m in made]

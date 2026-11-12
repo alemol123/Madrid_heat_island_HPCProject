@@ -85,6 +85,31 @@ def test_bench_tag_parsing_and_grouping():
     assert g["reps"] == 3 and g["wall"] == 12.0 and g["wall_min"] == 10.0 and g["wall_max"] == 30.0
 
 
+def test_cli_with_scored_strategy():
+    with tempfile.TemporaryDirectory() as d:
+        exe = os.path.join(d, "score_candidates")
+        r = subprocess.run(["gcc", "-O2", "-fopenmp", "-std=c11", "-o", exe, os.path.join(TOOLS, "score_candidates.c"), "-lm"],
+                           capture_output=True, text=True)
+        if r.returncode != 0 and ("openmp" in r.stderr.lower() or "omp.h" in r.stderr):
+            print("skip test_cli_with_scored_strategy: this compiler has no OpenMP (run it on the cluster)")
+            return
+        assert r.returncode == 0, r.stderr
+        city = gen_city.generate(120, 100, 3)
+        cpath, fpath = os.path.join(d, "c.city"), os.path.join(d, "f.bin")
+        gen_city.write_city(cpath, city)
+        sm.write_field(fpath, (27 + 3 * np.random.default_rng(0).random(city.shape)).astype(np.float32))
+        out = os.path.join(d, "sw")
+        r = subprocess.run([sys.executable, os.path.join(TOOLS, "make_sweep.py"), "--city", cpath, "--field", fpath,
+                            "--outdir", out, "--budgets", "50", "100", "--seeds", "1", "--bench-jobs", "20",
+                            "--scored-exe", exe], capture_output=True, text=True)
+        assert r.returncode == 0, r.stderr
+        sci = read_jobs(os.path.join(out, "jobs_science.txt"))
+        names = [j[0] for j in sci]
+        assert "scored_n50" in names and "scored_n100" in names and len(sci) == 1 + 2 * 4 + 2
+        new = gen_city.read_city(os.path.join(out, "scenarios", "scored_n100.city"))
+        assert int((new != city).sum()) == 100 and (city[new != city] == 0).all()
+
+
 def test_array_wall():
     rows = [("a", 100.0, 102.0, 0), ("b", 100.5, 101.5, 0), ("c", 102.0, 104.0, 3)]
     s = array_wall.summarize(rows, workers=2)

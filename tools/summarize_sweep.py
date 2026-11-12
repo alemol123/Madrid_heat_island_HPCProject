@@ -28,7 +28,8 @@ import scenario_metrics as sm  # noqa: E402
 
 METRICS = ["peak", "mean", "p95", "hot_frac", "d_mean", "d_peak", "d_hot_frac", "changed_cells", "cooling_per_cell"]
 STRATEGY_LABEL = {"random": "trees, random roads", "hottest": "trees, hottest roads",
-                  "adjacent": "trees, next to green", "greenroof": "green roofs"}
+                  "adjacent": "trees, next to green", "greenroof": "green roofs",
+                  "scored": "trees, heat-relief score"}
 
 
 def measure(ens_dir, sweep, threshold):
@@ -77,10 +78,10 @@ def make_figure(summary, path, threshold, base_stats):
     panels = [("d_mean", "Change of mean temperature (°C)", 1.0),
               ("d_hot_frac", f"Change of cells above {threshold:g} °C (percentage points)", 100.0),
               ("cooling_per_cell", "Cooling per converted cell (°C summed over the map)", 1.0)]
-    colors = {"random": "#2a9d8f", "hottest": "#e76f51", "adjacent": "#6a8caf", "greenroof": "#9b8f3f"}
+    colors = {"random": "#2a9d8f", "hottest": "#e76f51", "adjacent": "#6a8caf", "greenroof": "#9b8f3f", "scored": "#7b4fa3"}
     fig, axes = plt.subplots(1, 3, figsize=(14, 4.2))
     for ax, (key, label, scale) in zip(axes, panels):
-        for strat in ("random", "hottest", "adjacent", "greenroof"):
+        for strat in ("random", "hottest", "adjacent", "greenroof", "scored"):
             pts = [s for s in summary if s["strategy"] == strat]
             if not pts:
                 continue
