@@ -105,13 +105,28 @@ def make_figure(summary, path, threshold, base_stats):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--ens", required=True, help="output folder of the science ensemble run")
+    ap.add_argument("--ens", help="output folder of the science ensemble run")
+    ap.add_argument("--redraw", action="store_true",
+                    help="only redraw the figure from sweep_summary.csv + sweep_baseline.json in --outdir (no fields needed)")
     ap.add_argument("--sweep", default="data/sweep/sweep.json")
     ap.add_argument("--outdir", default="results")
     ap.add_argument("--threshold", type=float, default=sm.DEFAULT_THRESHOLD)
     ap.add_argument("--no-figure", action="store_true")
     a = ap.parse_args()
 
+    if a.redraw:
+        with open(os.path.join(a.outdir, "sweep_summary.csv")) as f:
+            summary = [{k: (v if k == "strategy" else float(v)) for k, v in r.items()} for r in csv.DictReader(f)]
+        for r in summary:
+            r["n"] = int(r["n"])
+        with open(os.path.join(a.outdir, "sweep_baseline.json")) as f:
+            base_stats = json.load(f)
+        path = os.path.join(a.outdir, "sweep_cooling.png")
+        make_figure(summary, path, a.threshold, base_stats)
+        print("figure", path)
+        return
+    if not a.ens:
+        sys.exit("error: --ens is required (or use --redraw)")
     with open(a.sweep) as f:
         sweep = json.load(f)
     try:
@@ -119,6 +134,9 @@ def main():
     except (OSError, ValueError) as exc:
         sys.exit(f"error: {exc}")
     summary = summarize(rows)
+    os.makedirs(a.outdir, exist_ok=True)
+    with open(os.path.join(a.outdir, "sweep_baseline.json"), "w") as f:
+        json.dump({k: float(v) for k, v in base_stats.items()}, f)
     write_csv(os.path.join(a.outdir, "sweep_metrics.csv"), rows)
     write_csv(os.path.join(a.outdir, "sweep_summary.csv"), summary)
     print(f"baseline: mean {base_stats['mean']:.3f} C, peak {base_stats['peak']:.3f} C, "
