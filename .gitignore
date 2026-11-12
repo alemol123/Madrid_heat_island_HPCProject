@@ -22,3 +22,8 @@ results/raw/
 __pycache__/
 *.pyc
 .venv/
+
+# Profiler reports (big binaries; commit only *_stats.txt)
+results/profiles/*.nsys-rep
+results/profiles/*.ncu-rep
+results/profiles/*.sqlite

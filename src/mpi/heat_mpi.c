@@ -4,6 +4,11 @@
  *   srun --mpi=pmix ./heat_mpi --nx 2048 --ny 2048 --steps 2000 --city synthetic --seed 42 \
  *                              --out results/field.bin --timing results/runs.csv --tag baseline
  *
+ * Output (--out) can be written two ways (P5): --io gather (default) collects every strip on
+ * rank 0, which writes the file alone; --io mpiio has every rank write its own rows into one
+ * shared file with MPI-IO. Both give byte-identical files. --diag FILE adds peak / mean /
+ * fraction above --threshold (default 29 C), combined across ranks with MPI_Allreduce.
+ *
  * Each rank owns a strip of whole rows. Its arrays hold only that strip, plus
  * the usual ghost cells, so step() runs on it exactly as it runs on the full
  * grid in the serial version.
@@ -13,6 +18,8 @@
 #include "step.h"
 #include "io.h"
 #include "halo.h"
+#include "diag.h"
+#include "diag_mpi.h"
 
 #include <getopt.h>
 #include <mpi.h>
@@ -30,7 +37,8 @@ static void usage(const char *prog)
 {
     fprintf(stderr,
             "usage: %s [--nx N] [--ny N] [--steps N] [--city synthetic|FILE] [--seed S]\n"
-            "          [--out FILE] [--timing CSV] [--tag TAG] [--bc dirichlet|neumann]\n", prog);
+            "          [--out FILE] [--timing CSV] [--tag TAG] [--bc dirichlet|neumann]\n"
+            "          [--io gather|mpiio] [--diag CSV] [--threshold C]\n", prog);
 }
 
 /* Rows owned by a rank: the first ny % size ranks take one extra row, so strip
@@ -85,6 +93,45 @@ static void gather_field(const float *T, int nx, int ny, int local_ny, float *gl
     free(displs);
 }
 
+/* MPI-IO output (P5): every rank writes its own interior rows straight into one shared file,
+ * in the same format as write_field_padded() (int32 nx, ny, then ny rows of nx floats), so the
+ * file is byte-identical to the gather version. Rank 0 writes the 8-byte header; each rank's rows
+ * start at byte 8 + j0*nx*4. The memory type is the same "row" type as in gather_field(): nx
+ * floats with an extent of nx+2, so the ghost cells are skipped. Collective: all ranks call it.
+ * Returns nonzero on this rank if something failed. */
+static int write_field_mpiio(const char *path, const float *T, int nx, int ny, int j0, int local_ny,
+                             int rank)
+{
+    MPI_File fh;
+    if (MPI_File_open(MPI_COMM_WORLD, path, MPI_MODE_CREATE | MPI_MODE_WRONLY, MPI_INFO_NULL, &fh)
+        != MPI_SUCCESS) {
+        fprintf(stderr, "rank %d: %s: MPI_File_open failed\n", rank, path);
+        return 1;
+    }
+    int failed = MPI_File_set_size(fh, 0) != MPI_SUCCESS;   /* drop an older, longer file */
+
+    if (rank == 0) {
+        int32_t h[2] = { nx, ny };
+        failed |= MPI_File_write_at(fh, 0, h, 2, MPI_INT32_T, MPI_STATUS_IGNORE) != MPI_SUCCESS;
+    }
+
+    MPI_Datatype packed, row;
+    MPI_Type_contiguous(nx, MPI_FLOAT, &packed);
+    MPI_Type_create_resized(packed, 0, (MPI_Aint)(nx + 2) * (MPI_Aint)sizeof(float), &row);
+    MPI_Type_commit(&row);
+
+    MPI_Offset offset = (MPI_Offset)(2 * sizeof(int32_t))
+                      + (MPI_Offset)j0 * (MPI_Offset)nx * (MPI_Offset)sizeof(float);
+    failed |= MPI_File_write_at_all(fh, offset, &T[IDX(0, 0, nx)], local_ny, row, MPI_STATUS_IGNORE)
+              != MPI_SUCCESS;
+
+    MPI_Type_free(&row);
+    MPI_Type_free(&packed);
+    failed |= MPI_File_close(&fh) != MPI_SUCCESS;
+    if (failed) fprintf(stderr, "rank %d: %s: MPI-IO write failed\n", rank, path);
+    return failed;
+}
+
 /* On rank 0, returns the distinct node names comma-joined (caller frees) and
  * stores how many there are in *nnodes. Returns NULL on the other ranks. */
 static char *join_node_names(int rank, int size, int *nnodes)
@@ -124,9 +171,11 @@ int main(int argc, char **argv)
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-    int nx = 256, ny = 256, steps = 1000, bc = BC_DIRICHLET, bad_args = 0;
+    int nx = 256, ny = 256, steps = 1000, bc = BC_DIRICHLET, bad_args = 0, use_mpiio = 0;
+    float threshold = 29.0f;   /* same default as serial/OpenACC and tools/scenario_metrics.py */
     unsigned long long seed = 42;
     const char *city_arg = "synthetic", *out_path = NULL, *csv_path = NULL, *tag = "run";
+    const char *diag_path = NULL;
 
     static struct option opts[] = {
         { "nx", required_argument, 0, 'x' },     { "ny", required_argument, 0, 'y' },
@@ -134,6 +183,8 @@ int main(int argc, char **argv)
         { "seed", required_argument, 0, 'r' },   { "out", required_argument, 0, 'o' },
         { "timing", required_argument, 0, 't' }, { "tag", required_argument, 0, 'g' },
         { "bc", required_argument, 0, 'b' },     { "help", no_argument, 0, 'h' },
+        { "io", required_argument, 0, 'i' },     { "diag", required_argument, 0, 'd' },
+        { "threshold", required_argument, 0, 'T' },
         { 0, 0, 0, 0 }
     };
     opterr = (rank == 0);          /* only rank 0 complains about unknown options */
@@ -153,6 +204,13 @@ int main(int argc, char **argv)
             else if (strcmp(optarg, "neumann") == 0) bc = BC_NEUMANN;
             else bad_args = 1;
             break;
+        case 'i':
+            if (strcmp(optarg, "gather") == 0) use_mpiio = 0;
+            else if (strcmp(optarg, "mpiio") == 0) use_mpiio = 1;
+            else bad_args = 1;
+            break;
+        case 'd': diag_path = optarg; break;
+        case 'T': threshold = (float)atof(optarg); break;
         default: bad_args = 1; break;
         }
     }
@@ -195,7 +253,7 @@ int main(int argc, char **argv)
     float *a = malloc(npad * sizeof(float));
     float *b = malloc(npad * sizeof(float));
     float *global = NULL;
-    int want_global = (rank == 0 && out_path != NULL);
+    int want_global = (rank == 0 && out_path != NULL && !use_mpiio);   /* MPI-IO needs no full copy */
     if (want_global) global = malloc((size_t)(nx + 2) * (size_t)(ny + 2) * sizeof(float));
     int no_memory = !city || !a || !b || (want_global && !global);
     if (no_memory) fprintf(stderr, "rank %d: out of memory\n", rank);
@@ -228,11 +286,16 @@ int main(int argc, char **argv)
     double local_sum = checksum_padded(a, nx, local_ny), sum = 0.0;
     MPI_Reduce(&local_sum, &sum, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
 
-    /* ---- output: gathering counts as I/O, it only happens because of --out ---- */
+    /* ---- output: gathering or MPI-IO counts as I/O, it only happens because of --out ---- */
     if (out_path) {
         t0 = wtime();
-        gather_field(a, nx, ny, local_ny, global, rank, size);
-        int write_failed = (rank == 0) ? write_field_padded(out_path, nx, ny, global) : 0;
+        int write_failed;
+        if (use_mpiio) {
+            write_failed = write_field_mpiio(out_path, a, nx, ny, j0, local_ny, rank);
+        } else {
+            gather_field(a, nx, ny, local_ny, global, rank, size);
+            write_failed = (rank == 0) ? write_field_padded(out_path, nx, ny, global) : 0;
+        }
         t_io += wtime() - t0;
         if (any_rank_failed(write_failed)) return finish(1);
     }
@@ -250,6 +313,19 @@ int main(int argc, char **argv)
                max_times[0], max_times[1], max_times[2], max_times[3],
                updates > 0 ? 1e9 * max_times[1] / updates : 0.0);
         printf("checksum %.10e\n", sum);
+    }
+
+    /* ---- diagnostics (P5; after the timers, on the final field): each rank its own strip,
+     *      then MPI_Allreduce combines peak (MAX), sum, cells and count above (SUM) ---- */
+    if (diag_path) {
+        Diag d = diag_allreduce(diag_compute(a, nx, local_ny, threshold), MPI_COMM_WORLD);
+        int diag_failed = 0;
+        if (rank == 0) {
+            printf("diag peak=%.3f C  mean=%.3f C  above %.1f C: %.2f%% of cells\n",
+                   d.peak, diag_mean(&d), d.threshold, 100.0 * diag_frac(&d));
+            diag_failed = diag_append_csv(diag_path, tag, "mpi", nx, ny, steps, &d);
+        }
+        if (any_rank_failed(diag_failed)) return finish(1);
     }
 
     int csv_failed = 0;
