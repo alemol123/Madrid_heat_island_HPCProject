@@ -12,6 +12,7 @@ sys.path.insert(0, TOOLS)
 import array_wall  # noqa: E402
 import gen_city  # noqa: E402
 import make_sweep as sw  # noqa: E402
+import summarize_bench as sb  # noqa: E402
 import summarize_sweep as ss  # noqa: E402
 import scenario_metrics as sm  # noqa: E402
 
@@ -71,6 +72,17 @@ def test_summarize_groups_and_std():
     r = out[1]
     assert abs(r["d_mean_mean"] + 0.15) < 1e-12 and abs(r["d_mean_std"] - 0.0707106781) < 1e-9
     assert out[0]["d_mean_std"] == 0.0                              # single run: no spread
+
+
+def test_bench_tag_parsing_and_grouping():
+    assert sb.parse_tag("bench_skewed_sorted_static_w31_n1_r2") == ("skewed_sorted", "static", 31, 1, 2)
+    assert sb.parse_tag("bench_uniform_dynamic_w31_n2_r1") == ("uniform", "dynamic", 31, 2, 1)
+    assert sb.parse_tag("ens_dynamic") is None and sb.parse_tag("array_uniform_w32_r1") is None
+    runs = [{"list": "uniform", "mode": "dynamic", "w": 4, "nodes": 1, "rep": r, "failed": 0.0, "wall_s": w,
+             "sum_job_s": 10.0, "efficiency": 0.9, "imbalance": 1.0} for r, w in ((1, 10.0), (2, 12.0), (3, 30.0))]
+    runs.append({**runs[0], "rep": 4, "wall_s": 999.0, "failed": 1.0})        # failed runs are ignored
+    g = sb.group(runs)[("uniform", "dynamic", 4, 1)]
+    assert g["reps"] == 3 and g["wall"] == 12.0 and g["wall_min"] == 10.0 and g["wall_max"] == 30.0
 
 
 def test_array_wall():
