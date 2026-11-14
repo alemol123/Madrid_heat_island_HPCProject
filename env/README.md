@@ -1,7 +1,8 @@
 # Environment and cluster notes
 
-Cluster survey and environment tests by Aakriti (P5), 3-5 November 2026
+Cluster survey and environment tests by Aakriti (P5), 3-11 November 2026
 (sinfo, scontrol, module avail, lscpu, nvidia-smi, srun --mpi=list, test jobs).
+Multi-node MPI notes by P3.
 
 ## Quick start
 
@@ -67,6 +68,13 @@ to 10.205.20.x:
 
 With these settings the 2-node run (8 ranks, 2048x2048, 200 steps, job 28316)
 gives the same checksum as the single-node run.
+
+Mixing environments (P5, 11 Nov 2026): loading the GPU environment puts /usr/bin
+at the front of PATH, and sbatch --export=ALL copies that into the job. An MPI build
+then picks the system linker and fails with "undefined reference to hwloc_..."
+(job 28417). `env/modules.sh cpu` now moves /usr/bin back to the end of PATH, so
+CPU/MPI jobs build correctly even when submitted from a shell that loaded the GPU
+environment before.
 
 Compiling: the shared software stack is built for an older CPU (zen2).
 Compile our own code on a compute node (inside `srun` or `sbatch`) with

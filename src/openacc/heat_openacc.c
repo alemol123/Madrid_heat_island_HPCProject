@@ -2,13 +2,13 @@
  *
  *   ./heat_openacc --nx 2048 --ny 2048 --steps 2000 --city synthetic --seed 42 \
  *                  --out results/field.bin --timing results/runs.csv --tag gpu \
- *                  [--acc-mode resident|naive] [--diag results/diag.csv --threshold 30]
+ *                  [--acc-mode resident|naive] [--diag results/diag.csv --threshold 29]
  *
  * Same options and output as src/serial/heat.c, plus:
  *   --acc-mode resident (default): copy the city and both grids to the GPU once,
  *                       run every step there, copy the result back once (data residency).
  *   --acc-mode naive:   copy the data to the GPU and back around every step.
- *   --diag FILE:        append peak / mean / fraction above --threshold (default 30 C)
+ *   --diag FILE:        append peak / mean / fraction above --threshold (default 29 C, same as tools/scenario_metrics.py)
  *                       of the final field to FILE (see src/common/diag.h).
  * The kernels (apply_boundary, step) are the shared ones in src/common/step.c,
  * built with nvc -acc. time_transfer = time spent in CPU<->GPU copies; it is
@@ -48,7 +48,7 @@ int main(int argc, char **argv)
     unsigned long long seed = 42;
     const char *city_arg = "synthetic", *out_path = NULL, *csv_path = NULL, *tag = "run";
     const char *diag_path = NULL;
-    float threshold = 30.0f;
+    float threshold = 29.0f;   /* same default as tools/scenario_metrics.py */
 
     static struct option opts[] = {
         { "nx", required_argument, 0, 'x' },     { "ny", required_argument, 0, 'y' },

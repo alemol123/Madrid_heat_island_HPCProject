@@ -1,0 +1,72 @@
+
+Currently Loaded Modules:
+  1) nvhpc/25.7
+
+ 
+
+/usr/bin/gcc
+/usr/bin/mpicc
+/data/software/tools/nvhpc/Linux_x86_64/25.7/compilers/bin/nvc
+=== job 28415 on haskell at 2026-11-11T02:00:56+01:00
+=== git commit: f92e969  (0 uncommitted files outside results/)
+=== nx=4096 ny=4096 steps=2000 city=synthetic seed=42 tag=gpu_naive reps=3 extra=--acc-mode naive acc_time=0
+name, memory.total [MiB], driver_version
+NVIDIA RTX 6000 Ada Generation, 49140 MiB, 580.126.09
+
+nvc 25.7-0 64-bit target on x86-64 Linux -tp znver5 
+src/openacc/heat_openacc.c:
+main:
+    125, Generating enter data copyin(b[:npad],a[:npad],city[:ncell],c)
+    137, Generating update self(a[:npad])
+         Generating exit data delete(b[:npad],a[:npad],city[:ncell],c)
+    143, Generating enter data copyin(a[:npad])
+         Generating enter data create(b[:npad])
+         Generating enter data copyin(c,city[:ncell])
+    150, Generating exit data copyout(b[:npad])
+         Generating exit data delete(city[:ncell],c,a[:npad])
+src/common/step.c:
+apply_boundary:
+     46, Generating present(T[:npad])
+         Generating implicit firstprivate(i,nx)
+         Generating NVIDIA GPU code
+         48, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     48, Generating implicit firstprivate(t_air,neumann)
+     51, Generating present(T[:npad])
+         Generating implicit firstprivate(i,nx)
+         Generating NVIDIA GPU code
+         53, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     53, Generating implicit firstprivate(neumann,t_air,ny)
+     56, Generating present(T[:npad])
+         Generating implicit firstprivate(j,ny)
+         Generating NVIDIA GPU code
+         58, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     58, Generating implicit firstprivate(neumann,nx,w,t_air)
+     61, Generating present(T[:npad])
+         Generating implicit firstprivate(j,ny)
+         Generating NVIDIA GPU code
+         63, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     63, Generating implicit firstprivate(neumann,nx,w,t_air)
+step_rows:
+    122, Generating present(city[:ncity],in[:npad],out[:npad],c[:1])
+         Generating implicit firstprivate(nx,j1,j0,j)
+         Generating NVIDIA GPU code
+        124, #pragma acc loop gang, vector(128) collapse(2) /* blockIdx.x threadIdx.x */
+        125,   /* blockIdx.x threadIdx.x collapsed */
+    125, Generating implicit firstprivate(w,t_air,solar)
+src/common/io.c:
+src/common/diag.c:
+built build/28415/heat_openacc with: nvc -O3 -acc -gpu=ccnative -Minfo=accel
+=== command: build/28415/heat_openacc --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --out build/28415/field.bin --timing results/runs.csv --tag gpu_naive --acc-mode naive
+=== repeat 1
+heat openacc nx=4096 ny=4096 steps=2000 city=synthetic seed=42 kernel=openacc-gpu mode=naive
+time_total=15.5553 s  time_compute=0.3913 s  time_transfer=14.7989 s  time_io=0.1904 s  0.012 ns/cell-update
+checksum 4.3673597725e+08
+=== repeat 2
+heat openacc nx=4096 ny=4096 steps=2000 city=synthetic seed=42 kernel=openacc-gpu mode=naive
+time_total=15.3477 s  time_compute=0.3911 s  time_transfer=14.6140 s  time_io=0.1954 s  0.012 ns/cell-update
+checksum 4.3673597725e+08
+=== repeat 3
+heat openacc nx=4096 ny=4096 steps=2000 city=synthetic seed=42 kernel=openacc-gpu mode=naive
+time_total=15.3665 s  time_compute=0.3919 s  time_transfer=14.6304 s  time_io=0.1967 s  0.012 ns/cell-update
+checksum 4.3673597725e+08
+=== done 2026-11-11T02:01:44+01:00

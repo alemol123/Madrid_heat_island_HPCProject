@@ -6,7 +6,7 @@
  * Extra options: --bc dirichlet|neumann (default dirichlet, see docs/contract.md),
  *                --city <file> (a city file; nx/ny then come from the file),
  *                --diag <csv> [--threshold C] (peak / mean / fraction above the
- *                threshold of the final field, see src/common/diag.h; default 30 C).
+ *                threshold of the final field, see src/common/diag.h; default 29 C, same as tools/scenario_metrics.py).
  */
 #define _POSIX_C_SOURCE 200809L
 #include "params.h"
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
     unsigned long long seed = 42;
     const char *city_arg = "synthetic", *out_path = NULL, *csv_path = NULL, *tag = "run";
     const char *diag_path = NULL;
-    float threshold = 30.0f;
+    float threshold = 29.0f;   /* same default as tools/scenario_metrics.py */
 
     static struct option opts[] = {
         { "nx", required_argument, 0, 'x' },     { "ny", required_argument, 0, 'y' },
