@@ -58,8 +58,8 @@ else
 fi
 
 # OpenACC (P5): relative tolerance (different operation order on the GPU).
-if [ -x $B/heat_acc ]; then
-  $B/heat_acc --nx 250 --ny 251 --steps 120 --city synthetic --seed 7 \
+if [ -x $B/heat_openacc ]; then
+  $B/heat_openacc --nx 250 --ny 251 --steps 120 --city synthetic --seed 7 \
       --out $OUT/acc_odd.bin > $OUT/acc_odd.log 2>&1 || { echo "openacc run failed"; fail=1; }
   [ -f $OUT/acc_odd.bin ] && run_cmp "openacc" "" "$OUT/serial_odd.bin" "$OUT/acc_odd.bin"
 else
