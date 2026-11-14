@@ -22,3 +22,9 @@ results/raw/
 __pycache__/
 *.pyc
 .venv/
+
+#ensemble
+data/sweep/
+data/scen/
+results/ens_*/
+build/
