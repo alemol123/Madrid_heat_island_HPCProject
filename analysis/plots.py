@@ -1,266 +1,239 @@
-#!/usr/bin/env python3
-"""Shared plot library (P5): plots and tables from results/runs.csv.
+/* heat_openacc.c - OpenACC (GPU) version of the heat solver (P5).
+ *
+ *   ./heat_openacc --nx 2048 --ny 2048 --steps 2000 --city synthetic --seed 42 \
+ *                  --out results/field.bin --timing results/runs.csv --tag gpu \
+ *                  [--acc-mode resident|naive] [--diag results/diag.csv --threshold 29]
+ *
+ * Same options and output as src/serial/heat.c, plus:
+ *   --acc-mode resident (default): copy the city and both grids to the GPU once,
+ *                       run every step there, copy the result back once (data residency).
+ *   --acc-mode naive:   copy the data to the GPU and back around every step.
+ *   --bc-once:          (resident mode, Dirichlet boundary) fill the ghost cells of both grids once
+ *                       before the time loop instead of every step. step() never writes ghost cells
+ *                       and a Dirichlet ghost is a constant, so the result is bitwise identical, but
+ *                       each step launches 1 kernel instead of 5 (second GPU optimization, P5).
+ *   --flush-l2 MB:      diagnostic only: before every step, write MB megabytes of a scratch array
+ *                       on the GPU, which evicts the grid from the GPU's L2 cache. Used to test
+ *                       whether a kernel is faster because its input is still in L2. It adds work
+ *                       to time_compute, so never use it for timing results.
+ *   --diag FILE:        append peak / mean / fraction above --threshold (default 29 C, same as tools/scenario_metrics.py)
+ *                       of the final field to FILE (see src/common/diag.h).
+ * The kernels (apply_boundary, step) are the shared ones in src/common/step.c,
+ * built with nvc -acc. time_transfer = time spent in CPU<->GPU copies; it is
+ * not part of time_compute (docs/contract.md). GPU start-up (acc_init) happens
+ * before the timers start: it counts in time_total, not as transfer or compute.
+ * Diagnostics are computed after time_total, so they never change the timings.
+ */
+#define _POSIX_C_SOURCE 200809L
+#include "params.h"
+#include "step.h"
+#include "io.h"
+#include "diag.h"
 
-Same style as analysis/p1_plots.py, so all report figures match. Every plot uses
-the mean +- std of the repeats (contract: >= 3 per configuration) and writes a
-Markdown table next to the PNG (same name, .md), ready for the report.
+#include <getopt.h>
+#include <openacc.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-Usage (from the repo root):
-  python3 analysis/plots.py speedup     --tags mpi_strong [--x cores|ranks|threads|gpus|nodes]
-  python3 analysis/plots.py breakdown   --tags serial mpi openacc ...
-  python3 analysis/plots.py compare     --tags flags_O2 flags_O3 ... [--metric time_compute]
-  python3 analysis/plots.py sensitivity --tags sizes [--x nx] [--metric ns]
+#ifndef GIT_COMMIT
+#define GIT_COMMIT "unknown"
+#endif
 
-Common options:
-  --csv results/runs.csv     input file
-  --nx N                     only rows with this grid size
-  --out results/plots/X.png  output (default: results/plots/<command>.png)
-  --title "..."              plot title
-  --labels A B ...           display names for the tags (same order as --tags)
+enum { MODE_RESIDENT = 0, MODE_NAIVE = 1 };
 
-Speed-up and efficiency are relative to the smallest resource count in each
-series. Needs pandas and matplotlib (see env/requirements-analysis.txt).
-"""
-import argparse
-import sys
-from pathlib import Path
+/* --flush-l2: overwrite a scratch array larger than the L2 cache (RTX 6000 Ada: 96 MB). */
+static void flush_l2(float *s, size_t n, int t)
+{
+    #pragma acc parallel loop present(s[0:n])
+    for (size_t k = 0; k < n; k++) s[k] = (float)(k + (size_t)t);
+}
 
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-import pandas as pd
+static void usage(const char *prog)
+{
+    fprintf(stderr,
+            "usage: %s [--nx N] [--ny N] [--steps N] [--city synthetic|FILE] [--seed S]\n"
+            "          [--out FILE] [--timing CSV] [--tag TAG] [--bc dirichlet|neumann]\n"
+            "          [--acc-mode resident|naive] [--diag CSV] [--threshold C]\n"
+            "          [--bc-once] [--flush-l2 MB]\n", prog);
+}
 
-# ---------------- style (same as analysis/p1_plots.py) ----------------
-BLUE, INK, INK2, GRID, SURF = "#2a78d6", "#0b0b0b", "#52514e", "#e4e3df", "#fcfcfb"
-SERIES = [BLUE, "#e07b39", "#3a9a5b", "#7a5cc4", "#8a8984", "#c44e52"]
-PARTS = [("time_compute", "compute", BLUE),
-         ("time_comm", "communication", "#e07b39"),
-         ("time_transfer", "CPU-GPU transfer", "#c44e52"),
-         ("time_io", "I/O", "#8a8984")]
+int main(int argc, char **argv)
+{
+    int nx = 256, ny = 256, steps = 1000, bc = BC_DIRICHLET, mode = MODE_RESIDENT;
+    int bc_once = 0, flush_mb = 0;
+    unsigned long long seed = 42;
+    const char *city_arg = "synthetic", *out_path = NULL, *csv_path = NULL, *tag = "run";
+    const char *diag_path = NULL;
+    float threshold = T_HOT_THRESHOLD;   /* src/params.h; same as tools/scenario_metrics.py */
 
-plt.rcParams.update({
-    "font.size": 10, "axes.edgecolor": INK2, "axes.labelcolor": INK, "text.color": INK,
-    "xtick.color": INK2, "ytick.color": INK2, "axes.spines.top": False,
-    "axes.spines.right": False, "figure.facecolor": SURF, "axes.facecolor": SURF,
-    "savefig.facecolor": SURF,
-})
+    static struct option opts[] = {
+        { "nx", required_argument, 0, 'x' },     { "ny", required_argument, 0, 'y' },
+        { "steps", required_argument, 0, 's' },  { "city", required_argument, 0, 'c' },
+        { "seed", required_argument, 0, 'r' },   { "out", required_argument, 0, 'o' },
+        { "timing", required_argument, 0, 't' }, { "tag", required_argument, 0, 'g' },
+        { "bc", required_argument, 0, 'b' },     { "acc-mode", required_argument, 0, 'm' },
+        { "diag", required_argument, 0, 'd' },   { "threshold", required_argument, 0, 'T' },
+        { "help", no_argument, 0, 'h' },
+        { "bc-once", no_argument, 0, 'B' },      { "flush-l2", required_argument, 0, 'F' },
+        { 0, 0, 0, 0 }
+    };
+    int ch;
+    while ((ch = getopt_long(argc, argv, "", opts, NULL)) != -1) {
+        switch (ch) {
+        case 'x': nx = atoi(optarg); break;
+        case 'y': ny = atoi(optarg); break;
+        case 's': steps = atoi(optarg); break;
+        case 'c': city_arg = optarg; break;
+        case 'r': seed = strtoull(optarg, NULL, 10); break;
+        case 'o': out_path = optarg; break;
+        case 't': csv_path = optarg; break;
+        case 'g': tag = optarg; break;
+        case 'b':
+            if (strcmp(optarg, "dirichlet") == 0) bc = BC_DIRICHLET;
+            else if (strcmp(optarg, "neumann") == 0) bc = BC_NEUMANN;
+            else { usage(argv[0]); return 2; }
+            break;
+        case 'm':
+            if (strcmp(optarg, "resident") == 0) mode = MODE_RESIDENT;
+            else if (strcmp(optarg, "naive") == 0) mode = MODE_NAIVE;
+            else { usage(argv[0]); return 2; }
+            break;
+        case 'd': diag_path = optarg; break;
+        case 'T': threshold = (float)atof(optarg); break;
+        case 'B': bc_once = 1; break;
+        case 'F': flush_mb = atoi(optarg); break;
+        default: usage(argv[0]); return 2;
+        }
+    }
 
-TIMES = ["time_total", "time_compute", "time_comm", "time_io", "time_transfer"]
-LABELS = {"ns": "Compute time per cell update (ns)", "time_total": "Total time (s)",
-          "time_compute": "Compute time (s)", "time_comm": "Communication time (s)",
-          "time_io": "I/O time (s)", "time_transfer": "CPU-GPU transfer time (s)",
-          "cores": "CPU cores (ranks × threads)", "ranks": "MPI ranks", "threads": "OpenMP threads",
-          "gpus": "GPUs", "nodes": "Nodes", "nx": "Grid size n (n × n cells)", "steps": "Time steps"}
+    if (bc_once && (mode != MODE_RESIDENT || bc != BC_DIRICHLET)) {
+        /* naive mode re-creates the output grid on the GPU every step (its ghosts are not kept),
+         * and Neumann ghosts copy the interior, so they must be refreshed every step */
+        fprintf(stderr, "--bc-once needs --acc-mode resident and --bc dirichlet\n");
+        return 2;
+    }
+    if (flush_mb < 0) { usage(argv[0]); return 2; }
 
+    double t_start = wtime(), t_io = 0.0, t_transfer = 0.0;
+    acc_init(acc_device_nvidia);   /* start the GPU now: startup counts in time_total, not as transfer */
 
-# ---------------- shared loading ----------------
-def load(csv, tags, nx=None):
-    """Rows for the given tags (and grid size), with derived columns."""
-    d = pd.read_csv(csv)
-    for col in TIMES:
-        if col not in d:
-            d[col] = 0.0
-        d[col] = d[col].fillna(0.0)
-    if "node" not in d:
-        d["node"] = "?"
-    d = d[d.tag.isin(tags)]
-    if nx is not None:
-        d = d[d.nx == nx]
-    if d.empty:
-        sys.exit(f"no rows in {csv} for tags {tags}" + (f" and nx={nx}" if nx else ""))
-    d = d.copy()
-    d["ns"] = 1e9 * d.time_compute / (d.nx * d.ny * d.steps)
-    d["cores"] = d.ranks * d.threads
-    d["order"] = d.tag.map({t: i for i, t in enumerate(tags)})
-    return d
+    Coeffs c = default_coeffs();
+    if (check_stability(&c)) return 1;
 
+    /* ---- city ---- */
+    int from_file = strcmp(city_arg, "synthetic") != 0;
+    if (from_file) {
+        int fnx, fny;
+        if (read_city_header(city_arg, &fnx, &fny)) return 1;
+        nx = fnx; ny = fny;   /* the file decides the size */
+    }
+    if (nx < 1 || ny < 1 || steps < 0) { usage(argv[0]); return 2; }
 
-def summarize(d, keys):
-    """Mean +- std of the repeats per configuration. Warns about too few repeats
-    or repeats with different checksums (they should be identical)."""
-    agg = {"reps": ("time_total", "size"), "checksums": ("checksum", "nunique"),
-           "node": ("node", "first"), "order": ("order", "first")}
-    for col in TIMES + ["ns"]:
-        agg[col] = (col, "mean")
-        agg[col + "_std"] = (col, "std")
-    s = d.groupby(keys).agg(**agg).reset_index()
-    stds = [c for c in s.columns if c.endswith("_std")]
-    s[stds] = s[stds].fillna(0.0)
-    for r in s[s.checksums > 1].itertuples():
-        print(f"WARNING: repeats of {r.tag} gave {r.checksums} different checksums", file=sys.stderr)
-    if (s.reps < 3).any():
-        print("WARNING: some configurations have fewer than 3 repeats (contract asks for >= 3)",
-              file=sys.stderr)
-    return s.sort_values(["order"] + [k for k in keys if k != "tag"]).reset_index(drop=True)
+    size_t ncell = (size_t)nx * (size_t)ny;
+    size_t npad  = (size_t)(nx + 2) * (size_t)(ny + 2);
+    int8_t *city = malloc(ncell);
+    float *a = malloc(npad * sizeof(float));
+    float *b = malloc(npad * sizeof(float));
+    if (!city || !a || !b) { fprintf(stderr, "out of memory (%zu cells)\n", ncell); return 1; }
 
+    double t0 = wtime();
+    if (from_file) { if (read_city_rows(city_arg, nx, 0, ny, city)) return 1; }
+    else synthetic_city_rows(nx, 0, ny, (uint64_t)seed, city);
+    t_io += wtime() - t0;
 
-def fmt(m, sd, p=3):
-    return f"{m:.{p}f} ± {sd:.{p}f}"
+    for (size_t k = 0; k < npad; k++) { a[k] = T_INIT; b[k] = T_INIT; }
 
+    float *scratch = NULL;
+    size_t nscratch = (size_t)flush_mb * 1024 * 1024 / sizeof(float);
+    if (nscratch > 0) {
+        scratch = malloc(nscratch * sizeof(float));
+        if (!scratch) { fprintf(stderr, "out of memory (--flush-l2)\n"); return 1; }
+        #pragma acc enter data create(scratch[0:nscratch])
+    }
 
-def name_of(tag, a):
-    """Display name: --labels if given, else the tag."""
-    if a.labels and tag in a.tags:
-        i = a.tags.index(tag)
-        if i < len(a.labels):
-            return a.labels[i]
-    return tag
+    /* ---- time loop (ping-pong buffers) ---- */
+    t0 = wtime();
+    if (mode == MODE_RESIDENT) {
+        /* Copy once: city, coefficients and both grids stay on the GPU. */
+        double tt = wtime();
+        #pragma acc enter data copyin(city[0:ncell], a[0:npad], b[0:npad], c)
+        t_transfer += wtime() - tt;
 
+        if (bc_once) {   /* Dirichlet ghosts are constant: fill them in both grids, once */
+            apply_boundary(a, nx, ny, bc, SIDE_ALL, c.t_air);
+            apply_boundary(b, nx, ny, bc, SIDE_ALL, c.t_air);
+        }
+        for (int t = 0; t < steps; t++) {
+            if (scratch) flush_l2(scratch, nscratch, t);
+            if (!bc_once) apply_boundary(a, nx, ny, bc, SIDE_ALL, c.t_air);
+            step(a, b, city, nx, ny, solar_at(t), &c);
+            float *tmp = a; a = b; b = tmp;      /* a now holds the newest field */
+        }
 
-def finish(fig, axes, out, title, table):
-    for ax in axes:
-        ax.grid(color=GRID, lw=0.8)
-        ax.set_axisbelow(True)
-    if title:
-        axes[0].set_title(title, fontsize=10, loc="left")
-    fig.tight_layout()
-    out.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out, dpi=200, bbox_inches="tight")
-    plt.close(fig)
-    md = out.with_suffix(".md")
-    md.write_text("\n".join(table) + "\n")
-    print("\n".join(table))
-    print(f"\nwrote {out} and {md}")
+        /* Copy the result back once. */
+        tt = wtime();
+        #pragma acc update self(a[0:npad])
+        #pragma acc exit data delete(city[0:ncell], a[0:npad], b[0:npad], c)
+        t_transfer += wtime() - tt;
+    } else {
+        /* Naive: move everything to the GPU and back around every step. */
+        for (int t = 0; t < steps; t++) {
+            double tt = wtime();
+            #pragma acc enter data copyin(city[0:ncell], a[0:npad], c) create(b[0:npad])
+            t_transfer += wtime() - tt;
 
+            if (scratch) flush_l2(scratch, nscratch, t);
+            apply_boundary(a, nx, ny, bc, SIDE_ALL, c.t_air);
+            step(a, b, city, nx, ny, solar_at(t), &c);
 
-# ---------------- speedup + efficiency ----------------
-def cmd_speedup(a):
-    d = load(a.csv, a.tags, a.nx)
-    s = summarize(d, ["tag", "nx", a.x])
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 3.8))
-    table = [f"| Run | Grid | {LABELS[a.x]} | Compute (s) | Speed-up | Efficiency |",
-             "|---|---|---|---|---|---|"]
-    for color, ((tag, nx), g) in zip(SERIES, s.groupby(["tag", "nx"], sort=False)):
-        g = g.sort_values(a.x)
-        p0, t0 = g[a.x].iloc[0], g.time_compute.iloc[0]
-        sp = t0 / g.time_compute
-        eff = sp / (g[a.x] / p0)
-        label = f"{name_of(tag, a)} ({nx}²)"
-        ax1.plot(g[a.x], sp, marker="o", color=color, lw=2, mec=SURF, mew=1.5, label=label)
-        ax2.plot(g[a.x], eff, marker="o", color=color, lw=2, mec=SURF, mew=1.5, label=label)
-        for r, spi, ei in zip(g.itertuples(), sp, eff):
-            table.append(f"| {name_of(tag, a)} | {nx}×{nx} | {getattr(r, a.x)} | "
-                         f"{fmt(r.time_compute, r.time_compute_std)} | {spi:.2f}× | {100 * ei:.0f}% |")
-    xs = sorted(s[a.x].unique())
-    ax1.plot(xs, [x / xs[0] for x in xs], ls=(0, (3, 3)), color=INK2, lw=1, label="ideal")
-    ax2.axhline(1.0, ls=(0, (3, 3)), color=INK2, lw=1)
-    for ax in (ax1, ax2):
-        ax.set_xscale("log", base=2)
-        ax.set_xticks(xs)
-        ax.set_xticklabels([str(x) for x in xs])
-        ax.set_xlabel(LABELS[a.x])
-    ax1.set_ylabel("Speed-up")
-    ax2.set_ylabel("Parallel efficiency")
-    ax2.set_ylim(0, 1.1)
-    ax1.legend(frameon=False, fontsize=8)
-    finish(fig, [ax1, ax2], a.out, a.title, table)
+            tt = wtime();
+            #pragma acc exit data copyout(b[0:npad]) delete(city[0:ncell], a[0:npad], c)
+            t_transfer += wtime() - tt;
 
+            float *tmp = a; a = b; b = tmp;
+        }
+    }
+    double t_compute = wtime() - t0 - t_transfer;   /* transfers are not compute */
+    if (scratch) {
+        #pragma acc exit data delete(scratch[0:nscratch])
+        free(scratch);
+    }
 
-# ---------------- time breakdown ----------------
-def cmd_breakdown(a):
-    d = load(a.csv, a.tags, a.nx)
-    s = summarize(d, ["tag", "nx", "nodes", "ranks", "threads", "gpus"])
-    s["label"] = [f"{name_of(r.tag, a)}\n{r.nx}², {r.ranks}×{r.threads}" + (f", {r.gpus} GPU" if r.gpus else "")
-                  for r in s.itertuples()]
-    known = sum(s[col] for col, _, _ in PARTS)
-    s["time_other"] = (s.time_total - known).clip(lower=0)
-    fig, ax = plt.subplots(figsize=(7, 0.6 * len(s) + 1.6))
-    y = list(range(len(s)))[::-1]
-    left = [0.0] * len(s)
-    for col, name, color in PARTS + [("time_other", "other (setup)", "#b5b2aa")]:
-        vals = s[col].tolist()
-        if not any(v > 0 for v in vals):
-            continue
-        ax.barh(y, vals, left=left, color=color, height=0.55, label=name)
-        left = [l + v for l, v in zip(left, vals)]
-    for yi, tot in zip(y, s.time_total):
-        ax.text(tot * 1.01, yi, f"{tot:.3g} s", va="center", fontsize=8, color=INK)
-    ax.set_yticks(y)
-    ax.set_yticklabels(s.label, fontsize=8)
-    ax.set_xlim(0, s.time_total.max() * 1.18)
-    ax.set_xlabel("Time (s), mean of repeats")
-    ax.legend(frameon=False, fontsize=8, loc="upper center", bbox_to_anchor=(0.5, -0.30), ncol=5)
-    table = ["| Run | Compute (s) | Communication (s) | Transfer (s) | I/O (s) | Total (s) |",
-             "|---|---|---|---|---|---|"]
-    for r in s.itertuples():
-        table.append(f"| {r.label.replace(chr(10), ', ')} | {r.time_compute:.3f} | {r.time_comm:.3f} | "
-                     f"{r.time_transfer:.3f} | {r.time_io:.3f} | {fmt(r.time_total, r.time_total_std)} |")
-    finish(fig, [ax], a.out, a.title, table)
+    double sum = checksum_padded(a, nx, ny);
 
+    if (out_path) {
+        t0 = wtime();
+        if (write_field_padded(out_path, nx, ny, a)) return 1;
+        t_io += wtime() - t0;
+    }
+    double t_total = wtime() - t_start;
 
-# ---------------- before / after comparison ----------------
-def cmd_compare(a):
-    d = load(a.csv, a.tags, a.nx)
-    if d.nx.nunique() > 1:
-        sys.exit(f"several grid sizes {sorted(d.nx.unique())}: choose one with --nx")
-    s = summarize(d, ["tag", "nx"])
-    base = s[a.metric].iloc[0]
-    fig, ax = plt.subplots(figsize=(7, 0.55 * len(s) + 1.6))
-    y = list(range(len(s)))[::-1]
-    ax.barh(y, s[a.metric], xerr=s[a.metric + "_std"], color=BLUE, height=0.55, capsize=3)
-    for yi, v, e in zip(y, s[a.metric], s[a.metric + "_std"]):
-        ax.text(v + e + base * 0.03, yi, f"{v:.3g}  ({base / v:.2f}×)", va="center", fontsize=9)
-    ax.set_yticks(y)
-    ax.set_yticklabels([name_of(t, a) for t in s.tag])
-    ax.set_xlim(0, s[a.metric].max() * 1.35)
-    ax.set_xlabel(f"{LABELS[a.metric]}, {s.nx.iloc[0]} × {s.nx.iloc[0]}")
-    table = [f"| Variant | {LABELS[a.metric]} | Speed-up vs {name_of(s.tag.iloc[0], a)} |", "|---|---|---|"]
-    for r in s.itertuples():
-        table.append(f"| {name_of(r.tag, a)} | {fmt(getattr(r, a.metric), getattr(r, a.metric + '_std'))} | "
-                     f"{base / getattr(r, a.metric):.2f}× |")
-    finish(fig, [ax], a.out, a.title, table)
+    const char *version = mode == MODE_NAIVE ? "openacc-naive" : (bc_once ? "openacc-bconce" : "openacc");
+    double updates = (double)ncell * (double)steps;
+    printf("heat openacc nx=%d ny=%d steps=%d city=%s seed=%llu kernel=%s mode=%s%s%s\n", nx, ny, steps,
+           city_arg, seed, step_kernel_name(), mode == MODE_RESIDENT ? "resident" : "naive",
+           bc_once ? " bc-once" : "", flush_mb > 0 ? " flush-l2" : "");
+    printf("time_total=%.4f s  time_compute=%.4f s  time_transfer=%.4f s  time_io=%.4f s  %.3f ns/cell-update\n",
+           t_total, t_compute, t_transfer, t_io, updates > 0 ? 1e9 * t_compute / updates : 0.0);
+    printf("checksum %.10e\n", sum);
 
+    /* ---- diagnostics (after the timers, on the final field, now on the host) ---- */
+    if (diag_path) {
+        Diag d = diag_compute(a, nx, ny, threshold);
+        printf("diag peak=%.3f C  mean=%.3f C  above %.1f C: %.2f%% of cells\n",
+               d.peak, diag_mean(&d), d.threshold, 100.0 * diag_frac(&d));
+        if (diag_append_csv(diag_path, tag, version, nx, ny, steps, &d)) return 1;
+    }
 
-# ---------------- sensitivity ----------------
-def cmd_sensitivity(a):
-    d = load(a.csv, a.tags, a.nx)
-    s = summarize(d, ["tag", a.x])
-    fig, ax = plt.subplots(figsize=(7, 4))
-    table = [f"| Run | {LABELS.get(a.x, a.x)} | {LABELS[a.metric]} |", "|---|---|---|"]
-    for color, (tag, g) in zip(SERIES, s.groupby("tag", sort=False)):
-        g = g.sort_values(a.x)
-        ax.errorbar(g[a.x], g[a.metric], yerr=g[a.metric + "_std"], color=color, lw=2, marker="o",
-                    ms=6, mec=SURF, mew=1.5, capsize=3, label=name_of(tag, a))
-        for r in g.itertuples():
-            table.append(f"| {name_of(tag, a)} | {getattr(r, a.x)} | "
-                         f"{fmt(getattr(r, a.metric), getattr(r, a.metric + '_std'))} |")
-    if a.logx:
-        xs = sorted(s[a.x].unique())
-        ax.set_xscale("log", base=2)
-        ax.set_xticks(xs)
-        ax.set_xticklabels([str(x) for x in xs], rotation=45)
-    ax.set_xlabel(LABELS.get(a.x, a.x))
-    ax.set_ylabel(LABELS[a.metric])
-    if s.tag.nunique() > 1:
-        ax.legend(frameon=False, fontsize=8)
-    finish(fig, [ax], a.out, a.title, table)
+    if (csv_path) {
+        const char *job = getenv("SLURM_JOB_ID");
+        RunRecord r = { tag, version, nx, ny, steps, 1, 1, 1, 1,
+                        t_total, t_compute, 0.0, t_io, t_transfer, sum, GIT_COMMIT, job ? job : "none",
+                        NULL /* node: filled in by append_csv */ };
+        if (append_csv(csv_path, &r)) return 1;
+    }
 
-
-def main():
-    common = argparse.ArgumentParser(add_help=False)
-    common.add_argument("--csv", default="results/runs.csv", type=Path)
-    common.add_argument("--tags", nargs="+", required=True)
-    common.add_argument("--labels", nargs="+")
-    common.add_argument("--nx", type=int)
-    common.add_argument("--out", type=Path)
-    common.add_argument("--title")
-    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    sub = p.add_subparsers(dest="cmd", required=True)
-    sp = sub.add_parser("speedup", parents=[common])
-    sp.add_argument("--x", default="cores", choices=["cores", "ranks", "threads", "gpus", "nodes"])
-    sub.add_parser("breakdown", parents=[common])
-    cp = sub.add_parser("compare", parents=[common])
-    cp.add_argument("--metric", default="time_compute", choices=TIMES + ["ns"])
-    se = sub.add_parser("sensitivity", parents=[common])
-    se.add_argument("--x", default="nx")
-    se.add_argument("--metric", default="ns", choices=TIMES + ["ns"])
-    se.add_argument("--logx", action="store_true")
-    a = p.parse_args()
-    if a.out is None:
-        a.out = Path("results/plots") / f"{a.cmd}.png"
-    {"speedup": cmd_speedup, "breakdown": cmd_breakdown,
-     "compare": cmd_compare, "sensitivity": cmd_sensitivity}[a.cmd](a)
-
-
-if __name__ == "__main__":
-    main()
+    free(city); free(a); free(b);
+    return 0;
+}
