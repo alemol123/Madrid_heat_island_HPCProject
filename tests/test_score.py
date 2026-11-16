@@ -19,7 +19,6 @@ EXE = os.path.join(TMP, "score_candidates")
 
 
 def build():
-    """Compile the program. Returns False (skip) if this machine's compiler has no OpenMP (e.g. Apple clang)."""
     r = subprocess.run(["gcc", "-O2", "-fopenmp", "-std=c11", "-Wall", "-Wextra", "-o", EXE,
                         os.path.join(TOOLS, "score_candidates.c"), "-lm"], capture_output=True, text=True)
     if r.returncode != 0 and ("openmp" in r.stderr.lower() or "omp.h" in r.stderr):
@@ -121,6 +120,31 @@ def test_same_result_for_any_threads_and_schedule():
                  "--threads", str(k), "--schedule", sched])
             outs.append((open(op, "rb").read(), open(sp, "rb").read()))
     assert all(o == outs[0] for o in outs)                  # identical bytes, whatever the threads
+
+
+def test_fast_selection_equals_full_selection():
+    """--select fast (sort only the reachable candidates) must give byte-identical trees to --select full."""
+    cases = []
+    city, field = make_case(150, 110, 5)
+    cases.append((city, field, 6, 300, 2))                                # normal
+    cases.append((city, field, 6, 40, 4))                                 # wide spacing
+    cases.append((city, field, 5, 100000, 1))                             # budget larger than the candidate list
+    cases.append((city, np.full(city.shape, 30.0, dtype=np.float32), 5, 200, 2))     # constant field: many ties
+    cases.append((city, np.round(field).astype(np.float32), 5, 150, 3))              # coarse values: ties again
+    with tempfile.TemporaryDirectory() as d:
+        for k, (c, f, R, top, sp) in enumerate(cases):
+            cp, fp = files(d, c, f)
+            outs = []
+            for mode in ("full", "fast"):
+                op = os.path.join(d, f"o{k}{mode}.city")
+                for threads in (1, 3):
+                    run(["--city", cp, "--field", fp, "--radius", str(R), "--top", str(top), "--spacing", str(sp),
+                         "--select", mode, "--threads", str(threads), "--out", op])
+                    outs.append(open(op, "rb").read())
+            assert all(o == outs[0] for o in outs), f"case {k}: fast and full selection differ"
+        r = subprocess.run([EXE, "--city", cp, "--field", fp, "--select", "nope", "--out", os.path.join(d, "x")],
+                           capture_output=True, text=True)
+        assert r.returncode != 0 and "fast or full" in r.stderr
 
 
 def test_threshold_and_exhausted_candidates():
