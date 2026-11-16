@@ -41,6 +41,7 @@ Single run:
 | Compiler flags before/after | `sbatch slurm/p1_flags.sh` | rows tagged `flags_*`, vectorization reports in `build/<jobid>/*/vec.txt` |
 | Serial baseline with the AVX-512 kernel (reference for all parallel speed-ups) | `sbatch --export=ALL,TAG=baseline_avx512 slurm/p1_baseline.sh` | rows tagged `baseline_avx512` |
 | Kernel code variants (+ perf counters if available) | `sbatch slurm/p1_opt.sh` | rows tagged `opt_*` (version `serial-opt`); each variant is checked against the reference kernel |
+| Halo-exchange tests for MPI (1, 2, 3, 5 ranks over 2 nodes) + `make check` | `sbatch slurm/p1_halo.sh` | log in `results/logs/p1_halo_*.out`; locally: `make test-mpi` |
 
 Jobs used in the report: 27714 (baseline), 27715 (sizes), 27716 (flags) at commit 36cd286, and
 27718 (code variants) at commit 520c642; 7 Nov 2026, node fortran. Figures and tables:

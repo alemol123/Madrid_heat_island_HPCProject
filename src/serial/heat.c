@@ -37,7 +37,7 @@ int main(int argc, char **argv)
     unsigned long long seed = 42;
     const char *city_arg = "synthetic", *out_path = NULL, *csv_path = NULL, *tag = "run";
     const char *diag_path = NULL;
-    float threshold = 29.0f;   /* same default as tools/scenario_metrics.py */
+    float threshold = T_HOT_THRESHOLD;   /* src/params.h; same as tools/scenario_metrics.py */
 
     static struct option opts[] = {
         { "nx", required_argument, 0, 'x' },     { "ny", required_argument, 0, 'y' },

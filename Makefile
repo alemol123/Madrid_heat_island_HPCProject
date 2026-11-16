@@ -20,7 +20,7 @@ COMMON  := src/common/step.c src/common/io.c src/common/diag.c
 
 BUILD := build
 
-.PHONY: all serial mpi hybrid openacc bench check test clean
+.PHONY: all serial mpi hybrid openacc bench check test test-mpi clean
 
 all: serial
 
@@ -68,6 +68,13 @@ test: serial
 	./$(BUILD)/test_serial
 	@$(MAKE) -s bench BUILD=$(BUILD) >/dev/null
 	./$(BUILD)/bench_kernels --nx 61 --ny 37 --steps 300 --reps 1 --quiet
+
+# P1's halo-exchange tests for the MPI version (1, 2, 3, 5 ranks; one row per rank;
+# too many ranks). Cluster: MPIRUN="srun --mpi=pmix -n" make test-mpi
+test-mpi: serial mpi
+	@mkdir -p $(BUILD)
+	$(MPICC) $(CFLAGS) $(DEFS) -Isrc/mpi tests/test_halo.c src/mpi/halo.c $(COMMON) -o $(BUILD)/test_halo $(LDLIBS)
+	BUILD=$(BUILD) tests/run_halo_tests.sh
 
 # Compares every built version against the serial output (tools/compare.py).
 check: serial

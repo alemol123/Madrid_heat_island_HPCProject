@@ -41,7 +41,10 @@ enum { ROAD = 0, BUILDING = 1, GRASS = 2, TREE = 3, WATER = 4, GREEN_ROOF = 5 };
 /* Resulting peak excess absorb/cool (C above air):
  *   road 10.0, building 7.5, grass 1.3, tree 0.4, water 0.25, green roof 0.75 */
 
-/* Diagnostics threshold for "hot area" (P5's diagnostics, P2's scenarios). */
-#define T_HOT_THRESHOLD 30.0f
+/* Default threshold for "hot area" (--diag in every solver version, P2's scenario
+ * metrics). 29 C, not 30: with the frozen coefficients the field never exceeds
+ * 30 C, so a 30 C threshold always reports 0 hot cells. tools/scenario_metrics.py
+ * (Python, cannot include this file) uses the same value: keep them equal. */
+#define T_HOT_THRESHOLD 29.0f
 
 #endif
