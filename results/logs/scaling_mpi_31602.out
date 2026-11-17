@@ -1,0 +1,107 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+ 
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== job 31602 on fortran,haskell at 2026-11-17T12:30:42+01:00
+=== allocation: nodes=2 tasks=32
+=== git commit: adc54c8  (0 uncommitted files outside results/)
+=== nx=4096 ny=4096 steps=2000 city=synthetic seed=42 tag=mpi_strong_2node reps=3 ranks='1 2 4 8 16 32 64' csv=results/p3_runs.csv extra=
+CPU(s):                                  512
+Model name:                              AMD EPYC 9755 128-Core Processor
+CPU(s) scaling MHz:                      53%
+built build/31602/heat_mpi
+=== ranks=1  command: srun --mpi=pmix -n 1 --cpus-per-task=1 --cpu-bind=cores build/31602/heat_mpi --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/p3_runs.csv --tag mpi_strong_2node 
+=== ranks=1 repeat 1
+srun: warning: can't run 1 processes on 2 nodes, setting nnodes to 1
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=1 kernel=avx512-permute
+time_total=8.8167 s  time_compute=8.7361 s  time_comm=0.0007 s  time_io=0.0492 s  0.260 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=1 repeat 2
+srun: warning: can't run 1 processes on 2 nodes, setting nnodes to 1
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=1 kernel=avx512-permute
+time_total=11.1168 s  time_compute=11.0354 s  time_comm=0.0008 s  time_io=0.0507 s  0.329 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=1 repeat 3
+srun: warning: can't run 1 processes on 2 nodes, setting nnodes to 1
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=1 kernel=avx512-permute
+time_total=8.8218 s  time_compute=8.7402 s  time_comm=0.0007 s  time_io=0.0500 s  0.260 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=2  command: srun --mpi=pmix -n 2 --cpus-per-task=1 --cpu-bind=cores build/31602/heat_mpi --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/p3_runs.csv --tag mpi_strong_2node 
+=== ranks=2 repeat 1
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=2 kernel=avx512-permute
+time_total=5.1899 s  time_compute=4.8827 s  time_comm=0.7734 s  time_io=0.0251 s  0.146 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=2 repeat 2
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=2 kernel=avx512-permute
+time_total=5.2391 s  time_compute=4.9019 s  time_comm=0.8956 s  time_io=0.0250 s  0.146 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=2 repeat 3
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=2 kernel=avx512-permute
+time_total=5.2921 s  time_compute=5.1617 s  time_comm=0.3314 s  time_io=0.0247 s  0.154 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=4  command: srun --mpi=pmix -n 4 --cpus-per-task=1 --cpu-bind=cores build/31602/heat_mpi --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/p3_runs.csv --tag mpi_strong_2node 
+=== ranks=4 repeat 1
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=4 kernel=avx512-permute
+time_total=4.2102 s  time_compute=3.8478 s  time_comm=1.8433 s  time_io=0.0126 s  0.115 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=4 repeat 2
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=4 kernel=avx512-permute
+time_total=4.1717 s  time_compute=3.8614 s  time_comm=1.8043 s  time_io=0.0126 s  0.115 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=4 repeat 3
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=4 kernel=avx512-permute
+time_total=4.1654 s  time_compute=3.8796 s  time_comm=1.7920 s  time_io=0.0126 s  0.116 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=8  command: srun --mpi=pmix -n 8 --cpus-per-task=1 --cpu-bind=cores build/31602/heat_mpi --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/p3_runs.csv --tag mpi_strong_2node 
+=== ranks=8 repeat 1
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=8 kernel=avx512-permute
+time_total=3.9358 s  time_compute=3.7536 s  time_comm=2.7823 s  time_io=0.0063 s  0.112 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=8 repeat 2
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=8 kernel=avx512-permute
+time_total=3.9253 s  time_compute=3.8003 s  time_comm=2.7589 s  time_io=0.0062 s  0.113 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=8 repeat 3
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=8 kernel=avx512-permute
+time_total=3.8773 s  time_compute=3.7913 s  time_comm=2.7298 s  time_io=0.0063 s  0.113 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=16  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=cores build/31602/heat_mpi --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/p3_runs.csv --tag mpi_strong_2node 
+=== ranks=16 repeat 1
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=3.7720 s  time_compute=3.5420 s  time_comm=3.2292 s  time_io=0.0030 s  0.106 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=16 repeat 2
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=3.7757 s  time_compute=3.5153 s  time_comm=3.2084 s  time_io=0.0029 s  0.105 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=16 repeat 3
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=3.7750 s  time_compute=3.3490 s  time_comm=3.2153 s  time_io=0.0030 s  0.100 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=32  command: srun --mpi=pmix -n 32 --cpus-per-task=1 --cpu-bind=cores build/31602/heat_mpi --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/p3_runs.csv --tag mpi_strong_2node 
+=== ranks=32 repeat 1
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6197 s  time_compute=0.3571 s  time_comm=0.3860 s  time_io=0.0015 s  0.011 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=32 repeat 2
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6199 s  time_compute=0.3539 s  time_comm=0.3880 s  time_io=0.0015 s  0.011 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=32 repeat 3
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6293 s  time_compute=0.3765 s  time_comm=0.3985 s  time_io=0.0015 s  0.011 ns/cell-update
+checksum 4.3673626717e+08
+=== skip 64 ranks (allocation has only 32 tasks)
+=== done 2026-11-17T12:32:22+01:00

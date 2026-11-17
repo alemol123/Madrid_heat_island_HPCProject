@@ -1,0 +1,104 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+ 
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== job 31603 on haskell at 2026-11-17T12:32:43+01:00
+=== allocation: nodes=1 tasks=32
+=== git commit: adc54c8  (0 uncommitted files outside results/)
+=== nx=4096 ny=4096 steps=2000 city=synthetic seed=42 tag=mpi_overlap reps=3 ranks='1 2 4 8 16 32 64' csv=results/p3_runs.csv extra=--overlap
+CPU(s):                                  512
+Model name:                              AMD EPYC 9755 128-Core Processor
+CPU(s) scaling MHz:                      53%
+built build/31603/heat_mpi
+=== ranks=1  command: srun --mpi=pmix -n 1 --cpus-per-task=1 --cpu-bind=cores build/31603/heat_mpi --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/p3_runs.csv --tag mpi_overlap --overlap
+=== ranks=1 repeat 1
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=1 kernel=avx512-permute overlap=on
+time_total=11.1332 s  time_compute=11.0469 s  time_comm=0.0014 s  time_io=0.0506 s  0.329 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=1 repeat 2
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=1 kernel=avx512-permute overlap=on
+time_total=11.1255 s  time_compute=11.0396 s  time_comm=0.0014 s  time_io=0.0505 s  0.329 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=1 repeat 3
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=1 kernel=avx512-permute overlap=on
+time_total=11.0955 s  time_compute=11.0097 s  time_comm=0.0014 s  time_io=0.0504 s  0.328 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=2  command: srun --mpi=pmix -n 2 --cpus-per-task=1 --cpu-bind=cores build/31603/heat_mpi --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/p3_runs.csv --tag mpi_overlap --overlap
+=== ranks=2 repeat 1
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=2 kernel=avx512-permute overlap=on
+time_total=5.0388 s  time_compute=4.9496 s  time_comm=0.2328 s  time_io=0.0253 s  0.148 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=2 repeat 2
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=2 kernel=avx512-permute overlap=on
+time_total=5.0638 s  time_compute=4.9737 s  time_comm=0.2631 s  time_io=0.0254 s  0.148 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=2 repeat 3
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=2 kernel=avx512-permute overlap=on
+time_total=5.0690 s  time_compute=4.9803 s  time_comm=0.2719 s  time_io=0.0249 s  0.148 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=4  command: srun --mpi=pmix -n 4 --cpus-per-task=1 --cpu-bind=cores build/31603/heat_mpi --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/p3_runs.csv --tag mpi_overlap --overlap
+=== ranks=4 repeat 1
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=4 kernel=avx512-permute overlap=on
+time_total=4.1010 s  time_compute=4.0338 s  time_comm=0.3734 s  time_io=0.0127 s  0.120 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=4 repeat 2
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=4 kernel=avx512-permute overlap=on
+time_total=4.0586 s  time_compute=3.9571 s  time_comm=0.3424 s  time_io=0.0126 s  0.118 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=4 repeat 3
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=4 kernel=avx512-permute overlap=on
+time_total=4.0713 s  time_compute=3.9790 s  time_comm=0.3304 s  time_io=0.0128 s  0.119 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=8  command: srun --mpi=pmix -n 8 --cpus-per-task=1 --cpu-bind=cores build/31603/heat_mpi --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/p3_runs.csv --tag mpi_overlap --overlap
+=== ranks=8 repeat 1
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=8 kernel=avx512-permute overlap=on
+time_total=3.8492 s  time_compute=3.7435 s  time_comm=0.8460 s  time_io=0.0063 s  0.112 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=8 repeat 2
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=8 kernel=avx512-permute overlap=on
+time_total=3.8778 s  time_compute=3.7880 s  time_comm=0.9186 s  time_io=0.0064 s  0.113 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=8 repeat 3
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=8 kernel=avx512-permute overlap=on
+time_total=3.8587 s  time_compute=3.7751 s  time_comm=0.9795 s  time_io=0.0064 s  0.113 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=16  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=cores build/31603/heat_mpi --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/p3_runs.csv --tag mpi_overlap --overlap
+=== ranks=16 repeat 1
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=16 kernel=avx512-permute overlap=on
+time_total=3.7375 s  time_compute=3.5015 s  time_comm=1.3257 s  time_io=0.0030 s  0.104 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=16 repeat 2
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=16 kernel=avx512-permute overlap=on
+time_total=3.7454 s  time_compute=3.5294 s  time_comm=1.3616 s  time_io=0.0030 s  0.105 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=16 repeat 3
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=16 kernel=avx512-permute overlap=on
+time_total=3.7251 s  time_compute=3.4975 s  time_comm=1.4441 s  time_io=0.0030 s  0.104 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=32  command: srun --mpi=pmix -n 32 --cpus-per-task=1 --cpu-bind=cores build/31603/heat_mpi --nx 4096 --ny 4096 --steps 2000 --city synthetic --seed 42 --timing results/p3_runs.csv --tag mpi_overlap --overlap
+=== ranks=32 repeat 1
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=32 kernel=avx512-permute overlap=on
+time_total=0.6403 s  time_compute=0.5754 s  time_comm=0.3030 s  time_io=0.0015 s  0.017 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=32 repeat 2
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=32 kernel=avx512-permute overlap=on
+time_total=0.6616 s  time_compute=0.5976 s  time_comm=0.3358 s  time_io=0.0015 s  0.018 ns/cell-update
+checksum 4.3673626717e+08
+=== ranks=32 repeat 3
+heat mpi nx=4096 ny=4096 steps=2000 city=synthetic seed=42 ranks=32 kernel=avx512-permute overlap=on
+time_total=0.6410 s  time_compute=0.5774 s  time_comm=0.2817 s  time_io=0.0015 s  0.017 ns/cell-update
+checksum 4.3673626717e+08
+=== skip 64 ranks (allocation has only 32 tasks)
+=== done 2026-11-17T12:34:32+01:00
