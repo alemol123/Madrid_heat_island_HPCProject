@@ -29,7 +29,7 @@ import sys
 
 import numpy as np
 
-DEFAULT_THRESHOLD = 29.0       # deg C; 30 never triggers with the frozen coefficients
+DEFAULT_THRESHOLD = 29.0       # deg C; must equal T_HOT_THRESHOLD in src/params.h (30 never triggers)
 
 
 def read_field(path):

@@ -177,7 +177,7 @@ int main(int argc, char **argv)
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
     int nx = 256, ny = 256, steps = 1000, bc = BC_DIRICHLET, bad_args = 0, use_mpiio = 0;
-    float threshold = 29.0f;   /* same default as serial/OpenACC and tools/scenario_metrics.py */
+    float threshold = T_HOT_THRESHOLD;   /* src/params.h; same as tools/scenario_metrics.py */
     unsigned long long seed = 42;
     const char *city_arg = "synthetic", *out_path = NULL, *csv_path = NULL, *tag = "run";
     const char *diag_path = NULL;
