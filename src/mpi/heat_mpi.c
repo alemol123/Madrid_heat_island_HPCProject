@@ -9,6 +9,11 @@
  * shared file with MPI-IO. Both give byte-identical files. --diag FILE adds peak / mean /
  * fraction above --threshold (default 29 C), combined across ranks with MPI_Allreduce.
  *
+ * --overlap (P3) hides the halo exchange behind computation: each step posts the halo
+ * messages without waiting (MPI_Irecv/MPI_Isend), updates the rows that do not need the
+ * ghost rows (1 .. local_ny-2) while they travel, then waits and updates the first and last
+ * row. Same operations on every cell, so the output is still bitwise identical to serial.
+ *
  * Each rank owns a strip of whole rows. Its arrays hold only that strip, plus
  * the usual ghost cells, so step() runs on it exactly as it runs on the full
  * grid in the serial version.
@@ -38,7 +43,7 @@ static void usage(const char *prog)
     fprintf(stderr,
             "usage: %s [--nx N] [--ny N] [--steps N] [--city synthetic|FILE] [--seed S]\n"
             "          [--out FILE] [--timing CSV] [--tag TAG] [--bc dirichlet|neumann]\n"
-            "          [--io gather|mpiio] [--diag CSV] [--threshold C]\n", prog);
+            "          [--io gather|mpiio] [--diag CSV] [--threshold C] [--overlap]\n", prog);
 }
 
 /* Rows owned by a rank: the first ny % size ranks take one extra row, so strip
@@ -176,6 +181,7 @@ int main(int argc, char **argv)
     unsigned long long seed = 42;
     const char *city_arg = "synthetic", *out_path = NULL, *csv_path = NULL, *tag = "run";
     const char *diag_path = NULL;
+    int overlap = 0;
 
     static struct option opts[] = {
         { "nx", required_argument, 0, 'x' },     { "ny", required_argument, 0, 'y' },
@@ -184,7 +190,7 @@ int main(int argc, char **argv)
         { "timing", required_argument, 0, 't' }, { "tag", required_argument, 0, 'g' },
         { "bc", required_argument, 0, 'b' },     { "help", no_argument, 0, 'h' },
         { "io", required_argument, 0, 'i' },     { "diag", required_argument, 0, 'd' },
-        { "threshold", required_argument, 0, 'T' },
+        { "threshold", required_argument, 0, 'T' }, { "overlap", no_argument, 0, 'O' },
         { 0, 0, 0, 0 }
     };
     opterr = (rank == 0);          /* only rank 0 complains about unknown options */
@@ -211,6 +217,7 @@ int main(int argc, char **argv)
             break;
         case 'd': diag_path = optarg; break;
         case 'T': threshold = (float)atof(optarg); break;
+        case 'O': overlap = 1; break;
         default: bad_args = 1; break;
         }
     }
@@ -270,7 +277,33 @@ int main(int argc, char **argv)
     for (size_t k = 0; k < npad; k++) { a[k] = T_INIT; b[k] = T_INIT; }
 
     /* ---- time loop (ping-pong buffers) ---- */
-    for (int t = 0; t < steps; t++) {
+    if (overlap) {
+        /* Rows 1 .. local_ny-2 read only this rank's own rows and the left/right ghosts,
+         * so they are updated while the halo is in flight. Rows 0 and local_ny-1 read the
+         * top/bottom ghost rows and wait for it. Strips of 1 or 2 rows have no such
+         * inner rows: everything is done after the wait (row 0 once if local_ny == 1).
+         * apply_boundary() runs before the wait: it fills only real-edge ghosts, never
+         * the ghost rows being received, and only reads the rows being sent. */
+        const int last = local_ny - 1;
+        MPI_Request req[4];
+        for (int t = 0; t < steps; t++) {
+            const float solar = solar_at(t);
+            double t1 = wtime();
+            halo_begin(a, nx, local_ny, up, down, MPI_COMM_WORLD, req);
+            double t2 = wtime();
+            apply_boundary(a, nx, local_ny, bc, edge_sides, c.t_air);
+            if (local_ny > 2) step_rows(a, b, city, nx, local_ny, solar, &c, 1, last);
+            double t3 = wtime();
+            halo_end(req);
+            double t4 = wtime();
+            step_rows(a, b, city, nx, local_ny, solar, &c, 0, 1);
+            if (last > 0) step_rows(a, b, city, nx, local_ny, solar, &c, last, local_ny);
+            double t5 = wtime();
+            t_comm    += (t2 - t1) + (t4 - t3);  /* posting + waiting */
+            t_compute += (t3 - t2) + (t5 - t4);
+            float *tmp = a; a = b; b = tmp;
+        }
+    } else for (int t = 0; t < steps; t++) {
         double t1 = wtime();
         halo_exchange(a, nx, local_ny, up, down, MPI_COMM_WORLD);
         double t2 = wtime();
@@ -307,8 +340,8 @@ int main(int argc, char **argv)
 
     if (rank == 0) {
         double updates = (double)nx * (double)ny * (double)steps;
-        printf("heat mpi nx=%d ny=%d steps=%d city=%s seed=%llu ranks=%d kernel=%s\n",
-               nx, ny, steps, city_arg, seed, size, step_kernel_name());
+        printf("heat mpi nx=%d ny=%d steps=%d city=%s seed=%llu ranks=%d kernel=%s%s\n",
+               nx, ny, steps, city_arg, seed, size, step_kernel_name(), overlap ? " overlap=on" : "");
         printf("time_total=%.4f s  time_compute=%.4f s  time_comm=%.4f s  time_io=%.4f s  %.3f ns/cell-update\n",
                max_times[0], max_times[1], max_times[2], max_times[3],
                updates > 0 ? 1e9 * max_times[1] / updates : 0.0);
