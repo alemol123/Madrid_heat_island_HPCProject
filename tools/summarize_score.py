@@ -90,29 +90,78 @@ def figure(out, path):
     fig.tight_layout(); fig.savefig(path, dpi=160)
 
 
+def figure_compare(outs, labels, path):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    ref = next(o for o in outs[0] if o["schedule"] == "dynamic,4" and o["threads"] == 1)["t_total"]
+    colors = ["#e76f51", "#2a9d8f", "#6a8caf", "#9b8f3f"]
+    fig, ax = plt.subplots(1, 2, figsize=(10, 4.2))
+    th = None
+    for k, (lab, oo) in enumerate(zip(labels, outs)):
+        pts = [o for o in oo if o["schedule"] == "dynamic,4"]
+        th = [o["threads"] for o in pts]
+        ax[0].plot(th, [o["t_total"] for o in pts], "o-", color=colors[k % 4], label=lab)
+        ax[1].plot(th, [ref / o["t_total"] for o in pts], "o-", color=colors[k % 4], label=lab)
+    ax[1].plot(th, th, "--", color="#999", label="ideal")
+    for a_ in ax:
+        a_.set_xscale("log", base=2); a_.set_yscale("log", base=2); a_.grid(alpha=0.25)
+        a_.set_xlabel("threads"); a_.legend(frameon=False, fontsize=8)
+    ax[0].set_ylabel("whole program time (s)")
+    ax[1].set_ylabel(f"speed-up against {labels[0]}, 1 thread")
+    ax[0].set_title("Time: serial vs parallel selection", fontsize=10)
+    ax[1].set_title("Speed-up of the whole program", fontsize=10)
+    fig.tight_layout(); fig.savefig(path, dpi=160)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--csv", default="results/score_scaling.csv")
+    ap.add_argument("--csv", nargs="+", default=["results/score_scaling.csv"],
+                    help="one file, or several to compare versions, e.g. results/score_scaling.csv results/score_scaling_fast.csv "
+                         "(first = original sort of all candidates, second = parallel selection)")
+    ap.add_argument("--labels", nargs="+", help="names of the versions, same order as --csv")
     ap.add_argument("--outdir", default="results")
     ap.add_argument("--no-figure", action="store_true")
     a = ap.parse_args()
-    rows = parse(a.csv)
-    if not rows:
-        sys.exit(f"error: no rows in {a.csv}")
-    out = summarize(rows)
+    labels = a.labels or [("original" if k == 0 else "version %d" % (k + 1)) if len(a.csv) > 1 else "" for k in range(len(a.csv))]
+    if len(labels) != len(a.csv):
+        sys.exit("error: --labels needs one name per --csv file")
+    outs = []
+    for path in a.csv:
+        rows = parse(path)
+        if not rows:
+            sys.exit(f"error: no rows in {path}")
+        outs.append(summarize(rows))
+    out = outs[0]
     os.makedirs(a.outdir, exist_ok=True)
     with open(os.path.join(a.outdir, "score_scaling_summary.csv"), "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(out[0])); w.writeheader(); w.writerows(out)
-    print(f"{'schedule':11s} {'thr':>3s} {'reps':>4s} {'t_score':>8s} {'t_select':>8s} {'t_total':>8s} {'S_score':>8s} {'S_total':>8s} {'eff':>6s}")
-    for o in out:
-        print(f"{o['schedule']:11s} {o['threads']:3d} {o['reps']:4d} {o['t_score']:8.3f} {o['t_select']:8.3f} {o['t_total']:8.3f} "
-              f"{o['speedup_score']:8.2f} {o['speedup_total']:8.2f} {o['efficiency_score']:6.2f}")
-    am = amdahl(out)
-    if am:
-        print(f"serial part of the 1-thread run: {am['serial_s']:.2f} s = {100 * am['serial_fraction']:.1f}% "
-              f"(selection alone {100 * am['select_share']:.1f}%) -> Amdahl limit {am['max_speedup']:.1f}x")
+        allrows = [{"version": lab, **o} for lab, oo in zip(labels, outs) for o in oo]
+        w = csv.DictWriter(f, fieldnames=list(allrows[0])); w.writeheader(); w.writerows(allrows)
+    for lab, oo in zip(labels, outs):
+        if lab:
+            print(f"--- {lab}")
+        print(f"{'schedule':11s} {'thr':>3s} {'reps':>4s} {'t_score':>8s} {'t_select':>8s} {'t_total':>8s} {'S_score':>8s} {'S_total':>8s} {'eff':>6s}")
+        for o in oo:
+            print(f"{o['schedule']:11s} {o['threads']:3d} {o['reps']:4d} {o['t_score']:8.3f} {o['t_select']:8.3f} {o['t_total']:8.3f} "
+                  f"{o['speedup_score']:8.2f} {o['speedup_total']:8.2f} {o['efficiency_score']:6.2f}")
+        am = amdahl(oo)
+        if am:
+            print(f"serial part of the 1-thread run: {am['serial_s']:.2f} s = {100 * am['serial_fraction']:.1f}% "
+                  f"(selection alone {100 * am['select_share']:.1f}%) -> Amdahl limit {am['max_speedup']:.1f}x")
+    if len(outs) > 1:
+        ref = next(o for o in outs[0] if o["schedule"] == "dynamic,4" and o["threads"] == 1)["t_total"]
+        print(f"\nwhole program, dynamic,4, speed-up against the {labels[0]} 1-thread run ({ref:.2f} s):")
+        for lab, oo in zip(labels, outs):
+            pts = [(o["threads"], o["t_total"]) for o in oo if o["schedule"] == "dynamic,4"]
+            print(f"  {lab:10s} " + "  ".join(f"{t}t: {ref / tt:5.2f}x" for t, tt in pts))
     if not a.no_figure:
-        p = os.path.join(a.outdir, "score_scaling.png"); figure(out, p); print("figure", p)
+        p = os.path.join(a.outdir, "score_scaling.png")
+        figure(out, p)
+        print("figure", p)
+        if len(outs) > 1:
+            p2 = os.path.join(a.outdir, "score_scaling_compare.png")
+            figure_compare(outs, labels, p2)
+            print("figure", p2)
 
 
 if __name__ == "__main__":

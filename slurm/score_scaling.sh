@@ -7,7 +7,8 @@
 #   -> the field is build/<jobid>/field.bin
 # Then, from the repo root:
 #   sbatch --export=ALL,CITY=data/city_4096.city,FIELD=build/<jobid>/field.bin slurm/score_scaling.sh
-# Results are appended to results/score_scaling.csv
+# SELECT=full reproduces the first measurement (serial sort of all candidates); default SELECT=fast.
+# Results are appended to results/score_scaling_<SELECT>.csv  (the first run is results/score_scaling.csv = full)
 #SBATCH --job-name=score_scaling
 #SBATCH --partition=cpu
 #SBATCH --nodes=1
@@ -28,7 +29,8 @@ RADIUS=${RADIUS:-40}
 TOP=${TOP:-5000}
 REPS=${REPS:-3}
 THREADS=${THREADS:-"1 2 4 8 16 32"}
-CSV=${CSV:-results/score_scaling.csv}
+SELECT=${SELECT:-fast}              # fast = parallel selection (new), full = sort everything (the first version)
+CSV=${CSV:-results/score_scaling_$SELECT.csv}
 [ -e "$CITY" ] && [ -e "$FIELD" ] || { echo "missing $CITY or $FIELD"; exit 1; }
 
 BUILD=build/$SLURM_JOB_ID
@@ -37,12 +39,12 @@ gcc -O3 -march=native -fopenmp -std=c11 -Wall -Wextra -o "$BUILD/score_candidate
 
 echo "=== job $SLURM_JOB_ID on $(hostname) at $(date -Is)"
 echo "=== git commit: $(git rev-parse --short HEAD)"
-echo "=== city=$CITY field=$FIELD radius=$RADIUS top=$TOP reps=$REPS threads=$THREADS"
+echo "=== city=$CITY field=$FIELD radius=$RADIUS top=$TOP reps=$REPS threads=$THREADS select=$SELECT"
 export OMP_PLACES=cores OMP_PROC_BIND=close
 
 run() {  # run SCHEDULE THREADS REP
   OMP_NUM_THREADS=$2 "$BUILD/score_candidates" --city "$CITY" --field "$FIELD" --radius "$RADIUS" --top "$TOP" \
-      --threads "$2" --schedule "$1" --out "$BUILD/out.city" --timing-csv "$CSV" --tag "score_${1//,/-}_t$2_r$3"
+      --threads "$2" --schedule "$1" --select "$SELECT" --out "$BUILD/out.city" --timing-csv "$CSV" --tag "score_${SELECT}_${1//,/-}_t$2_r$3"
 }
 
 # A: scaling with the default schedule (dynamic, chunk 4)

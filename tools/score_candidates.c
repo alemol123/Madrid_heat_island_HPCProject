@@ -21,6 +21,8 @@
  *
  * Options: --city F --field F --out F [--radius R=15] [--top N=1000] [--spacing S=2] [--threshold T=29.0]
  *          [--threads K] [--schedule static|dynamic|guided[,chunk]]=dynamic,4 [--scores F] [--timing-csv F] [--tag S]
+ * --select fast (default) sorts only the candidates the greedy loop can reach, found with a parallel histogram;
+ *          full sorts every positive score (the original, slower method). Same result either way.
  * --scores writes the score of every cell as a field file (0 for non-candidates).
  * --timing-csv appends: tag,threads,schedule,nx,ny,candidates,radius,selected,t_read_s,t_score_s,t_select_s,t_write_s,t_total_s
  */
@@ -75,7 +77,7 @@ static void write_file(const char *path, const void *data, size_t elem, int32_t 
 
 int main(int argc, char **argv) {
     const char *city_path = NULL, *field_path = NULL, *out_path = NULL, *scores_path = NULL, *csv_path = NULL, *tag = "score";
-    const char *sched = "dynamic,4";
+    const char *sched = "dynamic,4", *selmode = "fast";
     int R = 15, top = 1000, spacing = 2, threads = 0;
     float thr = 29.0f;
     for (int i = 1; i < argc; i++) {
@@ -88,6 +90,7 @@ int main(int argc, char **argv) {
         else if (!strcmp(s, "--timing-csv") && has) csv_path = argv[++i];
         else if (!strcmp(s, "--tag") && has) tag = argv[++i];
         else if (!strcmp(s, "--schedule") && has) sched = argv[++i];
+        else if (!strcmp(s, "--select") && has) selmode = argv[++i];
         else if (!strcmp(s, "--radius") && has) R = atoi(argv[++i]);
         else if (!strcmp(s, "--top") && has) top = atoi(argv[++i]);
         else if (!strcmp(s, "--spacing") && has) spacing = atoi(argv[++i]);
@@ -95,13 +98,14 @@ int main(int argc, char **argv) {
         else if (!strcmp(s, "--threshold") && has) thr = (float)atof(argv[++i]);
         else {
             fprintf(stderr, "usage: %s --city F --field F --out F [--radius R] [--top N] [--spacing S] [--threshold T]\n"
-                            "          [--threads K] [--schedule static|dynamic|guided[,chunk]] [--scores F] [--timing-csv F] [--tag S]\n", argv[0]);
+                            "          [--threads K] [--schedule static|dynamic|guided[,chunk]] [--select fast|full] [--scores F] [--timing-csv F] [--tag S]\n", argv[0]);
             return 2;
         }
     }
     if (!city_path || !field_path || !out_path) die("--city, --field and --out are required");
     if (R < 1 || R > 200) die("--radius must be between 1 and 200");
     if (top < 0 || spacing < 0) die("--top and --spacing must be >= 0");
+    if (strcmp(selmode, "fast") && strcmp(selmode, "full")) die("--select must be fast or full");
 
     /* schedule for the parallel loop: "kind[,chunk]" */
     {
@@ -169,21 +173,90 @@ int main(int argc, char **argv) {
 
     /* greedy selection with spacing */
     double t2 = omp_get_wtime();
+    /* Which candidates can the greedy loop ever look at?  Every chosen cell blocks at most (2*spacing+1)^2 cells
+     * (itself included), so the loop meets at most top*(2*spacing+1)^2 candidates before it has `top` trees.
+     * "fast" therefore keeps only the best M = top*(2*spacing+1)^2 candidates (found with a parallel histogram) and
+     * sorts those; "full" sorts all positive scores (the original method, kept for comparison). Both give
+     * exactly the same trees: the kept set is always a prefix of the full sorted order. */
+    const long ncell = (long)nx * ny;
     size_t npos = 0;
-    for (long p = 0; p < (long)nx * ny; p++)
-        if (city[p] == ROAD && score[p] > 0.0f) npos++;
-    Cand *cand = malloc((npos ? npos : 1) * sizeof(Cand));
+    float maxs = 0.0f;
+#pragma omp parallel for reduction(+ : npos) reduction(max : maxs)
+    for (long p = 0; p < ncell; p++)
+        if (city[p] == ROAD && score[p] > 0.0f) {
+            npos++;
+            if (score[p] > maxs) maxs = score[p];
+        }
+    const size_t NB = 65536;
+    const double w = 2.0 * spacing + 1.0;
+    double want = (double)top * w * w;
+    int use_fast = !strcmp(selmode, "fast") && npos > 0 && (double)npos > want && maxs > 0.0f;
+    int binmin = 0;                                    /* keep candidates whose bin is >= binmin */
+    float binscale = maxs > 0.0f ? (float)(NB - 1) / maxs : 0.0f;
+    if (use_fast) {
+        size_t *hist = calloc(NB, sizeof(size_t));
+        if (!hist) die("out of memory");
+#pragma omp parallel
+        {
+            size_t *mine = calloc(NB, sizeof(size_t));
+            if (!mine) die("out of memory");
+#pragma omp for schedule(static)
+            for (long p = 0; p < ncell; p++)
+                if (city[p] == ROAD && score[p] > 0.0f) mine[(size_t)(score[p] * binscale)]++;
+#pragma omp critical
+            for (size_t b = 0; b < NB; b++) hist[b] += mine[b];
+            free(mine);
+        }
+        size_t acc = 0;
+        int b = (int)NB - 1;
+        for (; b > 0; b--) {                           /* from the hottest bin downwards until M are covered */
+            acc += hist[b];
+            if ((double)acc >= want) break;
+        }
+        binmin = b;
+        free(hist);
+    }
+    /* gather the kept candidates: each thread counts its own chunk, then fills its own slice */
+    int nt_max = omp_get_max_threads();
+    size_t *cnt = calloc((size_t)nt_max + 1, sizeof(size_t));
+    if (!cnt) die("out of memory");
+    size_t ncand_kept = 0;
+    Cand *cand = NULL;
+#pragma omp parallel num_threads(nt_max)
+    {
+        int tid = omp_get_thread_num(), nth = omp_get_num_threads();
+        long lo = ncell * tid / nth, hi = ncell * (tid + 1) / nth;
+        size_t n = 0;
+        for (long p = lo; p < hi; p++)
+            if (city[p] == ROAD && score[p] > 0.0f && (int)(score[p] * binscale) >= binmin) n++;
+        cnt[tid + 1] = n;
+#pragma omp barrier
+#pragma omp single
+        {
+            for (int t = 0; t < nth; t++) cnt[t + 1] += cnt[t];
+            ncand_kept = cnt[nth];
+            cand = malloc((ncand_kept ? ncand_kept : 1) * sizeof(Cand));
+        }
+        if (cand) {
+            size_t c = cnt[tid];
+            for (long p = lo; p < hi; p++)
+                if (city[p] == ROAD && score[p] > 0.0f && (int)(score[p] * binscale) >= binmin) {
+                    cand[c].score = score[p];
+                    cand[c].idx = (int)p;
+                    c++;
+                }
+        }
+    }
+    free(cnt);
     if (!cand) die("out of memory");
-    size_t c = 0;
-    for (long p = 0; p < (long)nx * ny; p++)
-        if (city[p] == ROAD && score[p] > 0.0f) { cand[c].score = score[p]; cand[c].idx = (int)p; c++; }
-    qsort(cand, npos, sizeof(Cand), cmp_cand);
+    qsort(cand, ncand_kept, sizeof(Cand), cmp_cand);
+    size_t nsorted = ncand_kept;
     uint8_t *blocked = calloc((size_t)nx * ny, 1);
     int8_t *out = malloc((size_t)nx * ny);
     if (!blocked || !out) die("out of memory");
     memcpy(out, city, (size_t)nx * ny);
     int selected = 0;
-    for (size_t q = 0; q < npos && selected < top; q++) {
+    for (size_t q = 0; q < nsorted && selected < top; q++) {
         int p = cand[q].idx;
         if (blocked[p]) continue;
         out[p] = TREE;
