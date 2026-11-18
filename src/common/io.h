@@ -14,6 +14,12 @@ int read_city_header(const char *path, int *nx, int *ny);
  * so each MPI rank can read just its own slice. Returns 0 on success. */
 int read_city_rows(const char *path, int nx, int j0, int nrows, int8_t *city);
 
+int read_city_block(const char *path, int nx,
+                    int i0, int j0,
+                    int local_nx, int local_ny,
+                    int8_t *city);
+
+
 /* Write a whole city. Returns 0 on success. */
 int write_city(const char *path, int nx, int ny, const int8_t *city);
 
@@ -24,6 +30,11 @@ int write_city(const char *path, int nx, int ny, const int8_t *city);
  * is identical on every machine and every decomposition. */
 int8_t synthetic_cell(int i, int j, uint64_t seed);
 void synthetic_city_rows(int nx, int j0, int nrows, uint64_t seed, int8_t *city);
+
+void synthetic_city_block(int nx,
+                          int i0, int j0,
+                          int local_nx, int local_ny,
+                          uint64_t seed, int8_t *city);
 
 /* ---- Output fields: int32 nx, int32 ny, then nx*ny float32, row-major ---- */
 
