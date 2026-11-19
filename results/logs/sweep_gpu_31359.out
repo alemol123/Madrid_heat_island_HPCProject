@@ -1,0 +1,171 @@
+
+Currently Loaded Modules:
+  1) nvhpc/25.7
+
+ 
+
+/usr/bin/gcc
+/usr/bin/mpicc
+/data/software/tools/nvhpc/Linux_x86_64/25.7/compilers/bin/nvc
+=== job 31359 on haskell at 2026-11-17T04:35:23+01:00
+=== git commit: 2f80bcf  (0 uncommitted files outside results/)
+=== sizes="256:61035 512:15258 1024:3814 2048:953 2896:476 4096:238 5792:119 8192:59" city=synthetic seed=42 tag=gpu_sizes_r2 reps=3 csv=results/runs.csv write=0 extra=
+name, memory.total [MiB], driver_version
+NVIDIA RTX 6000 Ada Generation, 49140 MiB, 580.126.09
+
+nvc 25.7-0 64-bit target on x86-64 Linux -tp znver5 
+src/openacc/heat_openacc.c:
+main:
+    153, Generating enter data create(scratch[:nscratch])
+    161, Generating enter data copyin(b[:npad],a[:npad],city[:ncell],c)
+    178, Generating update self(a[:npad])
+         Generating exit data delete(b[:npad],a[:npad],city[:ncell],c)
+    184, Generating enter data copyin(a[:npad])
+         Generating enter data create(b[:npad])
+         Generating enter data copyin(c,city[:ncell])
+    192, Generating exit data copyout(b[:npad])
+         Generating exit data delete(c,a[:npad],city[:ncell])
+    200, Generating exit data delete(scratch[:nscratch])
+flush_l2:
+     47, Generating present(s[:n])
+         Generating implicit firstprivate(k,n)
+         Generating NVIDIA GPU code
+         49, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     49, Generating implicit firstprivate(t)
+src/common/step.c:
+apply_boundary:
+     46, Generating present(T[:npad])
+         Generating implicit firstprivate(i,nx)
+         Generating NVIDIA GPU code
+         48, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     48, Generating implicit firstprivate(t_air,neumann)
+     51, Generating present(T[:npad])
+         Generating implicit firstprivate(i,nx)
+         Generating NVIDIA GPU code
+         53, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     53, Generating implicit firstprivate(neumann,t_air,ny)
+     56, Generating present(T[:npad])
+         Generating implicit firstprivate(j,ny)
+         Generating NVIDIA GPU code
+         58, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     58, Generating implicit firstprivate(neumann,nx,w,t_air)
+     61, Generating present(T[:npad])
+         Generating implicit firstprivate(j,ny)
+         Generating NVIDIA GPU code
+         63, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     63, Generating implicit firstprivate(neumann,nx,w,t_air)
+step_rows:
+    122, Generating present(city[:ncity],in[:npad],out[:npad],c[:1])
+         Generating implicit firstprivate(nx,j1,j0,j)
+         Generating NVIDIA GPU code
+        124, #pragma acc loop gang, vector(128) collapse(2) /* blockIdx.x threadIdx.x */
+        125,   /* blockIdx.x threadIdx.x collapsed */
+    125, Generating implicit firstprivate(w,t_air,solar)
+src/common/io.c:
+src/common/diag.c:
+built build/31359/heat_openacc with: nvc -O3 -acc -gpu=ccnative -Minfo=accel
+=== nx=256 steps=61035  command: build/31359/heat_openacc --nx 256 --ny 256 --steps 61035 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes_r2 
+=== repeat 1
+heat openacc nx=256 ny=256 steps=61035 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=1.9420 s  time_compute=1.7765 s  time_transfer=0.0003 s  time_io=0.0002 s  0.444 ns/cell-update
+checksum 1.7003506060e+06
+=== repeat 2
+heat openacc nx=256 ny=256 steps=61035 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=1.8535 s  time_compute=1.7256 s  time_transfer=0.0002 s  time_io=0.0002 s  0.431 ns/cell-update
+checksum 1.7003506060e+06
+=== repeat 3
+heat openacc nx=256 ny=256 steps=61035 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=1.8672 s  time_compute=1.7280 s  time_transfer=0.0003 s  time_io=0.0002 s  0.432 ns/cell-update
+checksum 1.7003506060e+06
+=== nx=512 steps=15258  command: build/31359/heat_openacc --nx 512 --ny 512 --steps 15258 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes_r2 
+=== repeat 1
+heat openacc nx=512 ny=512 steps=15258 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.5657 s  time_compute=0.4341 s  time_transfer=0.0005 s  time_io=0.0008 s  0.109 ns/cell-update
+checksum 7.2440853707e+06
+=== repeat 2
+heat openacc nx=512 ny=512 steps=15258 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.5573 s  time_compute=0.4323 s  time_transfer=0.0006 s  time_io=0.0009 s  0.108 ns/cell-update
+checksum 7.2440853707e+06
+=== repeat 3
+heat openacc nx=512 ny=512 steps=15258 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.5559 s  time_compute=0.4317 s  time_transfer=0.0005 s  time_io=0.0009 s  0.108 ns/cell-update
+checksum 7.2440853707e+06
+=== nx=1024 steps=3814  command: build/31359/heat_openacc --nx 1024 --ny 1024 --steps 3814 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes_r2 
+=== repeat 1
+heat openacc nx=1024 ny=1024 steps=3814 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.2537 s  time_compute=0.1255 s  time_transfer=0.0011 s  time_io=0.0034 s  0.031 ns/cell-update
+checksum 2.7889814450e+07
+=== repeat 2
+heat openacc nx=1024 ny=1024 steps=3814 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.2586 s  time_compute=0.1210 s  time_transfer=0.0011 s  time_io=0.0034 s  0.030 ns/cell-update
+checksum 2.7889814450e+07
+=== repeat 3
+heat openacc nx=1024 ny=1024 steps=3814 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.2490 s  time_compute=0.1204 s  time_transfer=0.0011 s  time_io=0.0033 s  0.030 ns/cell-update
+checksum 2.7889814450e+07
+=== nx=2048 steps=953  command: build/31359/heat_openacc --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes_r2 
+=== repeat 1
+heat openacc nx=2048 ny=2048 steps=953 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.1846 s  time_compute=0.0423 s  time_transfer=0.0033 s  time_io=0.0136 s  0.011 ns/cell-update
+checksum 1.0915357941e+08
+=== repeat 2
+heat openacc nx=2048 ny=2048 steps=953 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.1902 s  time_compute=0.0420 s  time_transfer=0.0033 s  time_io=0.0136 s  0.010 ns/cell-update
+checksum 1.0915357941e+08
+=== repeat 3
+heat openacc nx=2048 ny=2048 steps=953 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.1847 s  time_compute=0.0422 s  time_transfer=0.0033 s  time_io=0.0136 s  0.011 ns/cell-update
+checksum 1.0915357941e+08
+=== nx=2896 steps=476  command: build/31359/heat_openacc --nx 2896 --ny 2896 --steps 476 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes_r2 
+=== repeat 1
+heat openacc nx=2896 ny=2896 steps=476 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.2011 s  time_compute=0.0303 s  time_transfer=0.0060 s  time_io=0.0272 s  0.008 ns/cell-update
+checksum 2.3416057682e+08
+=== repeat 2
+heat openacc nx=2896 ny=2896 steps=476 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.1991 s  time_compute=0.0304 s  time_transfer=0.0059 s  time_io=0.0273 s  0.008 ns/cell-update
+checksum 2.3416057682e+08
+=== repeat 3
+heat openacc nx=2896 ny=2896 steps=476 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.2030 s  time_compute=0.0305 s  time_transfer=0.0059 s  time_io=0.0271 s  0.008 ns/cell-update
+checksum 2.3416057682e+08
+=== nx=4096 steps=238  command: build/31359/heat_openacc --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes_r2 
+=== repeat 1
+heat openacc nx=4096 ny=4096 steps=238 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.2701 s  time_compute=0.0505 s  time_transfer=0.0111 s  time_io=0.0542 s  0.013 ns/cell-update
+checksum 4.5038249853e+08
+=== repeat 2
+heat openacc nx=4096 ny=4096 steps=238 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.2693 s  time_compute=0.0505 s  time_transfer=0.0114 s  time_io=0.0545 s  0.013 ns/cell-update
+checksum 4.5038249853e+08
+=== repeat 3
+heat openacc nx=4096 ny=4096 steps=238 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.2707 s  time_compute=0.0505 s  time_transfer=0.0112 s  time_io=0.0548 s  0.013 ns/cell-update
+checksum 4.5038249853e+08
+=== nx=5792 steps=119  command: build/31359/heat_openacc --nx 5792 --ny 5792 --steps 119 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes_r2 
+=== repeat 1
+heat openacc nx=5792 ny=5792 steps=119 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.3609 s  time_compute=0.0477 s  time_transfer=0.0222 s  time_io=0.1087 s  0.012 ns/cell-update
+checksum 8.5838247429e+08
+=== repeat 2
+heat openacc nx=5792 ny=5792 steps=119 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.3574 s  time_compute=0.0477 s  time_transfer=0.0218 s  time_io=0.1088 s  0.012 ns/cell-update
+checksum 8.5838247429e+08
+=== repeat 3
+heat openacc nx=5792 ny=5792 steps=119 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.3581 s  time_compute=0.0477 s  time_transfer=0.0219 s  time_io=0.1091 s  0.012 ns/cell-update
+checksum 8.5838247429e+08
+=== nx=8192 steps=59  command: build/31359/heat_openacc --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes_r2 
+=== repeat 1
+heat openacc nx=8192 ny=8192 steps=59 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.5327 s  time_compute=0.0459 s  time_transfer=0.0419 s  time_io=0.2175 s  0.012 ns/cell-update
+checksum 1.6881706282e+09
+=== repeat 2
+heat openacc nx=8192 ny=8192 steps=59 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.5329 s  time_compute=0.0459 s  time_transfer=0.0417 s  time_io=0.2191 s  0.012 ns/cell-update
+checksum 1.6881706282e+09
+=== repeat 3
+heat openacc nx=8192 ny=8192 steps=59 city=synthetic seed=42 kernel=openacc-gpu mode=resident
+time_total=0.5333 s  time_compute=0.0458 s  time_transfer=0.0418 s  time_io=0.2193 s  0.012 ns/cell-update
+checksum 1.6881706282e+09
+=== done 2026-11-17T04:35:39+01:00
