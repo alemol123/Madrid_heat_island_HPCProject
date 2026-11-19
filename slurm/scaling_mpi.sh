@@ -51,7 +51,7 @@ for r in $RANKS; do
     echo "=== skip $r ranks (allocation has only $SLURM_NTASKS tasks)"
     continue
   fi
-  CMD="srun --mpi=pmix -n $r --cpus-per-task=1 --cpu-bind=cores $BUILD/heat_mpi --nx $NX --ny $NY --steps $STEPS --city $CITY --seed $SEED --timing $CSV --tag $TAG $EXTRA"
+  CMD="srun --mpi=pmix -n $r --cpus-per-task=1 --cpu-bind=verbose,cores $BUILD/heat_mpi --nx $NX --ny $NY --steps $STEPS --city $CITY --seed $SEED --timing $CSV --tag $TAG $EXTRA"
   echo "=== ranks=$r  command: $CMD"
   for rep in $(seq 1 "$REPS"); do
     echo "=== ranks=$r repeat $rep"

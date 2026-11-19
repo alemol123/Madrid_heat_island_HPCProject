@@ -224,6 +224,8 @@ def cmd_sensitivity(a):
         for r in g.itertuples():
             table.append(f"| {name_of(tag, a)} | {getattr(r, a.x)} | "
                          f"{fmt(getattr(r, a.metric), getattr(r, a.metric + '_std'))} |")
+    if a.logy:
+        ax.set_yscale("log")
     if a.logx:
         xs = sorted(s[a.x].unique())
         ax.set_xscale("log", base=2)
@@ -255,6 +257,7 @@ def main():
     se.add_argument("--x", default="nx")
     se.add_argument("--metric", default="ns", choices=TIMES + ["ns"])
     se.add_argument("--logx", action="store_true")
+    se.add_argument("--logy", action="store_true", help="log-scale y axis (values spanning >10x)")
     a = p.parse_args()
     if a.out is None:
         a.out = Path("results/plots") / f"{a.cmd}.png"
