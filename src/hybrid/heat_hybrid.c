@@ -368,10 +368,22 @@ int main(int argc, char **argv)
         apply_boundary(a, local_nx, local_ny, bc, edge_sides, c.t_air);
         float solar = solar_at(t);
 
+#ifdef STEP_TILED_2D
+        step_rows_tiled_2d(a, b, city, local_nx, local_ny,
+                           solar, &c, 0, local_ny, 256, 32);
+#elif defined(STEP_TILED)
         #pragma omp parallel for schedule(static)
         for (int j = 0; j < local_ny; j++) {
-            step_rows(a, b, city, local_nx, local_ny, solar, &c, j, j + 1);
+            step_rows_tiled(a, b, city, local_nx, local_ny,
+                            solar, &c, j, j + 1, 256);
         }
+#else
+        #pragma omp parallel for schedule(static)
+        for (int j = 0; j < local_ny; j++) {
+            step_rows(a, b, city, local_nx, local_ny,
+                      solar, &c, j, j + 1);
+        }
+#endif
         double t3 = wtime();
         t_comm    += t2 - t1;
         t_compute += t3 - t2;

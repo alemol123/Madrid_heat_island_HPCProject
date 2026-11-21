@@ -56,6 +56,16 @@ void apply_boundary(float *T, int nx, int ny, int bc, int sides, float t_air);
 void step_rows(const float *restrict in, float *restrict out,
                const int8_t *restrict city, int nx, int ny,
                float solar, const Coeffs *restrict c, int j0, int j1);
+/* Experimental spatially tiled CPU kernel. */
+void step_rows_tiled(const float *restrict in, float *restrict out,
+                     const int8_t *restrict city, int nx, int ny,
+                     float solar, const Coeffs *restrict c,
+                     int j0, int j1, int tile_x);
+/* Experimental 2D spatially tiled CPU kernel. */
+void step_rows_tiled_2d(const float *restrict in, float *restrict out,
+                        const int8_t *restrict city, int nx, int ny,
+                        float solar, const Coeffs *restrict c,
+                        int j0, int j1, int tile_x, int tile_y);
 
 /* One explicit step for the whole interior: step_rows(..., 0, ny). */
 void step(const float *restrict in, float *restrict out,

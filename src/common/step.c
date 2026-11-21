@@ -101,6 +101,14 @@ const char *step_kernel_name(void)
 {
 #if defined(_OPENACC)
     return "openacc-gpu";
+#elif defined(STEP_TILED_2D) && defined(STEP_AVX512)
+    return "avx512-tiled-2d";
+#elif defined(STEP_TILED_2D)
+    return "scalar-tiled-2d";
+#elif defined(STEP_TILED) && defined(STEP_AVX512)
+    return "avx512-tiled";
+#elif defined(STEP_TILED)
+    return "scalar-tiled";
 #elif defined(STEP_AVX512)
     return "avx512-permute";
 #else
@@ -191,6 +199,171 @@ void step_rows(const float *restrict in, float *restrict out,
         row_scalar(row, up, dn, o, ct, i, nx, solar, c);
     }
 }
+/* Experimental CPU kernel: process each row in horizontal tiles.
+ * The caller distributes blocks of rows across OpenMP threads.
+ */
+void step_rows_tiled(const float *restrict in, float *restrict out,
+                     const int8_t *restrict city, int nx, int ny,
+                     float solar, const Coeffs *restrict c,
+                     int j0, int j1, int tile_x)
+{
+    (void)ny;
+
+    if (tile_x <= 0)
+        tile_x = nx;
+
+    const size_t w = (size_t)nx + 2;
+
+#ifdef STEP_AVX512
+    float ta[16] = { 0 }, tb[16] = { 0 }, tk[16] = { 0 };
+    for (int k = 0; k < NTYPES; k++) {
+        ta[k] = c->alpha[k];
+        tb[k] = c->absorb[k];
+        tk[k] = c->cool[k];
+    }
+
+    const __m512 A = _mm512_loadu_ps(ta);
+    const __m512 B = _mm512_loadu_ps(tb);
+    const __m512 K = _mm512_loadu_ps(tk);
+    const __m512 Q = _mm512_set1_ps(0.25f);
+    const __m512 S = _mm512_set1_ps(solar);
+    const __m512 TA = _mm512_set1_ps(c->t_air);
+#endif
+
+    for (int j = j0; j < j1; j++) {
+        const float *restrict row = in + (size_t)(j + 1) * w + 1;
+        const float *restrict up  = row - w;
+        const float *restrict dn  = row + w;
+        float *restrict o         = out + (size_t)(j + 1) * w + 1;
+        const int8_t *restrict ct = city + (size_t)j * (size_t)nx;
+
+        for (int ib = 0; ib < nx; ib += tile_x) {
+            int ie = ib + tile_x;
+            if (ie > nx)
+                ie = nx;
+
+            int i = ib;
+
+#ifdef STEP_AVX512
+            for (; i + 16 <= ie; i += 16) {
+                const __m512i idx =
+                    _mm512_cvtepi8_epi32(
+                        _mm_loadu_si128((const __m128i *)(ct + i)));
+
+                const __m512 a = _mm512_permutexvar_ps(idx, A);
+                const __m512 b = _mm512_permutexvar_ps(idx, B);
+                const __m512 k = _mm512_permutexvar_ps(idx, K);
+
+                const __m512 t = _mm512_loadu_ps(row + i);
+                const __m512 ud =
+                    _mm512_add_ps(_mm512_loadu_ps(up + i),
+                                  _mm512_loadu_ps(dn + i));
+                const __m512 lr =
+                    _mm512_add_ps(_mm512_loadu_ps(row + i - 1),
+                                  _mm512_loadu_ps(row + i + 1));
+
+                const __m512 avg =
+                    _mm512_mul_ps(Q, _mm512_add_ps(ud, lr));
+
+                __m512 r =
+                    _mm512_add_ps(t, _mm512_mul_ps(a, _mm512_sub_ps(avg, t)));
+                r = _mm512_add_ps(r, _mm512_mul_ps(S, b));
+                r = _mm512_sub_ps(r, _mm512_mul_ps(k, _mm512_sub_ps(t, TA)));
+
+                _mm512_storeu_ps(o + i, r);
+            }
+#endif
+
+            row_scalar(row, up, dn, o, ct, i, ie, solar, c);
+        }
+    }
+}
+
+void step_rows_tiled_2d(const float *restrict in, float *restrict out,
+                        const int8_t *restrict city, int nx, int ny,
+                        float solar, const Coeffs *restrict c,
+                        int j0, int j1, int tile_x, int tile_y)
+{
+    if (tile_x <= 0) tile_x = nx;
+    if (tile_y <= 0) tile_y = j1 - j0;
+
+    if (j1 > ny) j1 = ny;
+
+    const size_t w = (size_t)nx + 2;
+
+#ifdef STEP_AVX512
+    float ta[16] = {0}, tb[16] = {0}, tk[16] = {0};
+    for (int k = 0; k < NTYPES; k++) {
+        ta[k] = c->alpha[k];
+        tb[k] = c->absorb[k];
+        tk[k] = c->cool[k];
+    }
+
+    const __m512 A = _mm512_loadu_ps(ta);
+    const __m512 B = _mm512_loadu_ps(tb);
+    const __m512 K = _mm512_loadu_ps(tk);
+    const __m512 Q = _mm512_set1_ps(0.25f);
+    const __m512 S = _mm512_set1_ps(solar);
+    const __m512 TA = _mm512_set1_ps(c->t_air);
+#endif
+
+    const int n_tile_rows = (j1 - j0 + tile_y - 1) / tile_y;
+
+    #pragma omp parallel for schedule(static)
+    for (int tj = 0; tj < n_tile_rows; tj++) {
+        const int jb = j0 + tj * tile_y;
+        int je = jb + tile_y;
+        if (je > j1) je = j1;
+
+        for (int ib = 0; ib < nx; ib += tile_x) {
+            int ie = ib + tile_x;
+            if (ie > nx) ie = nx;
+
+            for (int j = jb; j < je; j++) {
+                const float *restrict row =
+                    in + (size_t)(j + 1) * w + 1;
+                const float *restrict up = row - w;
+                const float *restrict dn = row + w;
+                float *restrict o = out + (size_t)(j + 1) * w + 1;
+                const int8_t *restrict ct =
+                    city + (size_t)j * (size_t)nx;
+
+                int i = ib;
+
+#ifdef STEP_AVX512
+                for (; i + 16 <= ie; i += 16) {
+                    const __m512i idx =
+                        _mm512_cvtepi8_epi32(
+                            _mm_loadu_si128((const __m128i *)(ct + i)));
+
+                    const __m512 a = _mm512_permutexvar_ps(idx, A);
+                    const __m512 b = _mm512_permutexvar_ps(idx, B);
+                    const __m512 k = _mm512_permutexvar_ps(idx, K);
+
+                    const __m512 t = _mm512_loadu_ps(row + i);
+                    const __m512 ud =
+                        _mm512_add_ps(_mm512_loadu_ps(up + i),
+                                      _mm512_loadu_ps(dn + i));
+                    const __m512 lr =
+                        _mm512_add_ps(_mm512_loadu_ps(row + i - 1),
+                                      _mm512_loadu_ps(row + i + 1));
+                    const __m512 avg =
+                        _mm512_mul_ps(Q, _mm512_add_ps(ud, lr));
+
+                    __m512 r =
+                        _mm512_add_ps(t, _mm512_mul_ps(a, _mm512_sub_ps(avg, t)));
+                    r = _mm512_add_ps(r, _mm512_mul_ps(S, b));
+                    r = _mm512_sub_ps(r, _mm512_mul_ps(k, _mm512_sub_ps(t, TA)));
+
+                    _mm512_storeu_ps(o + i, r);
+                }
+#endif
+                row_scalar(row, up, dn, o, ct, i, ie, solar, c);
+            }
+        }
+    }
+}
+
 #endif /* _OPENACC */
 
 void step(const float *restrict in, float *restrict out,
