@@ -10,7 +10,7 @@ Currently Loaded Modules:
   8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
   9) UCX/1.15.0-GCCcore-13.2.0
 
- 
+
 
 /cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
 /cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
@@ -22,7 +22,7 @@ CPU(s):                                  512
 Model name:                              AMD EPYC 9755 128-Core Processor
 CPU(s) scaling MHz:                      52%
 built build/31420/heat_mpi
-=== ranks=16  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=cores build/31420/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_sizes 
+=== ranks=16  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=cores build/31420/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_sizes
 === ranks=16 repeat 1
 heat mpi nx=2048 ny=2048 steps=953 city=synthetic seed=42 ranks=16 kernel=avx512-permute
 time_total=0.0613 s  time_compute=0.0442 s  time_comm=0.0237 s  time_io=0.0007 s  0.011 ns/cell-update
@@ -43,7 +43,7 @@ checksum 1.0915363110e+08
 heat mpi nx=2048 ny=2048 steps=953 city=synthetic seed=42 ranks=16 kernel=avx512-permute
 time_total=0.0612 s  time_compute=0.0441 s  time_comm=0.0214 s  time_io=0.0007 s  0.011 ns/cell-update
 checksum 1.0915363110e+08
-=== ranks=32  command: srun --mpi=pmix -n 32 --cpus-per-task=1 --cpu-bind=cores build/31420/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_sizes 
+=== ranks=32  command: srun --mpi=pmix -n 32 --cpus-per-task=1 --cpu-bind=cores build/31420/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_sizes
 === ranks=32 repeat 1
 heat mpi nx=2048 ny=2048 steps=953 city=synthetic seed=42 ranks=32 kernel=avx512-permute
 time_total=0.0448 s  time_compute=0.0266 s  time_comm=0.0222 s  time_io=0.0004 s  0.007 ns/cell-update

@@ -1,0 +1,33 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+ 
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== variant=baseline job=34000 node=haskell
+=== nx=4096 ny=4096 steps=1000 threads=4
+=== compiler flags: -O3 -march=native -std=c11 -Wall -Wextra
+built build/p4-tile-baseline-34000/heat_hybrid
+=== repeat 1
+heat hybrid nx=4096 ny=4096 steps=1000 city=synthetic seed=42 ranks=1 threads=4 kernel=avx512-permute
+time_total=5.3709 s  time_compute=4.9385 s  time_comm=0.0020 s  time_io=0.4130 s  0.294 ns/cell-update
+checksum 4.3493427204e+08
+=== repeat 2
+heat hybrid nx=4096 ny=4096 steps=1000 city=synthetic seed=42 ranks=1 threads=4 kernel=avx512-permute
+time_total=5.2074 s  time_compute=4.8983 s  time_comm=0.0024 s  time_io=0.2897 s  0.292 ns/cell-update
+checksum 4.3493427204e+08
+=== repeat 3
+heat hybrid nx=4096 ny=4096 steps=1000 city=synthetic seed=42 ranks=1 threads=4 kernel=avx512-permute
+time_total=5.2526 s  time_compute=4.9226 s  time_comm=0.0024 s  time_io=0.3096 s  0.293 ns/cell-update
+checksum 4.3493427204e+08
+=== completed variant=baseline

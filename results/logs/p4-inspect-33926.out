@@ -1,0 +1,15 @@
+=== COMPUTE NODE ===
+julia
+=== CPU INFORMATION ===
+CPU(s):                                  512
+On-line CPU(s) list:                     0-511
+Model name:                              AMD EPYC 9745 128-Core Processor
+Thread(s) per core:                      2
+Core(s) per socket:                      128
+Socket(s):                               2
+CPU(s) scaling MHz:                      60%
+NUMA node0 CPU(s):                       0-127,256-383
+NUMA node1 CPU(s):                       128-255,384-511
+=== SLURM ALLOCATION ===
+CPUs: 8
+Node: julia

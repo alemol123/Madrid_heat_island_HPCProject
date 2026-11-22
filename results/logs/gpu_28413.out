@@ -2,7 +2,7 @@
 Currently Loaded Modules:
   1) nvhpc/25.7
 
- 
+
 
 /usr/bin/gcc
 /usr/bin/mpicc
@@ -13,7 +13,7 @@ Currently Loaded Modules:
 name, memory.total [MiB], driver_version
 NVIDIA RTX 6000 Ada Generation, 49140 MiB, 580.126.09
 
-nvc 25.7-0 64-bit target on x86-64 Linux -tp znver5 
+nvc 25.7-0 64-bit target on x86-64 Linux -tp znver5
 src/openacc/heat_openacc.c:
 main:
     125, Generating enter data copyin(b[:npad],a[:npad],city[:ncell],c)

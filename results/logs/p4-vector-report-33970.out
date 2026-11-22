@@ -1,0 +1,254 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+ 
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen4/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen4/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== P4 GCC VECTORIZATION REPORT ===
+Node: julia
+Compiler: gcc (GCC) 13.2.0
+built build/p4_vector_report/heat_hybrid
+=== VECTOR REPORT GENERATED ===
+Location: build/p4_vector_report/vectorization.txt
+=== STEP.C VECTOR REPORT ===
+src/common/step.c:11:12: note: ***** Analysis succeeded with vector mode V16SF
+src/common/step.c:11:12: note: SLPing BB part
+src/common/step.c:11:12: note: Costing subgraph: 
+src/common/step.c:11:12: note: node 0x3812dbd8 (max_nunits=16, refcnt=1) vector(16) float
+src/common/step.c:11:12: note: op template: <retval>.alpha[0] = 2.0000000298023223876953125e-1;
+src/common/step.c:11:12: note: 	stmt 0 <retval>.alpha[0] = 2.0000000298023223876953125e-1;
+src/common/step.c:11:12: note: 	stmt 1 <retval>.alpha[1] = 1.00000001490116119384765625e-1;
+src/common/step.c:11:12: note: 	stmt 2 <retval>.alpha[2] = 2.0000000298023223876953125e-1;
+src/common/step.c:11:12: note: 	stmt 3 <retval>.alpha[3] = 2.0000000298023223876953125e-1;
+src/common/step.c:11:12: note: 	stmt 4 <retval>.alpha[4] = 2.5e-1;
+src/common/step.c:11:12: note: 	stmt 5 <retval>.alpha[5] = 1.500000059604644775390625e-1;
+src/common/step.c:11:12: note: 	stmt 6 <retval>.absorb[0] = 1.99999995529651641845703125e-2;
+src/common/step.c:11:12: note: 	stmt 7 <retval>.absorb[1] = 1.4999999664723873138427734375e-2;
+src/common/step.c:11:12: note: 	stmt 8 <retval>.absorb[2] = 8.000000379979610443115234375e-3;
+src/common/step.c:11:12: note: 	stmt 9 <retval>.absorb[3] = 4.0000001899898052215576171875e-3;
+src/common/step.c:11:12: note: 	stmt 10 <retval>.absorb[4] = 3.0000000260770320892333984375e-3;
+src/common/step.c:11:12: note: 	stmt 11 <retval>.absorb[5] = 6.000000052154064178466796875e-3;
+src/common/step.c:11:12: note: 	stmt 12 <retval>.cool[0] = 2.00000009499490261077880859375e-3;
+src/common/step.c:11:12: note: 	stmt 13 <retval>.cool[1] = 2.00000009499490261077880859375e-3;
+src/common/step.c:11:12: note: 	stmt 14 <retval>.cool[2] = 6.000000052154064178466796875e-3;
+src/common/step.c:11:12: note: 	stmt 15 <retval>.cool[3] = 9.99999977648258209228515625e-3;
+src/common/step.c:11:12: note: 	children 0x3812dc58
+src/common/step.c:11:12: note: node (constant) 0x3812dc58 (max_nunits=1, refcnt=1) vector(16) float
+src/common/step.c:11:12: note: 	{ 2.0000000298023223876953125e-1, 1.00000001490116119384765625e-1, 2.0000000298023223876953125e-1, 2.0000000298023223876953125e-1, 2.5e-1, 1.500000059604644775390625e-1, 1.99999995529651641845703125e-2, 1.4999999664723873138427734375e-2, 8.000000379979610443115234375e-3, 4.0000001899898052215576171875e-3, 3.0000000260770320892333984375e-3, 6.000000052154064178466796875e-3, 2.00000009499490261077880859375e-3, 2.00000009499490261077880859375e-3, 6.000000052154064178466796875e-3, 9.99999977648258209228515625e-3 }
+src/common/step.c:11:12: note: Cost model analysis: 
+src/common/step.c:11:12: note: Cost model analysis for part in loop 0:
+src/common/step.c:11:12: note: Costing subgraph: 
+src/common/step.c:11:12: note: node 0x3812dd58 (max_nunits=2, refcnt=1) vector(2) float
+src/common/step.c:11:12: note: op template: <retval>.cool[4] = 1.200000010430812835693359375e-2;
+src/common/step.c:11:12: note: 	stmt 0 <retval>.cool[4] = 1.200000010430812835693359375e-2;
+src/common/step.c:11:12: note: 	stmt 1 <retval>.cool[5] = 8.000000379979610443115234375e-3;
+src/common/step.c:11:12: note: 	children 0x3812ddd8
+src/common/step.c:11:12: note: node (constant) 0x3812ddd8 (max_nunits=1, refcnt=1) vector(2) float
+src/common/step.c:11:12: note: 	{ 1.200000010430812835693359375e-2, 8.000000379979610443115234375e-3 }
+src/common/step.c:11:12: note: Cost model analysis: 
+src/common/step.c:11:12: note: Cost model analysis for part in loop 0:
+src/common/step.c:11:12: note: Basic block will be vectorized using SLP
+src/common/step.c:11:12: note: Vectorizing SLP tree:
+src/common/step.c:11:12: note: node 0x3812dbd8 (max_nunits=16, refcnt=1) vector(16) float
+src/common/step.c:11:12: note: op template: <retval>.alpha[0] = 2.0000000298023223876953125e-1;
+src/common/step.c:11:12: note: 	stmt 0 <retval>.alpha[0] = 2.0000000298023223876953125e-1;
+src/common/step.c:11:12: note: 	stmt 1 <retval>.alpha[1] = 1.00000001490116119384765625e-1;
+src/common/step.c:11:12: note: 	stmt 2 <retval>.alpha[2] = 2.0000000298023223876953125e-1;
+src/common/step.c:11:12: note: 	stmt 3 <retval>.alpha[3] = 2.0000000298023223876953125e-1;
+src/common/step.c:11:12: note: 	stmt 4 <retval>.alpha[4] = 2.5e-1;
+src/common/step.c:11:12: note: 	stmt 5 <retval>.alpha[5] = 1.500000059604644775390625e-1;
+src/common/step.c:11:12: note: 	stmt 6 <retval>.absorb[0] = 1.99999995529651641845703125e-2;
+src/common/step.c:11:12: note: 	stmt 7 <retval>.absorb[1] = 1.4999999664723873138427734375e-2;
+src/common/step.c:11:12: note: 	stmt 8 <retval>.absorb[2] = 8.000000379979610443115234375e-3;
+src/common/step.c:11:12: note: 	stmt 9 <retval>.absorb[3] = 4.0000001899898052215576171875e-3;
+src/common/step.c:11:12: note: 	stmt 10 <retval>.absorb[4] = 3.0000000260770320892333984375e-3;
+src/common/step.c:11:12: note: 	stmt 11 <retval>.absorb[5] = 6.000000052154064178466796875e-3;
+src/common/step.c:11:12: note: 	stmt 12 <retval>.cool[0] = 2.00000009499490261077880859375e-3;
+src/common/step.c:11:12: note: 	stmt 13 <retval>.cool[1] = 2.00000009499490261077880859375e-3;
+src/common/step.c:11:12: note: 	stmt 14 <retval>.cool[2] = 6.000000052154064178466796875e-3;
+src/common/step.c:11:12: note: 	stmt 15 <retval>.cool[3] = 9.99999977648258209228515625e-3;
+src/common/step.c:11:12: note: 	children 0x3812dc58
+src/common/step.c:11:12: note: node (constant) 0x3812dc58 (max_nunits=1, refcnt=1) vector(16) float
+src/common/step.c:11:12: note: 	{ 2.0000000298023223876953125e-1, 1.00000001490116119384765625e-1, 2.0000000298023223876953125e-1, 2.0000000298023223876953125e-1, 2.5e-1, 1.500000059604644775390625e-1, 1.99999995529651641845703125e-2, 1.4999999664723873138427734375e-2, 8.000000379979610443115234375e-3, 4.0000001899898052215576171875e-3, 3.0000000260770320892333984375e-3, 6.000000052154064178466796875e-3, 2.00000009499490261077880859375e-3, 2.00000009499490261077880859375e-3, 6.000000052154064178466796875e-3, 9.99999977648258209228515625e-3 }
+src/common/step.c:11:12: note: ------>vectorizing SLP node starting from: <retval>.alpha[0] = 2.0000000298023223876953125e-1;
+src/common/step.c:11:12: note: vect_is_simple_use: operand 1.00000001490116119384765625e-1, type of def: constant
+src/common/step.c:11:12: note: vect_is_simple_use: operand 2.0000000298023223876953125e-1, type of def: constant
+src/common/step.c:11:12: note: vect_is_simple_use: operand 2.0000000298023223876953125e-1, type of def: constant
+src/common/step.c:11:12: note: vect_is_simple_use: operand 2.5e-1, type of def: constant
+src/common/step.c:11:12: note: vect_is_simple_use: operand 1.500000059604644775390625e-1, type of def: constant
+src/common/step.c:11:12: note: vect_is_simple_use: operand 1.99999995529651641845703125e-2, type of def: constant
+src/common/step.c:11:12: note: vect_is_simple_use: operand 1.4999999664723873138427734375e-2, type of def: constant
+src/common/step.c:11:12: note: vect_is_simple_use: operand 8.000000379979610443115234375e-3, type of def: constant
+src/common/step.c:11:12: note: vect_is_simple_use: operand 4.0000001899898052215576171875e-3, type of def: constant
+src/common/step.c:11:12: note: vect_is_simple_use: operand 3.0000000260770320892333984375e-3, type of def: constant
+src/common/step.c:11:12: note: vect_is_simple_use: operand 6.000000052154064178466796875e-3, type of def: constant
+src/common/step.c:11:12: note: vect_is_simple_use: operand 2.00000009499490261077880859375e-3, type of def: constant
+src/common/step.c:11:12: note: vect_is_simple_use: operand 2.00000009499490261077880859375e-3, type of def: constant
+src/common/step.c:11:12: note: vect_is_simple_use: operand 6.000000052154064178466796875e-3, type of def: constant
+src/common/step.c:11:12: note: vect_is_simple_use: operand 9.99999977648258209228515625e-3, type of def: constant
+src/common/step.c:11:12: note: transform store. ncopies = 1
+src/common/step.c:11:12: note: create vector_type-pointer variable to type: vector(16) float  vectorizing a pointer ref: <retval>.alpha[0]
+src/common/step.c:11:12: note: created &<retval>.alpha[0]
+src/common/step.c:11:12: note: add new stmt: MEM <vector(16) float> [(float *)&<retval>] = { 2.0000000298023223876953125e-1, 1.00000001490116119384765625e-1, 2.0000000298023223876953125e-1, 2.0000000298023223876953125e-1, 2.5e-1, 1.500000059604644775390625e-1, 1.99999995529651641845703125e-2, 1.4999999664723873138427734375e-2, 8.000000379979610443115234375e-3, 4.0000001899898052215576171875e-3, 3.0000000260770320892333984375e-3, 6.000000052154064178466796875e-3, 2.00000009499490261077880859375e-3, 2.00000009499490261077880859375e-3, 6.000000052154064178466796875e-3, 9.99999977648258209228515625e-3 };
+src/common/step.c:11:12: note: vectorizing stmts using SLP.
+src/common/step.c:11:12: optimized: basic block part vectorized using 64 byte vectors
+src/common/step.c:11:12: note: Vectorizing SLP tree:
+src/common/step.c:11:12: note: node 0x3812dd58 (max_nunits=2, refcnt=1) vector(2) float
+src/common/step.c:11:12: note: op template: <retval>.cool[4] = 1.200000010430812835693359375e-2;
+src/common/step.c:11:12: note: 	stmt 0 <retval>.cool[4] = 1.200000010430812835693359375e-2;
+src/common/step.c:11:12: note: 	stmt 1 <retval>.cool[5] = 8.000000379979610443115234375e-3;
+src/common/step.c:11:12: note: 	children 0x3812ddd8
+src/common/step.c:11:12: note: node (constant) 0x3812ddd8 (max_nunits=1, refcnt=1) vector(2) float
+src/common/step.c:11:12: note: 	{ 1.200000010430812835693359375e-2, 8.000000379979610443115234375e-3 }
+src/common/step.c:11:12: note: ------>vectorizing SLP node starting from: <retval>.cool[4] = 1.200000010430812835693359375e-2;
+src/common/step.c:11:12: note: vect_is_simple_use: operand 8.000000379979610443115234375e-3, type of def: constant
+src/common/step.c:11:12: note: transform store. ncopies = 1
+src/common/step.c:11:12: note: create vector_type-pointer variable to type: vector(2) float  vectorizing a pointer ref: <retval>.cool[4]
+src/common/step.c:11:12: note: created &<retval>.cool[4]
+src/common/step.c:11:12: note: add new stmt: MEM <vector(2) float> [(float *)&<retval> + 64B] = { 1.200000010430812835693359375e-2, 8.000000379979610443115234375e-3 };
+src/common/step.c:11:12: note: vectorizing stmts using SLP.
+src/common/step.c:11:12: optimized: basic block part vectorized using 64 byte vectors
+src/common/step.c:11:12: note: ***** The result for vector mode V64QI would be the same
+src/common/step.c:18:23: missed: couldn't vectorize loop
+src/common/step.c:18:23: missed: not vectorized: control flow in loop.
+src/common/step.c:14:5: note: vectorized 0 loops in function.
+src/common/step.c:21:13: missed: statement clobbers memory: fprintf (stderr.0_12, "unstable coefficients for type %d (%s): alpha=%g cool=%g absorb=%g (need all >= 0 and alpha + cool <= 1)\n", k_26, _11, _10, _9, _7);
+src/common/step.c:28:12: note: ***** Analysis failed with vector mode V16SF
+src/common/step.c:28:12: note: ***** Skipping vector mode V64QI, which would repeat the analysis for V16SF
+src/common/step.c:35:12: note: ***** Analysis failed with vector mode VOID
+src/common/step.c:81:27: missed: couldn't vectorize loop
+src/common/step.c:82:53: missed: not vectorized: no vectype for stmt: *_126 = t_air_75(D);
+src/common/step.c:81:27: missed: couldn't vectorize loop
+src/common/step.c:82:98: missed: not vectorized: no vectype for stmt: iftmp.5_84 = *_46;
+src/common/step.c:78:27: missed: couldn't vectorize loop
+src/common/step.c:79:36: missed: not vectorized: no vectype for stmt: *_4 = t_air_75(D);
+src/common/step.c:78:27: missed: couldn't vectorize loop
+src/common/step.c:79:76: missed: not vectorized: no vectype for stmt: iftmp.4_82 = *_34;
+src/common/step.c:75:27: optimized: loop vectorized using 64 byte vectors
+src/common/step.c:75:27: optimized: loop vectorized using 32 byte vectors
+src/common/step.c:75:27: optimized: loop vectorized using 64 byte vectors
+src/common/step.c:75:27: optimized:  loop versioned for vectorization because of possible aliasing
+src/common/step.c:75:27: optimized: loop vectorized using 32 byte vectors
+src/common/step.c:72:27: optimized: loop vectorized using 64 byte vectors
+src/common/step.c:72:27: optimized: loop vectorized using 32 byte vectors
+src/common/step.c:72:27: optimized: loop vectorized using 64 byte vectors
+src/common/step.c:72:27: optimized:  loop versioned for vectorization because of possible aliasing
+src/common/step.c:72:27: optimized: loop vectorized using 32 byte vectors
+src/common/step.c:68:6: note: vectorized 4 loops in function.
+src/common/step.c:82:14: note: ***** Analysis failed with vector mode V16SF
+src/common/step.c:82:14: note: ***** The result for vector mode V64QI would be the same
+src/common/step.c:82:14: note: ***** Re-trying analysis with vector mode V32QI
+src/common/step.c:82:14: note: ***** Analysis failed with vector mode V32QI
+src/common/step.c:82:14: note: ***** Re-trying analysis with vector mode V16QI
+src/common/step.c:82:14: note: ***** Analysis failed with vector mode V16QI
+src/common/step.c:82:14: note: ***** Re-trying analysis with vector mode V8QI
+src/common/step.c:82:14: note: ***** Analysis failed with vector mode V8QI
+src/common/step.c:82:14: note: ***** Re-trying analysis with vector mode V4QI
+src/common/step.c:82:14: note: ***** Analysis failed with vector mode V4QI
+src/common/step.c:105:12: note: ***** Analysis failed with vector mode VOID
+src/common/step.c:168:24: missed: couldn't vectorize loop
+src/common/step.c:168:24: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+src/common/step.c:145:24: optimized: loop vectorized using 64 byte vectors
+src/common/step.c:145:24: optimized: loop vectorized using 32 byte vectors
+src/common/step.c:176:23: missed: couldn't vectorize loop
+src/common/step.c:156:6: note: vectorized 1 loops in function.
+src/common/step.c:164:46: missed: statement clobbers memory: __builtin_memcpy (&ta, c_45(D), 24);
+src/common/step.c:164:67: missed: statement clobbers memory: __builtin_memcpy (&tb, _308, 24);
+src/common/step.c:164:89: missed: statement clobbers memory: __builtin_memcpy (&tk, _307, 24);
+src/common/step.c:150:14: note: ***** Analysis succeeded with vector mode V16SF
+src/common/step.c:150:14: note: SLPing BB part
+src/common/step.c:150:14: note: Costing subgraph: 
+src/common/step.c:150:14: note: node 0x380d3058 (max_nunits=2, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: op template: *_1557 = _1558;
+src/common/step.c:150:14: note: 	stmt 0 *_1557 = _1558;
+src/common/step.c:150:14: note: 	stmt 1 *_2319 = _2320;
+src/common/step.c:150:14: note: 	children 0x380d30d8
+src/common/step.c:150:14: note: node 0x380d30d8 (max_nunits=2, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: op template: _1558 = _1553 - _1556;
+src/common/step.c:150:14: note: 	stmt 0 _1558 = _1553 - _1556;
+src/common/step.c:150:14: note: 	stmt 1 _2320 = _2315 - _2318;
+src/common/step.c:150:14: note: 	children 0x380d3158 0x380d38d8
+src/common/step.c:150:14: note: node 0x380d3158 (max_nunits=2, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: op template: _1553 = _1550 + _1552;
+src/common/step.c:150:14: note: 	stmt 0 _1553 = _1550 + _1552;
+src/common/step.c:150:14: note: 	stmt 1 _2315 = _1682 + _2103;
+src/common/step.c:150:14: note: 	children 0x380d3458 0x380d3358
+src/common/step.c:150:14: note: node (external) 0x380d3458 (max_nunits=1, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: 	{ _1550, _1682 }
+src/common/step.c:150:14: note: node 0x380d3358 (max_nunits=2, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: op template: _1552 = solar_44(D) * _1551;
+src/common/step.c:150:14: note: 	stmt 0 _1552 = solar_44(D) * _1551;
+src/common/step.c:150:14: note: 	stmt 1 _2103 = solar_44(D) * _1896;
+src/common/step.c:150:14: note: 	children 0x380d34d8 0x380d35d8
+src/common/step.c:150:14: note: node (external) 0x380d34d8 (max_nunits=1, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: 	{ solar_44(D), solar_44(D) }
+src/common/step.c:150:14: note: node (external) 0x380d35d8 (max_nunits=1, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: 	{ _1551, _1896 }
+src/common/step.c:150:14: note: node (external) 0x380d38d8 (max_nunits=1, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: 	{ _1556, _2318 }
+src/common/step.c:150:14: note: Cost model analysis: 
+src/common/step.c:150:14: note: Cost model analysis for part in loop 6:
+src/common/step.c:150:14: note: Basic block will be vectorized using SLP
+src/common/step.c:150:14: note: Vectorizing SLP tree:
+src/common/step.c:150:14: note: node 0x380d3058 (max_nunits=2, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: op template: *_1557 = _1558;
+src/common/step.c:150:14: note: 	stmt 0 *_1557 = _1558;
+src/common/step.c:150:14: note: 	stmt 1 *_2319 = _2320;
+src/common/step.c:150:14: note: 	children 0x380d30d8
+src/common/step.c:150:14: note: node 0x380d30d8 (max_nunits=2, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: op template: _1558 = _1553 - _1556;
+src/common/step.c:150:14: note: 	stmt 0 _1558 = _1553 - _1556;
+src/common/step.c:150:14: note: 	stmt 1 _2320 = _2315 - _2318;
+src/common/step.c:150:14: note: 	children 0x380d3158 0x380d38d8
+src/common/step.c:150:14: note: node 0x380d3158 (max_nunits=2, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: op template: _1553 = _1550 + _1552;
+src/common/step.c:150:14: note: 	stmt 0 _1553 = _1550 + _1552;
+src/common/step.c:150:14: note: 	stmt 1 _2315 = _1682 + _2103;
+src/common/step.c:150:14: note: 	children 0x380d3458 0x380d3358
+src/common/step.c:150:14: note: node (external) 0x380d3458 (max_nunits=1, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: 	{ _1550, _1682 }
+src/common/step.c:150:14: note: node 0x380d3358 (max_nunits=2, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: op template: _1552 = solar_44(D) * _1551;
+src/common/step.c:150:14: note: 	stmt 0 _1552 = solar_44(D) * _1551;
+src/common/step.c:150:14: note: 	stmt 1 _2103 = solar_44(D) * _1896;
+src/common/step.c:150:14: note: 	children 0x380d34d8 0x380d35d8
+src/common/step.c:150:14: note: node (external) 0x380d34d8 (max_nunits=1, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: 	{ solar_44(D), solar_44(D) }
+src/common/step.c:150:14: note: node (external) 0x380d35d8 (max_nunits=1, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: 	{ _1551, _1896 }
+src/common/step.c:150:14: note: node (external) 0x380d38d8 (max_nunits=1, refcnt=1) vector(2) float
+src/common/step.c:150:14: note: 	{ _1556, _2318 }
+src/common/step.c:150:14: note: ------>vectorizing SLP node starting from: _1552 = solar_44(D) * _1551;
+src/common/step.c:150:14: note: transform binary/unary operation.
+src/common/step.c:150:14: note: add new stmt: vect__1552.362_280 = _3 * _281;
+src/common/step.c:150:14: note: ------>vectorizing SLP node starting from: _1553 = _1550 + _1552;
+src/common/step.c:150:14: note: vect_is_simple_use: operand solar_44(D) * _1551, type of def: internal
+src/common/step.c:150:14: note: transform binary/unary operation.
+src/common/step.c:150:14: note: add new stmt: vect__1553.363_271 = _1561 + vect__1552.362_280;
+src/common/step.c:150:14: note: ------>vectorizing SLP node starting from: _1558 = _1553 - _1556;
+src/common/step.c:150:14: note: vect_is_simple_use: operand _1550 + _1552, type of def: internal
+src/common/step.c:150:14: note: transform binary/unary operation.
+src/common/step.c:150:14: note: add new stmt: vect__1558.364_269 = vect__1553.363_271 - _270;
+src/common/step.c:150:14: note: ------>vectorizing SLP node starting from: *_1557 = _1558;
+src/common/step.c:150:14: note: vect_is_simple_use: operand _1553 - _1556, type of def: internal
+src/common/step.c:150:14: note: vect_is_simple_use: operand _2315 - _2318, type of def: internal
+src/common/step.c:150:14: note: transform store. ncopies = 1
+src/common/step.c:150:14: note: create vector_type-pointer variable to type: vector(2) float  vectorizing a pointer ref: *_1557
+src/common/step.c:150:14: note: created vectp.366_259
+src/common/step.c:150:14: note: add new stmt: MEM <vector(2) float> [(float *)vectp.366_259] = vect__1558.364_269;
+src/common/step.c:150:14: note: vectorizing stmts using SLP.
+src/common/step.c:150:14: optimized: basic block part vectorized using 64 byte vectors
+src/common/step.c:150:14: note: ***** The result for vector mode V64QI would be the same
+src/common/step.c:200:5: missed: statement clobbers memory: step_rows (in_2(D), out_3(D), city_4(D), nx_5(D), ny_6(D), solar_7(D), c_8(D), 0, ny_6(D));
+src/common/step.c:201:1: note: ***** Analysis failed with vector mode VOID
+=== END ===

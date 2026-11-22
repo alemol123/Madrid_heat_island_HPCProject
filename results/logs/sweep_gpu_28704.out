@@ -2,7 +2,7 @@
 Currently Loaded Modules:
   1) nvhpc/25.7
 
- 
+
 
 /usr/bin/gcc
 /usr/bin/mpicc
@@ -13,7 +13,7 @@ Currently Loaded Modules:
 name, memory.total [MiB], driver_version
 NVIDIA RTX 6000 Ada Generation, 49140 MiB, 580.126.09
 
-nvc 25.7-0 64-bit target on x86-64 Linux -tp znver5 
+nvc 25.7-0 64-bit target on x86-64 Linux -tp znver5
 src/openacc/heat_openacc.c:
 main:
     125, Generating enter data copyin(b[:npad],a[:npad],city[:ncell],c)
@@ -56,7 +56,7 @@ step_rows:
 src/common/io.c:
 src/common/diag.c:
 built build/28704/heat_openacc with: nvc -O3 -acc -gpu=ccnative -Minfo=accel
-=== nx=256 steps=61035  command: build/28704/heat_openacc --nx 256 --ny 256 --steps 61035 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes 
+=== nx=256 steps=61035  command: build/28704/heat_openacc --nx 256 --ny 256 --steps 61035 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes
 === repeat 1
 heat openacc nx=256 ny=256 steps=61035 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=1.8620 s  time_compute=1.7268 s  time_transfer=0.0003 s  time_io=0.0002 s  0.432 ns/cell-update
@@ -69,7 +69,7 @@ checksum 1.7003506060e+06
 heat openacc nx=256 ny=256 steps=61035 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=1.8497 s  time_compute=1.7260 s  time_transfer=0.0003 s  time_io=0.0002 s  0.431 ns/cell-update
 checksum 1.7003506060e+06
-=== nx=512 steps=15258  command: build/28704/heat_openacc --nx 512 --ny 512 --steps 15258 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes 
+=== nx=512 steps=15258  command: build/28704/heat_openacc --nx 512 --ny 512 --steps 15258 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes
 === repeat 1
 heat openacc nx=512 ny=512 steps=15258 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=0.5647 s  time_compute=0.4318 s  time_transfer=0.0005 s  time_io=0.0009 s  0.108 ns/cell-update
@@ -82,7 +82,7 @@ checksum 7.2440853707e+06
 heat openacc nx=512 ny=512 steps=15258 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=0.5521 s  time_compute=0.4301 s  time_transfer=0.0005 s  time_io=0.0009 s  0.108 ns/cell-update
 checksum 7.2440853707e+06
-=== nx=1024 steps=3814  command: build/28704/heat_openacc --nx 1024 --ny 1024 --steps 3814 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes 
+=== nx=1024 steps=3814  command: build/28704/heat_openacc --nx 1024 --ny 1024 --steps 3814 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes
 === repeat 1
 heat openacc nx=1024 ny=1024 steps=3814 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=0.2585 s  time_compute=0.1247 s  time_transfer=0.0011 s  time_io=0.0034 s  0.031 ns/cell-update
@@ -95,7 +95,7 @@ checksum 2.7889814450e+07
 heat openacc nx=1024 ny=1024 steps=3814 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=0.2564 s  time_compute=0.1226 s  time_transfer=0.0010 s  time_io=0.0034 s  0.031 ns/cell-update
 checksum 2.7889814450e+07
-=== nx=2048 steps=953  command: build/28704/heat_openacc --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes 
+=== nx=2048 steps=953  command: build/28704/heat_openacc --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes
 === repeat 1
 heat openacc nx=2048 ny=2048 steps=953 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=0.1938 s  time_compute=0.0418 s  time_transfer=0.0032 s  time_io=0.0136 s  0.010 ns/cell-update
@@ -108,7 +108,7 @@ checksum 1.0915357941e+08
 heat openacc nx=2048 ny=2048 steps=953 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=0.1904 s  time_compute=0.0417 s  time_transfer=0.0032 s  time_io=0.0136 s  0.010 ns/cell-update
 checksum 1.0915357941e+08
-=== nx=2896 steps=476  command: build/28704/heat_openacc --nx 2896 --ny 2896 --steps 476 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes 
+=== nx=2896 steps=476  command: build/28704/heat_openacc --nx 2896 --ny 2896 --steps 476 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes
 === repeat 1
 heat openacc nx=2896 ny=2896 steps=476 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=0.1943 s  time_compute=0.0299 s  time_transfer=0.0059 s  time_io=0.0271 s  0.007 ns/cell-update
@@ -121,7 +121,7 @@ checksum 2.3416057682e+08
 heat openacc nx=2896 ny=2896 steps=476 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=0.2001 s  time_compute=0.0297 s  time_transfer=0.0059 s  time_io=0.0271 s  0.007 ns/cell-update
 checksum 2.3416057682e+08
-=== nx=4096 steps=238  command: build/28704/heat_openacc --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes 
+=== nx=4096 steps=238  command: build/28704/heat_openacc --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes
 === repeat 1
 heat openacc nx=4096 ny=4096 steps=238 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=0.2663 s  time_compute=0.0505 s  time_transfer=0.0112 s  time_io=0.0547 s  0.013 ns/cell-update
@@ -134,7 +134,7 @@ checksum 4.5038249853e+08
 heat openacc nx=4096 ny=4096 steps=238 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=0.2693 s  time_compute=0.0504 s  time_transfer=0.0111 s  time_io=0.0549 s  0.013 ns/cell-update
 checksum 4.5038249853e+08
-=== nx=5792 steps=119  command: build/28704/heat_openacc --nx 5792 --ny 5792 --steps 119 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes 
+=== nx=5792 steps=119  command: build/28704/heat_openacc --nx 5792 --ny 5792 --steps 119 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes
 === repeat 1
 heat openacc nx=5792 ny=5792 steps=119 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=0.3534 s  time_compute=0.0477 s  time_transfer=0.0219 s  time_io=0.1096 s  0.012 ns/cell-update
@@ -147,7 +147,7 @@ checksum 8.5838247429e+08
 heat openacc nx=5792 ny=5792 steps=119 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=0.3584 s  time_compute=0.0477 s  time_transfer=0.0220 s  time_io=0.1096 s  0.012 ns/cell-update
 checksum 8.5838247429e+08
-=== nx=8192 steps=59  command: build/28704/heat_openacc --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes 
+=== nx=8192 steps=59  command: build/28704/heat_openacc --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42  --timing results/runs.csv --tag gpu_sizes
 === repeat 1
 heat openacc nx=8192 ny=8192 steps=59 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=0.5335 s  time_compute=0.0459 s  time_transfer=0.0420 s  time_io=0.2180 s  0.012 ns/cell-update

@@ -10,7 +10,7 @@ Currently Loaded Modules:
   8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
   9) UCX/1.15.0-GCCcore-13.2.0
 
- 
+
 
 /cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
 /cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
@@ -22,7 +22,7 @@ CPU(s):                                  512
 Model name:                              AMD EPYC 9755 128-Core Processor
 CPU(s) scaling MHz:                      52%
 built build/31429/heat_mpi
-=== ranks=1  command: srun --mpi=pmix -n 1 --cpus-per-task=1 --cpu-bind=verbose,cores build/31429/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_bind 
+=== ranks=1  command: srun --mpi=pmix -n 1 --cpus-per-task=1 --cpu-bind=verbose,cores build/31429/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_bind
 === ranks=1 repeat 1
 cpu-bind=MASK - fortran, task  0  0 [1846907]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100 set
 heat mpi nx=2048 ny=2048 steps=953 city=synthetic seed=42 ranks=1 kernel=avx512-permute
@@ -48,7 +48,7 @@ cpu-bind=MASK - fortran, task  0  0 [1847073]: mask 0x10000000000000000000000000
 heat mpi nx=2048 ny=2048 steps=953 city=synthetic seed=42 ranks=1 kernel=avx512-permute
 time_total=0.8796 s  time_compute=0.8586 s  time_comm=0.0002 s  time_io=0.0123 s  0.215 ns/cell-update
 checksum 1.0915363110e+08
-=== ranks=2  command: srun --mpi=pmix -n 2 --cpus-per-task=1 --cpu-bind=verbose,cores build/31429/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_bind 
+=== ranks=2  command: srun --mpi=pmix -n 2 --cpus-per-task=1 --cpu-bind=verbose,cores build/31429/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_bind
 === ranks=2 repeat 1
 cpu-bind=MASK - fortran, task  0  0 [1847112]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100 set
 cpu-bind=MASK - fortran, task  1  1 [1847113]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000 set
@@ -79,7 +79,7 @@ cpu-bind=MASK - fortran, task  1  1 [1847272]: mask 0x10000000000000000000000000
 heat mpi nx=2048 ny=2048 steps=953 city=synthetic seed=42 ranks=2 kernel=avx512-permute
 time_total=0.3566 s  time_compute=0.3371 s  time_comm=0.0107 s  time_io=0.0063 s  0.084 ns/cell-update
 checksum 1.0915363110e+08
-=== ranks=4  command: srun --mpi=pmix -n 4 --cpus-per-task=1 --cpu-bind=verbose,cores build/31429/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_bind 
+=== ranks=4  command: srun --mpi=pmix -n 4 --cpus-per-task=1 --cpu-bind=verbose,cores build/31429/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_bind
 === ranks=4 repeat 1
 cpu-bind=MASK - fortran, task  0  0 [1847308]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100 set
 cpu-bind=MASK - fortran, task  1  1 [1847309]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000 set
@@ -120,7 +120,7 @@ cpu-bind=MASK - fortran, task  3  3 [1847480]: mask 0x20000000000000000000000000
 heat mpi nx=2048 ny=2048 steps=953 city=synthetic seed=42 ranks=4 kernel=avx512-permute
 time_total=0.1856 s  time_compute=0.1682 s  time_comm=0.0143 s  time_io=0.0031 s  0.042 ns/cell-update
 checksum 1.0915363110e+08
-=== ranks=8  command: srun --mpi=pmix -n 8 --cpus-per-task=1 --cpu-bind=verbose,cores build/31429/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_bind 
+=== ranks=8  command: srun --mpi=pmix -n 8 --cpus-per-task=1 --cpu-bind=verbose,cores build/31429/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_bind
 === ranks=8 repeat 1
 cpu-bind=MASK - fortran, task  0  0 [1847520]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100 set
 cpu-bind=MASK - fortran, task  1  1 [1847521]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000 set
@@ -181,7 +181,7 @@ cpu-bind=MASK - fortran, task  7  7 [1847757]: mask 0x80000000000000000000000000
 heat mpi nx=2048 ny=2048 steps=953 city=synthetic seed=42 ranks=8 kernel=avx512-permute
 time_total=0.1067 s  time_compute=0.0913 s  time_comm=0.0207 s  time_io=0.0015 s  0.023 ns/cell-update
 checksum 1.0915363110e+08
-=== ranks=16  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=verbose,cores build/31429/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_bind 
+=== ranks=16  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=verbose,cores build/31429/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_bind
 === ranks=16 repeat 1
 cpu-bind=MASK - fortran, task  0  0 [1847805]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100 set
 cpu-bind=MASK - fortran, task  1  1 [1847806]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000 set
@@ -282,7 +282,7 @@ cpu-bind=MASK - fortran, task 15 15 [1848135]: mask 0x80000000000000000000000000
 heat mpi nx=2048 ny=2048 steps=953 city=synthetic seed=42 ranks=16 kernel=avx512-permute
 time_total=0.0600 s  time_compute=0.0448 s  time_comm=0.0181 s  time_io=0.0008 s  0.011 ns/cell-update
 checksum 1.0915363110e+08
-=== ranks=32  command: srun --mpi=pmix -n 32 --cpus-per-task=1 --cpu-bind=verbose,cores build/31429/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_bind 
+=== ranks=32  command: srun --mpi=pmix -n 32 --cpus-per-task=1 --cpu-bind=verbose,cores build/31429/heat_mpi --nx 2048 --ny 2048 --steps 953 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_bind
 === ranks=32 repeat 1
 cpu-bind=MASK - fortran, task  0  0 [1848198]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100 set
 cpu-bind=MASK - fortran, task  1  1 [1848199]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000 set

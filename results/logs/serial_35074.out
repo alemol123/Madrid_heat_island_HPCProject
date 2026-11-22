@@ -1,0 +1,41 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+ 
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== job 35074 on fortran at 2026-11-22T12:24:34+01:00
+=== git commit: ddb3780  (2 uncommitted files outside results/)
+=== nx=4096 ny=4096 steps=1000 city=synthetic seed=42 tag=p5-serial-4096 reps=3
+CPU(s):                                  512
+Model name:                              AMD EPYC 9755 128-Core Processor
+CPU(s) scaling MHz:                      61%
+src/common/step.c: In function ‘step_rows_tiled_2d’:
+src/common/step.c:312: warning: ignoring ‘#pragma omp parallel’ [-Wunknown-pragmas]
+  312 |     #pragma omp parallel for schedule(static)
+      | 
+built build/35074/heat_serial with: gcc -O3 -march=native -std=c11 -Wall -Wextra
+=== command: build/35074/heat_serial --nx 4096 --ny 4096 --steps 1000 --city synthetic --seed 42 --out build/35074/field.bin --timing results/runs.csv --tag p5-serial-4096
+=== repeat 1
+heat serial nx=4096 ny=4096 steps=1000 city=synthetic seed=42 kernel=avx512-permute
+time_total=4.7472 s  time_compute=4.4620 s  time_io=0.2531 s  0.266 ns/cell-update
+checksum 4.3493427204e+08
+=== repeat 2
+heat serial nx=4096 ny=4096 steps=1000 city=synthetic seed=42 kernel=avx512-permute
+time_total=4.8401 s  time_compute=4.4898 s  time_io=0.3206 s  0.268 ns/cell-update
+checksum 4.3493427204e+08
+=== repeat 3
+heat serial nx=4096 ny=4096 steps=1000 city=synthetic seed=42 kernel=avx512-permute
+time_total=4.8171 s  time_compute=4.4843 s  time_io=0.3016 s  0.267 ns/cell-update
+checksum 4.3493427204e+08
+=== done 2026-11-22T12:24:50+01:00

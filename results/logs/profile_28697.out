@@ -2,7 +2,7 @@
 Currently Loaded Modules:
   1) nvhpc/25.7
 
- 
+
 
 /usr/bin/gcc
 /usr/bin/mpicc
@@ -13,7 +13,7 @@ Currently Loaded Modules:
 name, memory.total [MiB], driver_version
 NVIDIA RTX 6000 Ada Generation, 49140 MiB, 580.126.09
 
-nvc 25.7-0 64-bit target on x86-64 Linux -tp znver5 
+nvc 25.7-0 64-bit target on x86-64 Linux -tp znver5
 NVIDIA Nsight Systems version 2025.3.1.90-253135822126v0
 src/openacc/heat_openacc.c:
 main:
@@ -57,7 +57,7 @@ step_rows:
 src/common/io.c:
 src/common/diag.c:
 built build/28697/heat_openacc with: nvc -O3 -acc -gpu=ccnative -Minfo=accel
-=== command: build/28697/heat_openacc --nx 4096 --ny 4096 --steps 200 --city synthetic --seed 42 --acc-mode resident 
+=== command: build/28697/heat_openacc --nx 4096 --ny 4096 --steps 200 --city synthetic --seed 42 --acc-mode resident
 === nsys profile -> results/profiles/nsys_resident_4096_28697.nsys-rep
 WARNING: CPU IP/backtrace sampling not supported, disabling.
 Try the 'nsys status --environment' command to learn more.
@@ -74,22 +74,22 @@ Generating '/var/tmp/nsys-report-34f0.qdstrm'
 [2/7] [0%                          ] nsys_resident_4096_28697.sqlite[2/7] [1%                          ] nsys_resident_4096_28697.sqlite[2/7] [2%                          ] nsys_resident_4096_28697.sqlite[2/7] [3%                          ] nsys_resident_4096_28697.sqlite[2/7] [4%                          ] nsys_resident_4096_28697.sqlite[2/7] [5%                          ] nsys_resident_4096_28697.sqlite[2/7] [6%                          ] nsys_resident_4096_28697.sqlite[2/7] [7%                          ] nsys_resident_4096_28697.sqlite[2/7] [8%                          ] nsys_resident_4096_28697.sqlite[2/7] [9%                          ] nsys_resident_4096_28697.sqlite[2/7] [10%                         ] nsys_resident_4096_28697.sqlite[2/7] [11%                         ] nsys_resident_4096_28697.sqlite[2/7] [12%                         ] nsys_resident_4096_28697.sqlite[2/7] [13%                         ] nsys_resident_4096_28697.sqlite[2/7] [14%                         ] nsys_resident_4096_28697.sqlite[2/7] [=15%                        ] nsys_resident_4096_28697.sqlite[2/7] [=16%                        ] nsys_resident_4096_28697.sqlite[2/7] [=17%                        ] nsys_resident_4096_28697.sqlite[2/7] [==18%                       ] nsys_resident_4096_28697.sqlite[2/7] [==19%                       ] nsys_resident_4096_28697.sqlite[2/7] [==20%                       ] nsys_resident_4096_28697.sqlite[2/7] [==21%                       ] nsys_resident_4096_28697.sqlite[2/7] [===22%                      ] nsys_resident_4096_28697.sqlite[2/7] [===23%                      ] nsys_resident_4096_28697.sqlite[2/7] [===24%                      ] nsys_resident_4096_28697.sqlite[2/7] [====25%                     ] nsys_resident_4096_28697.sqlite[2/7] [====26%                     ] nsys_resident_4096_28697.sqlite[2/7] [====27%                     ] nsys_resident_4096_28697.sqlite[2/7] [====28%                     ] nsys_resident_4096_28697.sqlite[2/7] [=====29%                    ] nsys_resident_4096_28697.sqlite[2/7] [=====30%                    ] nsys_resident_4096_28697.sqlite[2/7] [=====31%                    ] nsys_resident_4096_28697.sqlite[2/7] [=====32%                    ] nsys_resident_4096_28697.sqlite[2/7] [======33%                   ] nsys_resident_4096_28697.sqlite[2/7] [======34%                   ] nsys_resident_4096_28697.sqlite[2/7] [======35%                   ] nsys_resident_4096_28697.sqlite[2/7] [=======36%                  ] nsys_resident_4096_28697.sqlite[2/7] [=======37%                  ] nsys_resident_4096_28697.sqlite[2/7] [=======38%                  ] nsys_resident_4096_28697.sqlite[2/7] [=======39%                  ] nsys_resident_4096_28697.sqlite[2/7] [========40%                 ] nsys_resident_4096_28697.sqlite[2/7] [========41%                 ] nsys_resident_4096_28697.sqlite[2/7] [========42%                 ] nsys_resident_4096_28697.sqlite[2/7] [=========43%                ] nsys_resident_4096_28697.sqlite[2/7] [=========44%                ] nsys_resident_4096_28697.sqlite[2/7] [=========45%                ] nsys_resident_4096_28697.sqlite[2/7] [=========46%                ] nsys_resident_4096_28697.sqlite[2/7] [==========47%               ] nsys_resident_4096_28697.sqlite[2/7] [==========48%               ] nsys_resident_4096_28697.sqlite[2/7] [==========49%               ] nsys_resident_4096_28697.sqlite[2/7] [===========50%              ] nsys_resident_4096_28697.sqlite[2/7] [===========51%              ] nsys_resident_4096_28697.sqlite[2/7] [===========52%              ] nsys_resident_4096_28697.sqlite[2/7] [===========53%              ] nsys_resident_4096_28697.sqlite[2/7] [============54%             ] nsys_resident_4096_28697.sqlite[2/7] [============55%             ] nsys_resident_4096_28697.sqlite[2/7] [============56%             ] nsys_resident_4096_28697.sqlite[2/7] [============57%             ] nsys_resident_4096_28697.sqlite[2/7] [=============58%            ] nsys_resident_4096_28697.sqlite[2/7] [=============59%            ] nsys_resident_4096_28697.sqlite[2/7] [=============60%            ] nsys_resident_4096_28697.sqlite[2/7] [==============61%           ] nsys_resident_4096_28697.sqlite[2/7] [==============62%           ] nsys_resident_4096_28697.sqlite[2/7] [==============63%           ] nsys_resident_4096_28697.sqlite[2/7] [==============64%           ] nsys_resident_4096_28697.sqlite[2/7] [===============65%          ] nsys_resident_4096_28697.sqlite[2/7] [===============66%          ] nsys_resident_4096_28697.sqlite[2/7] [===============67%          ] nsys_resident_4096_28697.sqlite[2/7] [================68%         ] nsys_resident_4096_28697.sqlite[2/7] [================69%         ] nsys_resident_4096_28697.sqlite[2/7] [================70%         ] nsys_resident_4096_28697.sqlite[2/7] [================71%         ] nsys_resident_4096_28697.sqlite[2/7] [=================72%        ] nsys_resident_4096_28697.sqlite[2/7] [=================73%        ] nsys_resident_4096_28697.sqlite[2/7] [=================74%        ] nsys_resident_4096_28697.sqlite[2/7] [==================75%       ] nsys_resident_4096_28697.sqlite[2/7] [==================76%       ] nsys_resident_4096_28697.sqlite[2/7] [==================77%       ] nsys_resident_4096_28697.sqlite[2/7] [==================78%       ] nsys_resident_4096_28697.sqlite[2/7] [===================79%      ] nsys_resident_4096_28697.sqlite[2/7] [===================80%      ] nsys_resident_4096_28697.sqlite[2/7] [===================81%      ] nsys_resident_4096_28697.sqlite[2/7] [===================82%      ] nsys_resident_4096_28697.sqlite[2/7] [====================83%     ] nsys_resident_4096_28697.sqlite[2/7] [====================84%     ] nsys_resident_4096_28697.sqlite[2/7] [====================85%     ] nsys_resident_4096_28697.sqlite[2/7] [=====================86%    ] nsys_resident_4096_28697.sqlite[2/7] [=====================87%    ] nsys_resident_4096_28697.sqlite[2/7] [=====================88%    ] nsys_resident_4096_28697.sqlite[2/7] [=====================89%    ] nsys_resident_4096_28697.sqlite[2/7] [======================90%   ] nsys_resident_4096_28697.sqlite[2/7] [======================91%   ] nsys_resident_4096_28697.sqlite[2/7] [======================92%   ] nsys_resident_4096_28697.sqlite[2/7] [=======================93%  ] nsys_resident_4096_28697.sqlite[2/7] [=======================94%  ] nsys_resident_4096_28697.sqlite[2/7] [=======================95%  ] nsys_resident_4096_28697.sqlite[2/7] [=======================96%  ] nsys_resident_4096_28697.sqlite[2/7] [========================97% ] nsys_resident_4096_28697.sqlite[2/7] [========================98% ] nsys_resident_4096_28697.sqlite[2/7] [========================99% ] nsys_resident_4096_28697.sqlite[2/7] [========================100%] nsys_resident_4096_28697.sqlite[2/7] [========================100%] nsys_resident_4096_28697.sqlite
 [3/7] Executing 'cuda_api_sum' stats report
 
- Time (%)  Total Time (ns)  Num Calls  Avg (ns)   Med (ns)   Min (ns)  Max (ns)  StdDev (ns)          Name        
+ Time (%)  Total Time (ns)  Num Calls  Avg (ns)   Med (ns)   Min (ns)  Max (ns)  StdDev (ns)          Name
  --------  ---------------  ---------  ---------  ---------  --------  --------  -----------  --------------------
-     74.1         40040091       2002    20000.0     1031.0       300    192073      55528.1  cuStreamSynchronize 
+     74.1         40040091       2002    20000.0     1031.0       300    192073      55528.1  cuStreamSynchronize
      12.6          6831421          4  1707855.3  1900975.0      6940   3022531    1505137.5  cuMemcpyHtoDAsync_v2
       7.0          3810201          1  3810201.0  3810201.0   3810201   3810201          0.0  cuMemcpyDtoHAsync_v2
-      4.2          2288780       1000     2288.8     2193.0      2083     20701        679.6  cuLaunchKernel      
-      1.0           533137          5   106627.4    94710.0      9625    253474      89727.8  cuMemAlloc_v2       
-      0.8           441611          1   441611.0   441611.0    441611    441611          0.0  cuMemAllocHost_v2   
-      0.2           106867          1   106867.0   106867.0    106867    106867          0.0  cuModuleLoadDataEx  
-      0.0             1331          3      443.7      310.0       240       781        294.2  cuCtxSetCurrent     
+      4.2          2288780       1000     2288.8     2193.0      2083     20701        679.6  cuLaunchKernel
+      1.0           533137          5   106627.4    94710.0      9625    253474      89727.8  cuMemAlloc_v2
+      0.8           441611          1   441611.0   441611.0    441611    441611          0.0  cuMemAllocHost_v2
+      0.2           106867          1   106867.0   106867.0    106867    106867          0.0  cuModuleLoadDataEx
+      0.0             1331          3      443.7      310.0       240       781        294.2  cuCtxSetCurrent
 
 [4/7] Executing 'cuda_gpu_kern_sum' stats report
 
- Time (%)  Total Time (ns)  Instances  Avg (ns)  Med (ns)  Min (ns)  Max (ns)  StdDev (ns)                     Name                   
+ Time (%)  Total Time (ns)  Instances  Avg (ns)  Med (ns)  Min (ns)  Max (ns)  StdDev (ns)                     Name
  --------  ---------------  ---------  --------  --------  --------  --------  -----------  ------------------------------------------
-     97.7         36946687        200  184733.4  185025.5    123809    190241       4629.9  _17src_common_step_c_step_rows_122_gpu    
+     97.7         36946687        200  184733.4  185025.5    123809    190241       4629.9  _17src_common_step_c_step_rows_122_gpu
       0.6           232480        200    1162.4    1152.0      1120      1280         33.9  _17src_common_step_c_apply_boundary_46_gpu
       0.6           231776        200    1158.9    1152.0      1120      1280         33.9  _17src_common_step_c_apply_boundary_51_gpu
       0.6           209280        200    1046.4    1056.0      1024      1120         15.7  _17src_common_step_c_apply_boundary_56_gpu
@@ -97,57 +97,57 @@ Generating '/var/tmp/nsys-report-34f0.qdstrm'
 
 [5/7] Executing 'cuda_gpu_mem_time_sum' stats report
 
- Time (%)  Total Time (ns)  Count  Avg (ns)   Med (ns)   Min (ns)  Max (ns)  StdDev (ns)           Operation          
+ Time (%)  Total Time (ns)  Count  Avg (ns)   Med (ns)   Min (ns)  Max (ns)  StdDev (ns)           Operation
  --------  ---------------  -----  ---------  ---------  --------  --------  -----------  ----------------------------
      64.2          6718671      4  1679667.8  1861533.0       512   2995093    1501945.6  [CUDA memcpy Host-to-Device]
      35.8          3741754      1  3741754.0  3741754.0   3741754   3741754          0.0  [CUDA memcpy Device-to-Host]
 
 [6/7] Executing 'cuda_gpu_mem_size_sum' stats report
 
- Total (MB)  Count  Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)           Operation          
+ Total (MB)  Count  Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)           Operation
  ----------  -----  --------  --------  --------  --------  -----------  ----------------------------
     151.126      4    37.782    41.976     0.000    67.174       34.624  [CUDA memcpy Host-to-Device]
      67.174      1    67.174    67.174    67.174    67.174        0.000  [CUDA memcpy Device-to-Host]
 
 [7/7] Executing 'openacc_sum' stats report
 
- Time (%)  Total Time (ns)  Num Calls  Avg (ns)   Med (ns)   Min (ns)  Max (ns)  StdDev (ns)                 Name                
+ Time (%)  Total Time (ns)  Num Calls  Avg (ns)   Med (ns)   Min (ns)  Max (ns)  StdDev (ns)                 Name
  --------  ---------------  ---------  ---------  ---------  --------  --------  -----------  -----------------------------------
-     34.4         38039788        200   190198.9   190455.5    130422    195638       4571.7  Compute Construct@step.c:122       
-     34.0         37528310        400    93820.8    63078.0       601    192394      93240.3  Wait@step.c:122                    
-      6.7          7447268          1  7447268.0  7447268.0   7447268   7447268          0.0  Enter Data@heat_openacc.c:125      
-      6.2          6838432          4  1709608.0  1903228.0      8102   3023874    1504815.9  Enqueue Upload@heat_openacc.c:125  
-      3.5          3821418          1  3821418.0  3821418.0   3821418   3821418          0.0  Update@heat_openacc.c:137          
+     34.4         38039788        200   190198.9   190455.5    130422    195638       4571.7  Compute Construct@step.c:122
+     34.0         37528310        400    93820.8    63078.0       601    192394      93240.3  Wait@step.c:122
+      6.7          7447268          1  7447268.0  7447268.0   7447268   7447268          0.0  Enter Data@heat_openacc.c:125
+      6.2          6838432          4  1709608.0  1903228.0      8102   3023874    1504815.9  Enqueue Upload@heat_openacc.c:125
+      3.5          3821418          1  3821418.0  3821418.0   3821418   3821418          0.0  Update@heat_openacc.c:137
       3.4          3811503          1  3811503.0  3811503.0   3811503   3811503          0.0  Enqueue Download@heat_openacc.c:137
-      1.3          1401752        200     7008.8     6800.0      6339     36113       2099.2  Compute Construct@step.c:46        
-      1.2          1324309        200     6621.5     6539.5      6059     10205        349.7  Compute Construct@step.c:51        
-      1.2          1310578        200     6552.9     6450.0      6089     12218        586.6  Compute Construct@step.c:61        
-      1.2          1304739        200     6523.7     6449.0      5959      9955        434.7  Compute Construct@step.c:56        
-      0.8           860732        400     2151.8     1822.0       601      3935       1406.7  Wait@step.c:46                     
-      0.7           817717        400     2044.3     1687.5       591      5087       1280.4  Wait@step.c:51                     
-      0.7           801921        400     2004.8     1802.5       601      9003       1280.1  Wait@step.c:61                     
-      0.7           794986        400     1987.5     1662.0       600      6510       1248.5  Wait@step.c:56                     
-      0.5           555623        200     2778.1     2613.5      2493     22483       1440.7  Enqueue Launch@step.c:46           
-      0.5           537322        200     2686.6     2614.0      2503      5698        283.2  Enqueue Launch@step.c:56           
-      0.5           537004        200     2685.0     2614.0      2484      7361        394.7  Enqueue Launch@step.c:61           
-      0.5           535616        200     2678.1     2604.0      2503      6249        297.3  Enqueue Launch@step.c:51           
-      0.5           533587        200     2667.9     2574.0      2433      6790        483.9  Enqueue Launch@step.c:122          
-      0.3           298516        200     1492.6     1482.5      1322      2433        154.2  Enter Data@step.c:122              
-      0.2           248636        200     1243.2     1277.0      1051      2133        145.0  Enter Data@step.c:51               
-      0.2           246503        200     1232.5     1267.0      1051      1973        141.1  Enter Data@step.c:56               
-      0.2           246489        200     1232.4     1266.5      1051      1823        143.4  Enter Data@step.c:61               
-      0.2           245336        200     1226.7     1222.0      1051      4086        243.7  Enter Data@step.c:46               
-      0.1           120859        200      604.3      600.0       581      1031         39.1  Exit Data@step.c:122               
-      0.1            77163        200      385.8      350.0       330      6950        467.1  Exit Data@step.c:46                
-      0.1            73162        200      365.8      361.0       350       631         26.9  Exit Data@step.c:61                
-      0.1            71923        200      359.6      351.0       330      1232         65.9  Exit Data@step.c:51                
-      0.1            71181        200      355.9      350.0       330       952         50.9  Exit Data@step.c:56                
-      0.0            18648          1    18648.0    18648.0     18648     18648          0.0  Exit Data@heat_openacc.c:137       
-      0.0            11767          1    11767.0    11767.0     11767     11767          0.0  Wait@heat_openacc.c:125            
-      0.0             1392          1     1392.0     1392.0      1392      1392          0.0  Wait@heat_openacc.c:137            
-      0.0                0          4        0.0        0.0         0         0          0.0  Alloc@heat_openacc.c:125           
-      0.0                0          4        0.0        0.0         0         0          0.0  Create@heat_openacc.c:125          
-      0.0                0          4        0.0        0.0         0         0          0.0  Delete@heat_openacc.c:137          
+      1.3          1401752        200     7008.8     6800.0      6339     36113       2099.2  Compute Construct@step.c:46
+      1.2          1324309        200     6621.5     6539.5      6059     10205        349.7  Compute Construct@step.c:51
+      1.2          1310578        200     6552.9     6450.0      6089     12218        586.6  Compute Construct@step.c:61
+      1.2          1304739        200     6523.7     6449.0      5959      9955        434.7  Compute Construct@step.c:56
+      0.8           860732        400     2151.8     1822.0       601      3935       1406.7  Wait@step.c:46
+      0.7           817717        400     2044.3     1687.5       591      5087       1280.4  Wait@step.c:51
+      0.7           801921        400     2004.8     1802.5       601      9003       1280.1  Wait@step.c:61
+      0.7           794986        400     1987.5     1662.0       600      6510       1248.5  Wait@step.c:56
+      0.5           555623        200     2778.1     2613.5      2493     22483       1440.7  Enqueue Launch@step.c:46
+      0.5           537322        200     2686.6     2614.0      2503      5698        283.2  Enqueue Launch@step.c:56
+      0.5           537004        200     2685.0     2614.0      2484      7361        394.7  Enqueue Launch@step.c:61
+      0.5           535616        200     2678.1     2604.0      2503      6249        297.3  Enqueue Launch@step.c:51
+      0.5           533587        200     2667.9     2574.0      2433      6790        483.9  Enqueue Launch@step.c:122
+      0.3           298516        200     1492.6     1482.5      1322      2433        154.2  Enter Data@step.c:122
+      0.2           248636        200     1243.2     1277.0      1051      2133        145.0  Enter Data@step.c:51
+      0.2           246503        200     1232.5     1267.0      1051      1973        141.1  Enter Data@step.c:56
+      0.2           246489        200     1232.4     1266.5      1051      1823        143.4  Enter Data@step.c:61
+      0.2           245336        200     1226.7     1222.0      1051      4086        243.7  Enter Data@step.c:46
+      0.1           120859        200      604.3      600.0       581      1031         39.1  Exit Data@step.c:122
+      0.1            77163        200      385.8      350.0       330      6950        467.1  Exit Data@step.c:46
+      0.1            73162        200      365.8      361.0       350       631         26.9  Exit Data@step.c:61
+      0.1            71923        200      359.6      351.0       330      1232         65.9  Exit Data@step.c:51
+      0.1            71181        200      355.9      350.0       330       952         50.9  Exit Data@step.c:56
+      0.0            18648          1    18648.0    18648.0     18648     18648          0.0  Exit Data@heat_openacc.c:137
+      0.0            11767          1    11767.0    11767.0     11767     11767          0.0  Wait@heat_openacc.c:125
+      0.0             1392          1     1392.0     1392.0      1392      1392          0.0  Wait@heat_openacc.c:137
+      0.0                0          4        0.0        0.0         0         0          0.0  Alloc@heat_openacc.c:125
+      0.0                0          4        0.0        0.0         0         0          0.0  Create@heat_openacc.c:125
+      0.0                0          4        0.0        0.0         0         0          0.0  Delete@heat_openacc.c:137
 
 Generated:
 	/home/hpcb02/Madrid_heat_island_HPCProject/results/profiles/nsys_resident_4096_28697.nsys-rep

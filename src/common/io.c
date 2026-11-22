@@ -45,6 +45,51 @@ int read_city_rows(const char *path, int nx, int j0, int nrows, int8_t *city)
     return 0;
 }
 
+int read_city_block(const char *path, int nx,
+                    int i0, int j0,
+                    int local_nx, int local_ny,
+                    int8_t *city)
+{
+    FILE *f = fopen(path, "rb");
+    if (!f) {
+        perror(path);
+        return 1;
+    }
+
+    int failed = 0;
+
+    for (int r = 0; r < local_ny; r++) {
+        long offset = 2L * (long)sizeof(int32_t)
+                    + (long)(j0 + r) * (long)nx
+                    + (long)i0;
+
+        if (fseek(f, offset, SEEK_SET) != 0 ||
+            fread(&city[(size_t)r * (size_t)local_nx],
+                  1, (size_t)local_nx, f) != (size_t)local_nx) {
+            failed = 1;
+            break;
+        }
+    }
+
+    fclose(f);
+
+    if (failed) {
+        fprintf(stderr, "%s: failed to read city block\n", path);
+        return 1;
+    }
+
+    size_t n = (size_t)local_nx * (size_t)local_ny;
+
+    for (size_t k = 0; k < n; k++) {
+        if (city[k] < 0 || city[k] >= NTYPES) {
+            fprintf(stderr, "%s: invalid cell type %d\n", path, city[k]);
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 int write_city(const char *path, int nx, int ny, const int8_t *city)
 {
     FILE *f = fopen(path, "wb");
@@ -106,6 +151,21 @@ void synthetic_city_rows(int nx, int j0, int nrows, uint64_t seed, int8_t *city)
     for (int r = 0; r < nrows; r++)
         for (int i = 0; i < nx; i++)
             city[(size_t)r * (size_t)nx + (size_t)i] = synthetic_cell(i, j0 + r, seed);
+}
+
+void synthetic_city_block(int nx,
+                          int i0, int j0,
+                          int local_nx, int local_ny,
+                          uint64_t seed, int8_t *city)
+{
+    (void)nx;
+
+    for (int r = 0; r < local_ny; r++) {
+        for (int i = 0; i < local_nx; i++) {
+            city[(size_t)r * (size_t)local_nx + (size_t)i] =
+                synthetic_cell(i0 + i, j0 + r, seed);
+        }
+    }
 }
 
 /* ---------------- output fields ---------------- */

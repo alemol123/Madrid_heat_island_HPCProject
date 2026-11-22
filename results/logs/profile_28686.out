@@ -2,7 +2,7 @@
 Currently Loaded Modules:
   1) nvhpc/25.7
 
- 
+
 
 /usr/bin/gcc
 /usr/bin/mpicc
@@ -13,7 +13,7 @@ Currently Loaded Modules:
 name, memory.total [MiB], driver_version
 NVIDIA RTX 6000 Ada Generation, 49140 MiB, 580.126.09
 
-nvc 25.7-0 64-bit target on x86-64 Linux -tp znver5 
+nvc 25.7-0 64-bit target on x86-64 Linux -tp znver5
 NVIDIA (R) Nsight Compute Command Line Profiler
 src/openacc/heat_openacc.c:
 main:
@@ -57,7 +57,7 @@ step_rows:
 src/common/io.c:
 src/common/diag.c:
 built build/28686/heat_openacc with: nvc -O3 -acc -gpu=ccnative -Minfo=accel
-=== command: build/28686/heat_openacc --nx 2048 --ny 2048 --steps 200 --city synthetic --seed 42 --acc-mode resident 
+=== command: build/28686/heat_openacc --nx 2048 --ny 2048 --steps 200 --city synthetic --seed 42 --acc-mode resident
 === ncu profile of kernels '.' -> results/profiles/ncu_resident_2048_28686.ncu-rep
 ==PROF== Connected to process 3082140 (/home/hpcb02/Madrid_heat_island_HPCProject/build/28686/heat_openacc)
 ==ERROR== ERR_NVGPUCTRPERM - The user does not have permission to access NVIDIA GPU Performance Counters on the target device 0. For instructions on enabling permissions and to get more information see https://developer.nvidia.com/ERR_NVGPUCTRPERM

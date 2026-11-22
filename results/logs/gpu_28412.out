@@ -2,7 +2,7 @@
 Currently Loaded Modules:
   1) nvhpc/25.7
 
- 
+
 
 /usr/bin/gcc
 /usr/bin/mpicc
@@ -13,7 +13,7 @@ Currently Loaded Modules:
 name, memory.total [MiB], driver_version
 NVIDIA RTX 6000 Ada Generation, 49140 MiB, 580.126.09
 
-nvc 25.7-0 64-bit target on x86-64 Linux -tp znver5 
+nvc 25.7-0 64-bit target on x86-64 Linux -tp znver5
 src/openacc/heat_openacc.c:
 main:
     125, Generating enter data copyin(b[:npad],a[:npad],city[:ncell],c)
@@ -56,7 +56,7 @@ step_rows:
 src/common/io.c:
 src/common/diag.c:
 built build/28412/heat_openacc with: nvc -O3 -acc -gpu=ccnative -Minfo=accel
-=== command: build/28412/heat_openacc --nx 2048 --ny 2048 --steps 2000 --city synthetic --seed 42 --out build/28412/field.bin --timing results/runs.csv --tag gpu_resident 
+=== command: build/28412/heat_openacc --nx 2048 --ny 2048 --steps 2000 --city synthetic --seed 42 --out build/28412/field.bin --timing results/runs.csv --tag gpu_resident
 === repeat 1
 heat openacc nx=2048 ny=2048 steps=2000 city=synthetic seed=42 kernel=openacc-gpu mode=resident
 time_total=0.3026 s  time_compute=0.0926 s  time_transfer=0.0034 s  time_io=0.0509 s  0.011 ns/cell-update

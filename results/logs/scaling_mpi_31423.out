@@ -10,7 +10,7 @@ Currently Loaded Modules:
   8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
   9) UCX/1.15.0-GCCcore-13.2.0
 
- 
+
 
 /cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
 /cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
@@ -22,7 +22,7 @@ CPU(s):                                  512
 Model name:                              AMD EPYC 9755 128-Core Processor
 CPU(s) scaling MHz:                      53%
 built build/31423/heat_mpi
-=== ranks=1  command: srun --mpi=pmix -n 1 --cpus-per-task=1 --cpu-bind=cores build/31423/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_clean 
+=== ranks=1  command: srun --mpi=pmix -n 1 --cpus-per-task=1 --cpu-bind=cores build/31423/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_clean
 === ranks=1 repeat 1
 heat mpi nx=4096 ny=4096 steps=238 city=synthetic seed=42 ranks=1 kernel=avx512-permute
 time_total=1.0923 s  time_compute=1.0139 s  time_comm=0.0001 s  time_io=0.0493 s  0.254 ns/cell-update
@@ -43,7 +43,7 @@ checksum 4.5038242513e+08
 heat mpi nx=4096 ny=4096 steps=238 city=synthetic seed=42 ranks=1 kernel=avx512-permute
 time_total=1.1584 s  time_compute=1.0802 s  time_comm=0.0001 s  time_io=0.0489 s  0.271 ns/cell-update
 checksum 4.5038242513e+08
-=== ranks=2  command: srun --mpi=pmix -n 2 --cpus-per-task=1 --cpu-bind=cores build/31423/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_clean 
+=== ranks=2  command: srun --mpi=pmix -n 2 --cpus-per-task=1 --cpu-bind=cores build/31423/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_clean
 === ranks=2 repeat 1
 heat mpi nx=4096 ny=4096 steps=238 city=synthetic seed=42 ranks=2 kernel=avx512-permute
 time_total=0.6057 s  time_compute=0.5588 s  time_comm=0.0523 s  time_io=0.0246 s  0.140 ns/cell-update
@@ -64,7 +64,7 @@ checksum 4.5038242513e+08
 heat mpi nx=4096 ny=4096 steps=238 city=synthetic seed=42 ranks=2 kernel=avx512-permute
 time_total=0.6912 s  time_compute=0.6441 s  time_comm=0.1340 s  time_io=0.0246 s  0.161 ns/cell-update
 checksum 4.5038242513e+08
-=== ranks=4  command: srun --mpi=pmix -n 4 --cpus-per-task=1 --cpu-bind=cores build/31423/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_clean 
+=== ranks=4  command: srun --mpi=pmix -n 4 --cpus-per-task=1 --cpu-bind=cores build/31423/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_clean
 === ranks=4 repeat 1
 heat mpi nx=4096 ny=4096 steps=238 city=synthetic seed=42 ranks=4 kernel=avx512-permute
 time_total=0.3080 s  time_compute=0.2816 s  time_comm=0.0139 s  time_io=0.0124 s  0.071 ns/cell-update
@@ -85,7 +85,7 @@ checksum 4.5038242513e+08
 heat mpi nx=4096 ny=4096 steps=238 city=synthetic seed=42 ranks=4 kernel=avx512-permute
 time_total=0.3125 s  time_compute=0.2859 s  time_comm=0.0127 s  time_io=0.0125 s  0.072 ns/cell-update
 checksum 4.5038242513e+08
-=== ranks=8  command: srun --mpi=pmix -n 8 --cpus-per-task=1 --cpu-bind=cores build/31423/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_clean 
+=== ranks=8  command: srun --mpi=pmix -n 8 --cpus-per-task=1 --cpu-bind=cores build/31423/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_clean
 === ranks=8 repeat 1
 heat mpi nx=4096 ny=4096 steps=238 city=synthetic seed=42 ranks=8 kernel=avx512-permute
 time_total=0.2475 s  time_compute=0.2265 s  time_comm=0.0347 s  time_io=0.0062 s  0.057 ns/cell-update
@@ -106,7 +106,7 @@ checksum 4.5038242513e+08
 heat mpi nx=4096 ny=4096 steps=238 city=synthetic seed=42 ranks=8 kernel=avx512-permute
 time_total=0.2501 s  time_compute=0.2316 s  time_comm=0.0384 s  time_io=0.0062 s  0.058 ns/cell-update
 checksum 4.5038242513e+08
-=== ranks=16  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=cores build/31423/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_clean 
+=== ranks=16  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=cores build/31423/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_clean
 === ranks=16 repeat 1
 heat mpi nx=4096 ny=4096 steps=238 city=synthetic seed=42 ranks=16 kernel=avx512-permute
 time_total=0.2286 s  time_compute=0.2122 s  time_comm=0.1650 s  time_io=0.0029 s  0.053 ns/cell-update
@@ -127,7 +127,7 @@ checksum 4.5038242513e+08
 heat mpi nx=4096 ny=4096 steps=238 city=synthetic seed=42 ranks=16 kernel=avx512-permute
 time_total=0.2300 s  time_compute=0.2110 s  time_comm=0.1661 s  time_io=0.0031 s  0.053 ns/cell-update
 checksum 4.5038242513e+08
-=== ranks=32  command: srun --mpi=pmix -n 32 --cpus-per-task=1 --cpu-bind=cores build/31423/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_clean 
+=== ranks=32  command: srun --mpi=pmix -n 32 --cpus-per-task=1 --cpu-bind=cores build/31423/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_clean
 === ranks=32 repeat 1
 heat mpi nx=4096 ny=4096 steps=238 city=synthetic seed=42 ranks=32 kernel=avx512-permute
 time_total=0.0484 s  time_compute=0.0387 s  time_comm=0.0231 s  time_io=0.0015 s  0.010 ns/cell-update

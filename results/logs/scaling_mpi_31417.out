@@ -10,7 +10,7 @@ Currently Loaded Modules:
   8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
   9) UCX/1.15.0-GCCcore-13.2.0
 
- 
+
 
 /cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
 /cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
@@ -22,7 +22,7 @@ CPU(s):                                  512
 Model name:                              AMD EPYC 9755 128-Core Processor
 CPU(s) scaling MHz:                      52%
 built build/31417/heat_mpi
-=== ranks=16  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=cores build/31417/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_sizes 
+=== ranks=16  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=cores build/31417/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_sizes
 === ranks=16 repeat 1
 heat mpi nx=4096 ny=4096 steps=238 city=synthetic seed=42 ranks=16 kernel=avx512-permute
 time_total=0.4405 s  time_compute=0.4120 s  time_comm=0.3930 s  time_io=0.0031 s  0.103 ns/cell-update
@@ -46,7 +46,7 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -55,7 +55,7 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -64,7 +64,7 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -73,7 +73,7 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -82,7 +82,7 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -91,7 +91,7 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -100,7 +100,7 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -109,7 +109,7 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -118,7 +118,7 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -127,7 +127,7 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -136,7 +136,7 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -145,7 +145,7 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -154,7 +154,7 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -163,7 +163,7 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -172,7 +172,7 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
@@ -181,13 +181,13 @@ not have.  It is likely that your MPI job will now either abort or
 experience performance degradation.
 
   Local host:  haskell
-  System call: open(2) 
+  System call: open(2)
   Error:       No such file or directory (errno 2)
 --------------------------------------------------------------------------
 heat mpi nx=4096 ny=4096 steps=238 city=synthetic seed=42 ranks=16 kernel=avx512-permute
 time_total=0.4500 s  time_compute=0.4063 s  time_comm=0.4019 s  time_io=0.0029 s  0.102 ns/cell-update
 checksum 4.5038242513e+08
-=== ranks=32  command: srun --mpi=pmix -n 32 --cpus-per-task=1 --cpu-bind=cores build/31417/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_sizes 
+=== ranks=32  command: srun --mpi=pmix -n 32 --cpus-per-task=1 --cpu-bind=cores build/31417/heat_mpi --nx 4096 --ny 4096 --steps 238 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_sizes
 === ranks=32 repeat 1
 heat mpi nx=4096 ny=4096 steps=238 city=synthetic seed=42 ranks=32 kernel=avx512-permute
 time_total=0.0774 s  time_compute=0.0609 s  time_comm=0.0532 s  time_io=0.0015 s  0.015 ns/cell-update

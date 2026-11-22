@@ -1,0 +1,213 @@
+
+Currently Loaded Modules:
+  1) nvhpc/25.7
+
+ 
+
+/usr/bin/gcc
+/usr/bin/mpicc
+/data/software/tools/nvhpc/Linux_x86_64/25.7/compilers/bin/nvc
+=== job 35077 on haskell at 2026-11-22T12:26:36+01:00
+=== git commit: ddb3780  (2 uncommitted files outside results/)
+=== nx=4096 ny=4096 steps=1000 city=synthetic seed=42 tag=p5-gpu-naive reps=3 extra=--acc-mode naive acc_time=1
+name, memory.total [MiB], driver_version
+NVIDIA RTX 6000 Ada Generation, 49140 MiB, 580.126.09
+
+nvc 25.7-0 64-bit target on x86-64 Linux -tp znver5 
+src/openacc/heat_openacc.c:
+main:
+    125, Generating enter data copyin(b[:npad],a[:npad],city[:ncell],c)
+    137, Generating update self(a[:npad])
+         Generating exit data delete(b[:npad],a[:npad],city[:ncell],c)
+    143, Generating enter data copyin(a[:npad])
+         Generating enter data create(b[:npad])
+         Generating enter data copyin(c,city[:ncell])
+    150, Generating exit data copyout(b[:npad])
+         Generating exit data delete(city[:ncell],c,a[:npad])
+src/common/step.c:
+apply_boundary:
+     46, Generating present(T[:npad])
+         Generating implicit firstprivate(i,nx)
+         Generating NVIDIA GPU code
+         48, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     48, Generating implicit firstprivate(t_air,neumann)
+     51, Generating present(T[:npad])
+         Generating implicit firstprivate(i,nx)
+         Generating NVIDIA GPU code
+         53, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     53, Generating implicit firstprivate(neumann,t_air,ny)
+     56, Generating present(T[:npad])
+         Generating implicit firstprivate(j,ny)
+         Generating NVIDIA GPU code
+         58, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     58, Generating implicit firstprivate(neumann,nx,w,t_air)
+     61, Generating present(T[:npad])
+         Generating implicit firstprivate(j,ny)
+         Generating NVIDIA GPU code
+         63, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     63, Generating implicit firstprivate(neumann,nx,w,t_air)
+step_rows:
+    130, Generating present(city[:ncity],in[:npad],out[:npad],c[:1])
+         Generating implicit firstprivate(nx,j1,j0,j)
+         Generating NVIDIA GPU code
+        132, #pragma acc loop gang, vector(128) collapse(2) /* blockIdx.x threadIdx.x */
+        133,   /* blockIdx.x threadIdx.x collapsed */
+    133, Generating implicit firstprivate(w,t_air,solar)
+src/common/io.c:
+src/common/diag.c:
+built build/35077/heat_openacc with: nvc -O3 -acc -gpu=ccnative -Minfo=accel
+=== command: build/35077/heat_openacc --nx 4096 --ny 4096 --steps 1000 --city synthetic --seed 42 --out build/35077/field.bin --timing results/runs.csv --tag p5-gpu-naive --acc-mode naive
+=== repeat 1
+heat openacc nx=4096 ny=4096 steps=1000 city=synthetic seed=42 kernel=openacc-gpu mode=naive
+time_total=7.9705 s  time_compute=0.2315 s  time_transfer=7.4075 s  time_io=0.1353 s  0.014 ns/cell-update
+checksum 4.3493404821e+08
+
+Accelerator Kernel Timing data
+/home/hpcb07/Madrid_heat_island_HPCProject/src/common/step.c
+  apply_boundary  NVIDIA  devicenum=0
+    time(us): 5,061
+    46: compute region reached 1000 times
+        46: kernel launched 1000 times
+            grid: [32]  block: [128]
+             device time(us): total=1,410 max=2 min=1 avg=1
+            elapsed time(us): total=14,995 max=222 min=12 avg=14
+    46: data region reached 2000 times
+    51: compute region reached 1000 times
+        51: kernel launched 1000 times
+            grid: [32]  block: [128]
+             device time(us): total=1,247 max=2 min=1 avg=1
+            elapsed time(us): total=10,800 max=28 min=10 avg=10
+    51: data region reached 2000 times
+    56: compute region reached 1000 times
+        56: kernel launched 1000 times
+            grid: [32]  block: [128]
+             device time(us): total=1,226 max=2 min=1 avg=1
+            elapsed time(us): total=11,049 max=323 min=9 avg=11
+    56: data region reached 2000 times
+    61: compute region reached 1000 times
+        61: kernel launched 1000 times
+            grid: [32]  block: [128]
+             device time(us): total=1,178 max=2 min=1 avg=1
+            elapsed time(us): total=10,581 max=20 min=9 avg=10
+    61: data region reached 2000 times
+/home/hpcb07/Madrid_heat_island_HPCProject/src/common/step.c
+  step_rows  NVIDIA  devicenum=0
+    time(us): 165,481
+    130: compute region reached 1000 times
+        130: kernel launched 1000 times
+            grid: [131072]  block: [128]
+             device time(us): total=165,481 max=169 min=113 avg=165
+            elapsed time(us): total=174,683 max=210 min=124 avg=174
+    130: data region reached 2000 times
+/home/hpcb07/Madrid_heat_island_HPCProject/src/openacc/heat_openacc.c
+  main  NVIDIA  devicenum=0
+    time(us): 7,378,234
+    143: data region reached 1000 times
+        143: data copyin transfers: 3000
+             device time(us): total=3,703,486 max=16,416 min=3 avg=1,234
+    150: data region reached 1000 times
+        150: data copyout transfers: 1000
+             device time(us): total=3,674,748 max=10,678 min=3,428 avg=3,674
+=== repeat 2
+heat openacc nx=4096 ny=4096 steps=1000 city=synthetic seed=42 kernel=openacc-gpu mode=naive
+time_total=7.9816 s  time_compute=0.2287 s  time_transfer=7.4214 s  time_io=0.1775 s  0.014 ns/cell-update
+checksum 4.3493404821e+08
+
+Accelerator Kernel Timing data
+/home/hpcb07/Madrid_heat_island_HPCProject/src/common/step.c
+  apply_boundary  NVIDIA  devicenum=0
+    time(us): 5,244
+    46: compute region reached 1000 times
+        46: kernel launched 1000 times
+            grid: [32]  block: [128]
+             device time(us): total=1,637 max=2 min=1 avg=1
+            elapsed time(us): total=13,438 max=218 min=11 avg=13
+    46: data region reached 2000 times
+    51: compute region reached 1000 times
+        51: kernel launched 1000 times
+            grid: [32]  block: [128]
+             device time(us): total=1,245 max=2 min=1 avg=1
+            elapsed time(us): total=10,670 max=23 min=9 avg=10
+    51: data region reached 2000 times
+    56: compute region reached 1000 times
+        56: kernel launched 1000 times
+            grid: [32]  block: [128]
+             device time(us): total=1,228 max=2 min=1 avg=1
+            elapsed time(us): total=11,171 max=252 min=9 avg=11
+    56: data region reached 2000 times
+    61: compute region reached 1000 times
+        61: kernel launched 1000 times
+            grid: [32]  block: [128]
+             device time(us): total=1,134 max=2 min=1 avg=1
+            elapsed time(us): total=10,533 max=25 min=9 avg=10
+    61: data region reached 2000 times
+/home/hpcb07/Madrid_heat_island_HPCProject/src/common/step.c
+  step_rows  NVIDIA  devicenum=0
+    time(us): 165,421
+    130: compute region reached 1000 times
+        130: kernel launched 1000 times
+            grid: [131072]  block: [128]
+             device time(us): total=165,421 max=171 min=110 avg=165
+            elapsed time(us): total=174,439 max=252 min=120 avg=174
+    130: data region reached 2000 times
+/home/hpcb07/Madrid_heat_island_HPCProject/src/openacc/heat_openacc.c
+  main  NVIDIA  devicenum=0
+    time(us): 7,391,967
+    143: data region reached 1000 times
+        143: data copyin transfers: 3000
+             device time(us): total=3,714,223 max=12,670 min=4 avg=1,238
+    150: data region reached 1000 times
+        150: data copyout transfers: 1000
+             device time(us): total=3,677,744 max=14,303 min=3,443 avg=3,677
+=== repeat 3
+heat openacc nx=4096 ny=4096 steps=1000 city=synthetic seed=42 kernel=openacc-gpu mode=naive
+time_total=8.3474 s  time_compute=0.2305 s  time_transfer=7.4221 s  time_io=0.5436 s  0.014 ns/cell-update
+checksum 4.3493404821e+08
+
+Accelerator Kernel Timing data
+/home/hpcb07/Madrid_heat_island_HPCProject/src/common/step.c
+  apply_boundary  NVIDIA  devicenum=0
+    time(us): 4,905
+    46: compute region reached 1000 times
+        46: kernel launched 1000 times
+            grid: [32]  block: [128]
+             device time(us): total=1,304 max=2 min=1 avg=1
+            elapsed time(us): total=14,776 max=217 min=11 avg=14
+    46: data region reached 2000 times
+    51: compute region reached 1000 times
+        51: kernel launched 1000 times
+            grid: [32]  block: [128]
+             device time(us): total=1,230 max=2 min=1 avg=1
+            elapsed time(us): total=10,883 max=36 min=9 avg=10
+    51: data region reached 2000 times
+    56: compute region reached 1000 times
+        56: kernel launched 1000 times
+            grid: [32]  block: [128]
+             device time(us): total=1,233 max=2 min=1 avg=1
+            elapsed time(us): total=10,879 max=257 min=9 avg=10
+    56: data region reached 2000 times
+    61: compute region reached 1000 times
+        61: kernel launched 1000 times
+            grid: [32]  block: [128]
+             device time(us): total=1,138 max=2 min=1 avg=1
+            elapsed time(us): total=10,664 max=31 min=9 avg=10
+    61: data region reached 2000 times
+/home/hpcb07/Madrid_heat_island_HPCProject/src/common/step.c
+  step_rows  NVIDIA  devicenum=0
+    time(us): 165,461
+    130: compute region reached 1000 times
+        130: kernel launched 1000 times
+            grid: [131072]  block: [128]
+             device time(us): total=165,461 max=169 min=109 avg=165
+            elapsed time(us): total=174,454 max=250 min=118 avg=174
+    130: data region reached 2000 times
+/home/hpcb07/Madrid_heat_island_HPCProject/src/openacc/heat_openacc.c
+  main  NVIDIA  devicenum=0
+    time(us): 7,393,304
+    143: data region reached 1000 times
+        143: data copyin transfers: 3000
+             device time(us): total=3,716,713 max=12,796 min=4 avg=1,238
+    150: data region reached 1000 times
+        150: data copyout transfers: 1000
+             device time(us): total=3,676,591 max=12,119 min=3,427 avg=3,676
+=== done 2026-11-22T12:27:01+01:00
