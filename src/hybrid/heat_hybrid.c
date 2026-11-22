@@ -22,6 +22,14 @@
 #define GIT_COMMIT "unknown"
 #endif
 
+#ifndef STEP_TILE_X
+#define STEP_TILE_X 256
+#endif
+
+#ifndef STEP_TILE_Y
+#define STEP_TILE_Y 16
+#endif
+
 #define NODE_NAME_LEN 256
 
 static void usage(const char *prog)
@@ -370,7 +378,7 @@ int main(int argc, char **argv)
 
 #ifdef STEP_TILED_2D
         step_rows_tiled_2d(a, b, city, local_nx, local_ny,
-                           solar, &c, 0, local_ny, 256, 32);
+                           solar, &c, 0, local_ny, STEP_TILE_X, STEP_TILE_Y);
 #elif defined(STEP_TILED)
         #pragma omp parallel for schedule(static)
         for (int j = 0; j < local_ny; j++) {

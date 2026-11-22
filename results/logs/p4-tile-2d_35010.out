@@ -1,0 +1,34 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+ 
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== variant=tiled-2d job=35010 node=julia
+=== nx=4096 ny=4096 steps=1000 threads=4
+=== tile_x=256 tile_y=32 repetitions=3
+=== compiler flags: -O3 -march=native -std=c11 -Wall -Wextra -DSTEP_TILED_2D -DSTEP_TILE_X=256 -DSTEP_TILE_Y=32
+built build/p4-tile-tiled-2d-35010/heat_hybrid
+=== repeat 1
+heat hybrid nx=4096 ny=4096 steps=1000 city=synthetic seed=42 ranks=1 threads=4 kernel=avx512-tiled-2d
+time_total=2.9919 s  time_compute=2.7009 s  time_comm=0.0024 s  time_io=0.2719 s  0.161 ns/cell-update
+checksum 4.3493427204e+08
+=== repeat 2
+heat hybrid nx=4096 ny=4096 steps=1000 city=synthetic seed=42 ranks=1 threads=4 kernel=avx512-tiled-2d
+time_total=3.1807 s  time_compute=2.7287 s  time_comm=0.0022 s  time_io=0.4326 s  0.163 ns/cell-update
+checksum 4.3493427204e+08
+=== repeat 3
+heat hybrid nx=4096 ny=4096 steps=1000 city=synthetic seed=42 ranks=1 threads=4 kernel=avx512-tiled-2d
+time_total=3.2417 s  time_compute=2.7670 s  time_comm=0.0024 s  time_io=0.4553 s  0.165 ns/cell-update
+checksum 4.3493427204e+08
+=== completed variant=tiled-2d

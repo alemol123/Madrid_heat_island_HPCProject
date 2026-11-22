@@ -18,7 +18,9 @@ NX=${NX:-4096}
 NY=${NY:-$NX}
 STEPS=${STEPS:-1000}
 REPS=${REPS:-3}
-TAG="p4-tile-${VARIANT}"
+TILE_X=${TILE_X:-256}
+TILE_Y=${TILE_Y:-32}
+TAG="p4-tile-${VARIANT}-${TILE_X}x${TILE_Y}"
 
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 export OMP_PROC_BIND=close
@@ -28,7 +30,7 @@ BUILD="build/p4-tile-${VARIANT}-${SLURM_JOB_ID}"
 FLAGS="-O3 -march=native -std=c11 -Wall -Wextra"
 
 if [ "$VARIANT" = "tiled-2d" ]; then
-    FLAGS="$FLAGS -DSTEP_TILED_2D"
+    FLAGS="$FLAGS -DSTEP_TILED_2D -DSTEP_TILE_X=$TILE_X -DSTEP_TILE_Y=$TILE_Y"
 elif [ "$VARIANT" != "baseline" ]; then
     echo "Unknown VARIANT: $VARIANT"
     exit 1
@@ -36,6 +38,7 @@ fi
 
 echo "=== variant=$VARIANT job=$SLURM_JOB_ID node=$SLURM_JOB_NODELIST"
 echo "=== nx=$NX ny=$NY steps=$STEPS threads=$OMP_NUM_THREADS"
+echo "=== tile_x=$TILE_X tile_y=$TILE_Y repetitions=$REPS"
 echo "=== compiler flags: $FLAGS"
 
 make hybrid BUILD="$BUILD" CFLAGS="$FLAGS"
