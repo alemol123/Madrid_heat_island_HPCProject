@@ -1,0 +1,39 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+ 
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== job 35039 on fortran,haskell at 2026-11-22T11:36:47+01:00
+=== nodes=2 ranks=32 ranks/node=16 threads/rank=1
+=== OMP_PROC_BIND=close OMP_PLACES=cores
+=== git commit: be2845c  (2 uncommitted files outside results/)
+=== nx=4096 ny=4096 steps=1000 city=synthetic seed=42 tag=hybrid-2node-32x1 reps=3 extra=
+CPU(s):                                  512
+Model name:                              AMD EPYC 9755 128-Core Processor
+CPU(s) scaling MHz:                      62%
+built build/35039/heat_hybrid
+=== command: srun --mpi=pmix --cpus-per-task=1 --cpu-bind=cores build/35039/heat_hybrid --nx 4096 --ny 4096 --steps 1000 --city synthetic --seed 42 --out build/35039/field.bin --timing results/runs.csv --tag hybrid-2node-32x1 
+=== repeat 1
+heat hybrid nx=4096 ny=4096 steps=1000 city=synthetic seed=42 ranks=32 threads=1 kernel=avx512-permute
+time_total=0.6388 s  time_compute=0.2081 s  time_comm=0.1655 s  time_io=0.3454 s  0.012 ns/cell-update
+checksum 4.3493427204e+08
+=== repeat 2
+heat hybrid nx=4096 ny=4096 steps=1000 city=synthetic seed=42 ranks=32 threads=1 kernel=avx512-permute
+time_total=0.6439 s  time_compute=0.2305 s  time_comm=0.1982 s  time_io=0.3193 s  0.014 ns/cell-update
+checksum 4.3493427204e+08
+=== repeat 3
+heat hybrid nx=4096 ny=4096 steps=1000 city=synthetic seed=42 ranks=32 threads=1 kernel=avx512-permute
+time_total=0.6765 s  time_compute=0.2063 s  time_comm=0.1588 s  time_io=0.3915 s  0.012 ns/cell-update
+checksum 4.3493427204e+08
+=== done 2026-11-22T11:36:55+01:00
