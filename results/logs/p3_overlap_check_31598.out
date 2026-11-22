@@ -1,0 +1,48 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== job 31598 on fortran at 2026-11-17T12:23:12+01:00
+CPU(s):                                  512
+Model name:                              AMD EPYC 9755 128-Core Processor
+CPU(s) scaling MHz:                      53%
+=== git commit: adc54c8  (0 uncommitted files in src/)
+built build/heat_serial with: gcc -O3 -march=native -std=c11 -Wall -Wextra
+built build/heat_mpi
+np=1 s256 plain              PASS  256x256  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=1 s256 overlap            PASS  256x256  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=1 odd plain               PASS  250x251  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=1 odd overlap             PASS  250x251  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=1 tiny plain              PASS  64x6  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=1 tiny overlap            PASS  64x6  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=2 s256 plain              PASS  256x256  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=2 s256 overlap            PASS  256x256  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=2 odd plain               PASS  250x251  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=2 odd overlap             PASS  250x251  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=2 tiny plain              PASS  64x6  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=2 tiny overlap            PASS  64x6  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=3 s256 plain              PASS  256x256  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=3 s256 overlap            PASS  256x256  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=3 odd plain               PASS  250x251  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=3 odd overlap             PASS  250x251  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=3 tiny plain              PASS  64x6  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=3 tiny overlap            PASS  64x6  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=4 s256 plain              PASS  256x256  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=4 s256 overlap            PASS  256x256  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=4 odd plain               PASS  250x251  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=4 odd overlap             PASS  250x251  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=4 tiny plain              PASS  64x6  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+np=4 tiny overlap            PASS  64x6  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+p3_overlap_check: ALL PASSED

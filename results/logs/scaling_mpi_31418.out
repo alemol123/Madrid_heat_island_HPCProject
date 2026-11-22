@@ -1,0 +1,211 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== job 31418 on haskell at 2026-11-17T01:02:53+01:00
+=== allocation: nodes=1 tasks=32
+=== git commit: 270319e  (0 uncommitted files outside results/)
+=== nx=8192 ny=8192 steps=59 city=synthetic seed=42 tag=cpu32_sizes reps=5 ranks='16 32' csv=results/runs.csv extra=
+CPU(s):                                  512
+Model name:                              AMD EPYC 9755 128-Core Processor
+CPU(s) scaling MHz:                      52%
+built build/31418/heat_mpi
+=== ranks=16  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=cores build/31418/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_sizes
+=== ranks=16 repeat 1
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6457 s  time_compute=0.6126 s  time_comm=0.5424 s  time_io=0.0125 s  0.155 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=16 repeat 2
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6427 s  time_compute=0.6111 s  time_comm=0.5423 s  time_io=0.0126 s  0.154 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=16 repeat 3
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6485 s  time_compute=0.6166 s  time_comm=0.5467 s  time_io=0.0125 s  0.156 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=16 repeat 4
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6472 s  time_compute=0.6152 s  time_comm=0.5450 s  time_io=0.0128 s  0.155 ns/cell-update
+checksum 1.6881705547e+09
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.2
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.6
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.8
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.10
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.4
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.14
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.12
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.1
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.7
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.9
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.11
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.13
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.15
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.3
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.5
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  haskell
+  System call: unlink(2) /dev/shm/vader_segment.haskell.1000189.7cbd34e2.0
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+=== ranks=16 repeat 5
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6444 s  time_compute=0.6121 s  time_comm=0.5401 s  time_io=0.0126 s  0.155 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=32  command: srun --mpi=pmix -n 32 --cpus-per-task=1 --cpu-bind=cores build/31418/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag cpu32_sizes
+=== ranks=32 repeat 1
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3535 s  time_compute=0.3306 s  time_comm=0.3132 s  time_io=0.0059 s  0.083 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=32 repeat 2
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3556 s  time_compute=0.3309 s  time_comm=0.3135 s  time_io=0.0063 s  0.084 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=32 repeat 3
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3562 s  time_compute=0.3337 s  time_comm=0.3094 s  time_io=0.0064 s  0.084 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=32 repeat 4
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3547 s  time_compute=0.3323 s  time_comm=0.3103 s  time_io=0.0059 s  0.084 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=32 repeat 5
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3543 s  time_compute=0.3302 s  time_comm=0.3128 s  time_io=0.0059 s  0.083 ns/cell-update
+checksum 1.6881705547e+09
+=== done 2026-11-17T01:03:17+01:00

@@ -1,0 +1,52 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== job 29699 on haskell,julia at 2026-11-14T15:36:46+01:00
+=== nodes=2 ranks=5
+=== git commit: a28b1ba
+built build/heat_serial with: gcc -O3 -march=native -std=c11 -Wall -Wextra
+built build/heat_mpi
+=== halo tests (make test-mpi)
+built build/heat_serial with: gcc -O3 -march=native -std=c11 -Wall -Wextra
+built build/heat_mpi
+mpicc -O3 -march=native -std=c11 -Wall -Wextra -DGIT_COMMIT=\"a28b1ba\" -Isrc -Isrc/common -Isrc/mpi tests/test_halo.c src/mpi/halo.c src/common/step.c src/common/io.c src/common/diag.c -o build/test_halo -lm
+BUILD=build tests/run_halo_tests.sh
+srun: warning: can't run 1 processes on 2 nodes, setting nnodes to 1
+halo test, 1 rank(s): PASS (60 checks per rank, 0 failure(s) over all ranks)
+halo test, 2 rank(s): PASS (60 checks per rank, 0 failure(s) over all ranks)
+halo test, 3 rank(s): PASS (60 checks per rank, 0 failure(s) over all ranks)
+halo test, 5 rank(s): PASS (60 checks per rank, 0 failure(s) over all ranks)
+heat_mpi 5 ranks x 1 row           PASS  40x5  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+heat_mpi refuses ny=4 on 5 ranks       PASS
+halo tests: ALL PASSED
+=== where the ranks ran (5 ranks):
+      4 haskell
+      1 julia
+=== make check (MPI vs serial, 1-4 ranks)
+built build/heat_serial with: gcc -O3 -march=native -std=c11 -Wall -Wextra
+serial vs tests/ref                PASS  256x256  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=2.687e-04  cells_differing=0
+mpi np=1 serial_256                PASS  256x256  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+mpi np=1 serial_odd                PASS  250x251  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+mpi np=2 serial_256                PASS  256x256  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+mpi np=2 serial_odd                PASS  250x251  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+mpi np=3 serial_256                PASS  256x256  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+mpi np=3 serial_odd                PASS  250x251  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+mpi np=4 serial_256                PASS  256x256  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+mpi np=4 serial_odd                PASS  250x251  max_abs_diff=0.000e+00 at (i=0, j=0)  tolerance=0.000e+00  cells_differing=0
+hybrid: not built, skipped
+openacc: not built, skipped
+make check: ALL PASSED
+=== done 2026-11-14T15:37:03+01:00  status=0

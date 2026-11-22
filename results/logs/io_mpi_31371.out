@@ -1,0 +1,995 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== job 31371 on fortran,haskell at 2026-11-16T22:43:53+01:00
+=== git commit: 108ebb3  (0 uncommitted files outside results/)
+=== sizes="4096 8192" configs(nodes:ranks)="1:16 2:32" steps=10 reps=30 tag=io30 csv=results/runs.csv
+built build/31371/heat_mpi
+=== output directory build/31371 is on file system type: nfs
+10.205.20.3:/share/ZFS21_DATA/hpc-home nfs    30T  9.8T   21T  33% /home
+=== n=4096 nodes=1 ranks=16 io=gather  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31371/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31371/field_gather.bin --io gather --timing results/runs.csv --tag io30_gather
+=== repeat 1
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1209 s  time_compute=0.0095 s  time_comm=0.0066 s  time_io=0.1034 s  0.056 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 2
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.5546 s  time_compute=0.0197 s  time_comm=0.0164 s  time_io=1.5304 s  0.118 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 3
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=2.7687 s  time_compute=0.0093 s  time_comm=0.0082 s  time_io=2.7527 s  0.055 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 4
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1395 s  time_compute=0.0189 s  time_comm=0.0157 s  time_io=0.1163 s  0.113 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 5
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1259 s  time_compute=0.0092 s  time_comm=0.0072 s  time_io=0.1098 s  0.055 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 6
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1174 s  time_compute=0.0186 s  time_comm=0.0149 s  time_io=0.0946 s  0.111 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 7
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1445 s  time_compute=0.0095 s  time_comm=0.0066 s  time_io=0.1283 s  0.056 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 8
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1528 s  time_compute=0.0186 s  time_comm=0.0149 s  time_io=0.1299 s  0.111 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 9
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1616 s  time_compute=0.0095 s  time_comm=0.0040 s  time_io=0.1460 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 10
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1496 s  time_compute=0.0193 s  time_comm=0.0155 s  time_io=0.1264 s  0.115 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 11
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1488 s  time_compute=0.0092 s  time_comm=0.0026 s  time_io=0.1348 s  0.055 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 12
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1780 s  time_compute=0.0182 s  time_comm=0.0152 s  time_io=0.1554 s  0.109 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 13
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1946 s  time_compute=0.0099 s  time_comm=0.0080 s  time_io=0.1782 s  0.059 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 14
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1963 s  time_compute=0.0187 s  time_comm=0.0154 s  time_io=0.1735 s  0.111 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 15
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2068 s  time_compute=0.0097 s  time_comm=0.0050 s  time_io=0.1907 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 16
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3388 s  time_compute=0.0193 s  time_comm=0.0156 s  time_io=0.3158 s  0.115 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 17
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2015 s  time_compute=0.0094 s  time_comm=0.0054 s  time_io=0.1867 s  0.056 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 18
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2120 s  time_compute=0.0178 s  time_comm=0.0133 s  time_io=0.1906 s  0.106 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 19
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3568 s  time_compute=0.0100 s  time_comm=0.0049 s  time_io=0.3409 s  0.060 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 20
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2622 s  time_compute=0.0191 s  time_comm=0.0151 s  time_io=0.2392 s  0.114 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 21
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2596 s  time_compute=0.0095 s  time_comm=0.0045 s  time_io=0.2451 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 22
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2275 s  time_compute=0.0189 s  time_comm=0.0153 s  time_io=0.2042 s  0.113 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 23
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2675 s  time_compute=0.0096 s  time_comm=0.0046 s  time_io=0.2527 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 24
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2914 s  time_compute=0.0189 s  time_comm=0.0148 s  time_io=0.2686 s  0.112 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 25
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2500 s  time_compute=0.0094 s  time_comm=0.0070 s  time_io=0.2331 s  0.056 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 26
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2324 s  time_compute=0.0194 s  time_comm=0.0154 s  time_io=0.2090 s  0.116 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 27
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3009 s  time_compute=0.0094 s  time_comm=0.0050 s  time_io=0.2856 s  0.056 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 28
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1481 s  time_compute=0.0192 s  time_comm=0.0145 s  time_io=0.1250 s  0.115 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 29
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2559 s  time_compute=0.0087 s  time_comm=0.0034 s  time_io=0.2418 s  0.052 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 30
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2688 s  time_compute=0.0190 s  time_comm=0.0158 s  time_io=0.2454 s  0.113 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31371/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31371/field_mpiio.bin --io mpiio --timing results/runs.csv --tag io30_mpiio
+=== repeat 1
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2612 s  time_compute=0.0096 s  time_comm=0.0050 s  time_io=0.2457 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 2
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2767 s  time_compute=0.0191 s  time_comm=0.0152 s  time_io=0.2576 s  0.114 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 3
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2886 s  time_compute=0.0095 s  time_comm=0.0057 s  time_io=0.2731 s  0.056 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 4
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3802 s  time_compute=0.0194 s  time_comm=0.0157 s  time_io=0.3609 s  0.115 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 5
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2342 s  time_compute=0.0093 s  time_comm=0.0049 s  time_io=0.2189 s  0.056 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 6
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2081 s  time_compute=0.0189 s  time_comm=0.0147 s  time_io=0.1894 s  0.113 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 7
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3415 s  time_compute=0.0098 s  time_comm=0.0039 s  time_io=0.3277 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 8
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2262 s  time_compute=0.0191 s  time_comm=0.0147 s  time_io=0.2072 s  0.114 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 9
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.5735 s  time_compute=0.0101 s  time_comm=0.0059 s  time_io=0.5597 s  0.060 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 10
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2595 s  time_compute=0.0186 s  time_comm=0.0155 s  time_io=0.2400 s  0.111 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 11
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2417 s  time_compute=0.0101 s  time_comm=0.0058 s  time_io=0.2261 s  0.060 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 12
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6042 s  time_compute=0.0189 s  time_comm=0.0151 s  time_io=0.5848 s  0.113 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 13
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3489 s  time_compute=0.0092 s  time_comm=0.0078 s  time_io=0.3351 s  0.055 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 14
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2728 s  time_compute=0.0194 s  time_comm=0.0162 s  time_io=0.2535 s  0.115 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 15
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3965 s  time_compute=0.0095 s  time_comm=0.0035 s  time_io=0.3814 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 16
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2492 s  time_compute=0.0195 s  time_comm=0.0160 s  time_io=0.2301 s  0.116 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 17
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2290 s  time_compute=0.0098 s  time_comm=0.0066 s  time_io=0.2137 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 18
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.5708 s  time_compute=0.0191 s  time_comm=0.0155 s  time_io=0.5519 s  0.114 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 19
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3183 s  time_compute=0.0096 s  time_comm=0.0063 s  time_io=0.3048 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 20
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3348 s  time_compute=0.0194 s  time_comm=0.0154 s  time_io=0.3166 s  0.116 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 21
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.4369 s  time_compute=0.0096 s  time_comm=0.0022 s  time_io=0.4241 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 22
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3479 s  time_compute=0.0192 s  time_comm=0.0156 s  time_io=0.3288 s  0.114 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 23
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3205 s  time_compute=0.0096 s  time_comm=0.0056 s  time_io=0.3054 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 24
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3193 s  time_compute=0.0190 s  time_comm=0.0158 s  time_io=0.3006 s  0.113 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 25
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3128 s  time_compute=0.0096 s  time_comm=0.0034 s  time_io=0.2987 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 26
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.5218 s  time_compute=0.0188 s  time_comm=0.0158 s  time_io=0.5031 s  0.112 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 27
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2701 s  time_compute=0.0099 s  time_comm=0.0052 s  time_io=0.2545 s  0.059 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 28
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2601 s  time_compute=0.0194 s  time_comm=0.0153 s  time_io=0.2412 s  0.116 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 29
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3052 s  time_compute=0.0102 s  time_comm=0.0070 s  time_io=0.2899 s  0.061 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 30
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3170 s  time_compute=0.0192 s  time_comm=0.0152 s  time_io=0.2977 s  0.115 ns/cell-update
+checksum 4.1950287375e+08
+=== CHECK n=4096 nodes=1 ranks=16: gather and mpiio files are byte-identical
+=== n=4096 nodes=2 ranks=32 io=gather  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31371/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31371/field_gather.bin --io gather --timing results/runs.csv --tag io30_gather
+=== repeat 1
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5002 s  time_compute=0.0023 s  time_comm=0.0024 s  time_io=0.4835 s  0.014 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 2
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3479 s  time_compute=0.0027 s  time_comm=0.0021 s  time_io=0.3308 s  0.016 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 3
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3588 s  time_compute=0.0024 s  time_comm=0.0027 s  time_io=0.3413 s  0.014 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 4
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3484 s  time_compute=0.0024 s  time_comm=0.0020 s  time_io=0.3323 s  0.015 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 5
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3445 s  time_compute=0.0025 s  time_comm=0.0028 s  time_io=0.3264 s  0.015 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 6
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5400 s  time_compute=0.0023 s  time_comm=0.0020 s  time_io=0.5225 s  0.014 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 7
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.4237 s  time_compute=0.0022 s  time_comm=0.0021 s  time_io=0.4067 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 8
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.4708 s  time_compute=0.0026 s  time_comm=0.0020 s  time_io=0.4543 s  0.015 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 9
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3672 s  time_compute=0.0021 s  time_comm=0.0032 s  time_io=0.3499 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 10
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3537 s  time_compute=0.0023 s  time_comm=0.0021 s  time_io=0.3370 s  0.014 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 11
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3848 s  time_compute=0.0023 s  time_comm=0.0022 s  time_io=0.3674 s  0.014 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 12
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3891 s  time_compute=0.0022 s  time_comm=0.0028 s  time_io=0.3717 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 13
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3965 s  time_compute=0.0020 s  time_comm=0.0037 s  time_io=0.3789 s  0.012 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 14
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3713 s  time_compute=0.0022 s  time_comm=0.0023 s  time_io=0.3543 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 15
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5905 s  time_compute=0.0019 s  time_comm=0.0023 s  time_io=0.5735 s  0.011 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 16
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2474 s  time_compute=0.0025 s  time_comm=0.0021 s  time_io=0.2307 s  0.015 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 17
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2619 s  time_compute=0.0022 s  time_comm=0.0020 s  time_io=0.2451 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 18
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5922 s  time_compute=0.0021 s  time_comm=0.0025 s  time_io=0.5748 s  0.012 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 19
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3328 s  time_compute=0.0025 s  time_comm=0.0022 s  time_io=0.3160 s  0.015 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 20
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3676 s  time_compute=0.0021 s  time_comm=0.0030 s  time_io=0.3510 s  0.012 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 21
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3856 s  time_compute=0.0023 s  time_comm=0.0018 s  time_io=0.3695 s  0.014 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 22
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3044 s  time_compute=0.0022 s  time_comm=0.0023 s  time_io=0.2877 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 23
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2938 s  time_compute=0.0022 s  time_comm=0.0032 s  time_io=0.2768 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 24
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3719 s  time_compute=0.0019 s  time_comm=0.0031 s  time_io=0.3548 s  0.011 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 25
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2980 s  time_compute=0.0022 s  time_comm=0.0033 s  time_io=0.2812 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 26
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2859 s  time_compute=0.0022 s  time_comm=0.0021 s  time_io=0.2689 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 27
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2912 s  time_compute=0.0027 s  time_comm=0.0021 s  time_io=0.2746 s  0.016 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 28
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2562 s  time_compute=0.0018 s  time_comm=0.0033 s  time_io=0.2394 s  0.011 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 29
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1333 s  time_compute=0.0020 s  time_comm=0.0032 s  time_io=0.1154 s  0.012 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 30
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1322 s  time_compute=0.0021 s  time_comm=0.0034 s  time_io=0.1149 s  0.012 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31371/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31371/field_mpiio.bin --io mpiio --timing results/runs.csv --tag io30_mpiio
+=== repeat 1
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1062 s  time_compute=0.0021 s  time_comm=0.0025 s  time_io=0.0910 s  0.012 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 2
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1279 s  time_compute=0.0021 s  time_comm=0.0029 s  time_io=0.1122 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 3
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3263 s  time_compute=0.0024 s  time_comm=0.0022 s  time_io=0.3110 s  0.015 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 4
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5446 s  time_compute=0.0025 s  time_comm=0.0023 s  time_io=0.5296 s  0.015 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 5
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2951 s  time_compute=0.0022 s  time_comm=0.0043 s  time_io=0.2784 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 6
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3385 s  time_compute=0.0024 s  time_comm=0.0024 s  time_io=0.3239 s  0.014 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 7
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3237 s  time_compute=0.0025 s  time_comm=0.0019 s  time_io=0.3090 s  0.015 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 8
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3050 s  time_compute=0.0020 s  time_comm=0.0036 s  time_io=0.2897 s  0.012 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 9
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3940 s  time_compute=0.0022 s  time_comm=0.0027 s  time_io=0.3783 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 10
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2667 s  time_compute=0.0023 s  time_comm=0.0021 s  time_io=0.2514 s  0.014 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 11
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2035 s  time_compute=0.0022 s  time_comm=0.0024 s  time_io=0.1888 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 12
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1615 s  time_compute=0.0020 s  time_comm=0.0027 s  time_io=0.1465 s  0.012 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 13
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1568 s  time_compute=0.0021 s  time_comm=0.0034 s  time_io=0.1410 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 14
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3995 s  time_compute=0.0021 s  time_comm=0.0032 s  time_io=0.3845 s  0.012 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 15
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3833 s  time_compute=0.0021 s  time_comm=0.0030 s  time_io=0.3681 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 16
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.4077 s  time_compute=0.0022 s  time_comm=0.0031 s  time_io=0.3929 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 17
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.4792 s  time_compute=0.0021 s  time_comm=0.0035 s  time_io=0.4638 s  0.012 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 18
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.4034 s  time_compute=0.0024 s  time_comm=0.0025 s  time_io=0.3881 s  0.014 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 19
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3684 s  time_compute=0.0022 s  time_comm=0.0028 s  time_io=0.3531 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 20
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.4125 s  time_compute=0.0021 s  time_comm=0.0025 s  time_io=0.3972 s  0.012 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 21
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2898 s  time_compute=0.0021 s  time_comm=0.0031 s  time_io=0.2750 s  0.012 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 22
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2767 s  time_compute=0.0023 s  time_comm=0.0026 s  time_io=0.2617 s  0.014 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 23
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2710 s  time_compute=0.0023 s  time_comm=0.0025 s  time_io=0.2562 s  0.014 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 24
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2882 s  time_compute=0.0021 s  time_comm=0.0031 s  time_io=0.2730 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 25
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2994 s  time_compute=0.0022 s  time_comm=0.0032 s  time_io=0.2836 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 26
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3042 s  time_compute=0.0021 s  time_comm=0.0037 s  time_io=0.2879 s  0.012 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 27
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2878 s  time_compute=0.0021 s  time_comm=0.0023 s  time_io=0.2724 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 28
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.4145 s  time_compute=0.0024 s  time_comm=0.0023 s  time_io=0.3995 s  0.014 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 29
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2115 s  time_compute=0.0023 s  time_comm=0.0031 s  time_io=0.1959 s  0.014 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 30
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1810 s  time_compute=0.0022 s  time_comm=0.0024 s  time_io=0.1658 s  0.013 ns/cell-update
+checksum 4.1950287375e+08
+=== CHECK n=4096 nodes=2 ranks=32: gather and mpiio files are byte-identical
+=== n=8192 nodes=1 ranks=16 io=gather  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31371/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31371/field_gather.bin --io gather --timing results/runs.csv --tag io30_gather
+=== repeat 1
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.7733 s  time_compute=0.0558 s  time_comm=0.0122 s  time_io=0.6949 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 2
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.0355 s  time_compute=0.1572 s  time_comm=0.1095 s  time_io=0.8517 s  0.234 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 3
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.6016 s  time_compute=0.0564 s  time_comm=0.0101 s  time_io=1.5269 s  0.084 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 4
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.2397 s  time_compute=0.1539 s  time_comm=0.1128 s  time_io=1.0619 s  0.229 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 5
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.4813 s  time_compute=0.0564 s  time_comm=0.0068 s  time_io=1.4083 s  0.084 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 6
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.5600 s  time_compute=0.1540 s  time_comm=0.1137 s  time_io=0.3836 s  0.229 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 7
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6355 s  time_compute=0.0559 s  time_comm=0.0068 s  time_io=0.5598 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 8
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.3438 s  time_compute=0.1555 s  time_comm=0.1108 s  time_io=1.1650 s  0.232 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 9
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.2788 s  time_compute=0.0549 s  time_comm=0.0070 s  time_io=1.2072 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 10
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.7874 s  time_compute=0.1538 s  time_comm=0.1071 s  time_io=0.6095 s  0.229 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 11
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6819 s  time_compute=0.0557 s  time_comm=0.0069 s  time_io=0.6108 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 12
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.1149 s  time_compute=0.1212 s  time_comm=0.0830 s  time_io=0.9782 s  0.181 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 13
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.2572 s  time_compute=0.0559 s  time_comm=0.0067 s  time_io=1.1827 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 14
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.5413 s  time_compute=0.1210 s  time_comm=0.0835 s  time_io=0.4048 s  0.180 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 15
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.4078 s  time_compute=0.0553 s  time_comm=0.0091 s  time_io=1.3350 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 16
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.0631 s  time_compute=0.1212 s  time_comm=0.0828 s  time_io=0.9263 s  0.181 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 17
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.5573 s  time_compute=0.0556 s  time_comm=0.0104 s  time_io=1.4832 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 18
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9464 s  time_compute=0.1214 s  time_comm=0.0835 s  time_io=0.8094 s  0.181 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 19
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9371 s  time_compute=0.0551 s  time_comm=0.0092 s  time_io=0.8619 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 20
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.8199 s  time_compute=0.1229 s  time_comm=0.0855 s  time_io=0.6810 s  0.183 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 21
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.0243 s  time_compute=0.0558 s  time_comm=0.0112 s  time_io=0.9530 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 22
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.6873 s  time_compute=0.1228 s  time_comm=0.0845 s  time_io=1.5491 s  0.183 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 23
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.2612 s  time_compute=0.0563 s  time_comm=0.0150 s  time_io=1.1858 s  0.084 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 24
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.5543 s  time_compute=0.1219 s  time_comm=0.0848 s  time_io=1.4165 s  0.182 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 25
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.6247 s  time_compute=0.0539 s  time_comm=0.0121 s  time_io=1.5496 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 26
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.5293 s  time_compute=0.1230 s  time_comm=0.0849 s  time_io=0.3912 s  0.183 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 27
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.4918 s  time_compute=0.0554 s  time_comm=0.0089 s  time_io=0.4186 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 28
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.3332 s  time_compute=0.1208 s  time_comm=0.0827 s  time_io=1.1970 s  0.180 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 29
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.2965 s  time_compute=0.0556 s  time_comm=0.0092 s  time_io=1.2219 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 30
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.5240 s  time_compute=0.1221 s  time_comm=0.0846 s  time_io=1.3865 s  0.182 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31371/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31371/field_mpiio.bin --io mpiio --timing results/runs.csv --tag io30_mpiio
+=== repeat 1
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.3407 s  time_compute=0.0551 s  time_comm=0.0170 s  time_io=1.2690 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 2
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.1369 s  time_compute=0.1208 s  time_comm=0.0840 s  time_io=1.0254 s  0.180 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 3
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.1748 s  time_compute=0.0555 s  time_comm=0.0058 s  time_io=1.1046 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 4
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.8852 s  time_compute=0.1235 s  time_comm=0.0851 s  time_io=0.7719 s  0.184 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 5
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.4235 s  time_compute=0.0557 s  time_comm=0.0132 s  time_io=0.3531 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 6
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.4673 s  time_compute=0.1213 s  time_comm=0.0842 s  time_io=1.3525 s  0.181 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 7
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.0753 s  time_compute=0.0564 s  time_comm=0.0092 s  time_io=1.0026 s  0.084 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 8
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.3909 s  time_compute=0.1207 s  time_comm=0.0826 s  time_io=1.2795 s  0.180 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 9
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.2037 s  time_compute=0.0558 s  time_comm=0.0085 s  time_io=1.1329 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 10
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.3844 s  time_compute=0.1226 s  time_comm=0.0832 s  time_io=1.2719 s  0.183 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 11
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.6567 s  time_compute=0.0558 s  time_comm=0.0048 s  time_io=1.5871 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 12
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.5586 s  time_compute=0.1234 s  time_comm=0.0831 s  time_io=1.4457 s  0.184 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 13
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.8272 s  time_compute=0.0550 s  time_comm=0.0095 s  time_io=0.7560 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 14
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.0985 s  time_compute=0.1236 s  time_comm=0.0828 s  time_io=0.9853 s  0.184 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 15
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9230 s  time_compute=0.0556 s  time_comm=0.0111 s  time_io=0.8509 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 16
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9039 s  time_compute=0.1216 s  time_comm=0.0784 s  time_io=0.7887 s  0.181 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 17
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9843 s  time_compute=0.0553 s  time_comm=0.0067 s  time_io=0.9153 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 18
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.5615 s  time_compute=0.1243 s  time_comm=0.0816 s  time_io=1.4463 s  0.185 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 19
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.4370 s  time_compute=0.0561 s  time_comm=0.0038 s  time_io=0.3679 s  0.084 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 20
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.8966 s  time_compute=0.1262 s  time_comm=0.0920 s  time_io=0.7789 s  0.188 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 21
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.7169 s  time_compute=0.0560 s  time_comm=0.0045 s  time_io=0.6467 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 22
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.5907 s  time_compute=0.1208 s  time_comm=0.0823 s  time_io=0.4763 s  0.180 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 23
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9035 s  time_compute=0.0563 s  time_comm=0.0075 s  time_io=0.8332 s  0.084 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 24
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6534 s  time_compute=0.1215 s  time_comm=0.0832 s  time_io=0.5413 s  0.181 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 25
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6341 s  time_compute=0.0552 s  time_comm=0.0090 s  time_io=0.5635 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 26
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9576 s  time_compute=0.1236 s  time_comm=0.0803 s  time_io=0.8415 s  0.184 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 27
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.0957 s  time_compute=0.0563 s  time_comm=0.0083 s  time_io=1.0256 s  0.084 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 28
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.2754 s  time_compute=0.1216 s  time_comm=0.0781 s  time_io=1.1599 s  0.181 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 29
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.0078 s  time_compute=0.0563 s  time_comm=0.0075 s  time_io=0.9360 s  0.084 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 30
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6546 s  time_compute=0.1224 s  time_comm=0.0797 s  time_io=0.5395 s  0.182 ns/cell-update
+checksum 1.6780113096e+09
+=== CHECK n=8192 nodes=1 ranks=16: gather and mpiio files are byte-identical
+=== n=8192 nodes=2 ranks=32 io=gather  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31371/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31371/field_gather.bin --io gather --timing results/runs.csv --tag io30_gather
+=== repeat 1
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.4822 s  time_compute=0.0535 s  time_comm=0.0396 s  time_io=0.4062 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 2
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6399 s  time_compute=0.0546 s  time_comm=0.0381 s  time_io=0.5640 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 3
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.0347 s  time_compute=0.0536 s  time_comm=0.0388 s  time_io=0.9618 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 4
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.3012 s  time_compute=0.0539 s  time_comm=0.0382 s  time_io=1.2266 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 5
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.2529 s  time_compute=0.0504 s  time_comm=0.0374 s  time_io=1.1820 s  0.075 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 6
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.4915 s  time_compute=0.0561 s  time_comm=0.0380 s  time_io=0.4154 s  0.084 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 7
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.3433 s  time_compute=0.0583 s  time_comm=0.0429 s  time_io=1.2664 s  0.087 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 8
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5281 s  time_compute=0.0557 s  time_comm=0.0405 s  time_io=0.4526 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 9
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.4995 s  time_compute=0.0544 s  time_comm=0.0381 s  time_io=0.4254 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 10
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5607 s  time_compute=0.0541 s  time_comm=0.0393 s  time_io=0.4874 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 11
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5014 s  time_compute=0.0540 s  time_comm=0.0367 s  time_io=0.4278 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 12
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.0093 s  time_compute=0.0529 s  time_comm=0.0383 s  time_io=0.9352 s  0.079 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 13
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8351 s  time_compute=0.0568 s  time_comm=0.0413 s  time_io=0.7577 s  0.085 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 14
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6828 s  time_compute=0.0548 s  time_comm=0.0369 s  time_io=0.6086 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 15
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5805 s  time_compute=0.0577 s  time_comm=0.0424 s  time_io=0.5029 s  0.086 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 16
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.0740 s  time_compute=0.0550 s  time_comm=0.0366 s  time_io=1.0001 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 17
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.4133 s  time_compute=0.0546 s  time_comm=0.0394 s  time_io=1.3396 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 18
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.4953 s  time_compute=0.0541 s  time_comm=0.0394 s  time_io=1.4202 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 19
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5925 s  time_compute=0.0534 s  time_comm=0.0370 s  time_io=0.5199 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 20
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.7741 s  time_compute=0.0537 s  time_comm=0.0371 s  time_io=0.7014 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 21
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.1021 s  time_compute=0.0537 s  time_comm=0.0355 s  time_io=1.0286 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 22
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6211 s  time_compute=0.0542 s  time_comm=0.0374 s  time_io=0.5479 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 23
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.4112 s  time_compute=0.0542 s  time_comm=0.0364 s  time_io=1.3373 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 24
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.4743 s  time_compute=0.0540 s  time_comm=0.0380 s  time_io=1.4012 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 25
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8070 s  time_compute=0.0539 s  time_comm=0.0363 s  time_io=0.7331 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 26
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5728 s  time_compute=0.0540 s  time_comm=0.0373 s  time_io=0.4999 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 27
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5904 s  time_compute=0.0530 s  time_comm=0.0397 s  time_io=0.5172 s  0.079 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 28
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.2552 s  time_compute=0.0553 s  time_comm=0.0393 s  time_io=1.1809 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 29
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.5060 s  time_compute=0.0538 s  time_comm=0.0388 s  time_io=1.4314 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 30
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6780 s  time_compute=0.0543 s  time_comm=0.0383 s  time_io=0.6026 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31371/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31371/field_mpiio.bin --io mpiio --timing results/runs.csv --tag io30_mpiio
+=== repeat 1
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.4219 s  time_compute=0.0537 s  time_comm=0.0364 s  time_io=0.3740 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 2
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8926 s  time_compute=0.0544 s  time_comm=0.0370 s  time_io=0.8486 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 3
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5947 s  time_compute=0.0541 s  time_comm=0.0387 s  time_io=0.5496 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 4
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.7917 s  time_compute=0.0584 s  time_comm=0.0414 s  time_io=0.7445 s  0.087 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 5
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.1459 s  time_compute=0.0543 s  time_comm=0.0415 s  time_io=1.0925 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 6
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.4819 s  time_compute=0.0537 s  time_comm=0.0380 s  time_io=1.4385 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 7
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.5634 s  time_compute=0.0592 s  time_comm=0.0429 s  time_io=1.5161 s  0.088 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 8
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.2004 s  time_compute=0.0545 s  time_comm=0.0393 s  time_io=1.1563 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 9
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8507 s  time_compute=0.0531 s  time_comm=0.0375 s  time_io=0.8046 s  0.079 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 10
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8987 s  time_compute=0.0544 s  time_comm=0.0376 s  time_io=0.8511 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 11
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.3063 s  time_compute=0.0536 s  time_comm=0.0384 s  time_io=1.2619 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 12
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.9872 s  time_compute=0.0539 s  time_comm=0.0401 s  time_io=0.9431 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 13
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.4928 s  time_compute=0.0548 s  time_comm=0.0403 s  time_io=0.4455 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 14
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8858 s  time_compute=0.0533 s  time_comm=0.0371 s  time_io=0.8404 s  0.079 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 15
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.7889 s  time_compute=0.0540 s  time_comm=0.0380 s  time_io=0.7445 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 16
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.3476 s  time_compute=0.0527 s  time_comm=0.0370 s  time_io=1.3027 s  0.079 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 17
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.3677 s  time_compute=0.0539 s  time_comm=0.0379 s  time_io=1.3210 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 18
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.4955 s  time_compute=0.0549 s  time_comm=0.0394 s  time_io=1.4493 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 19
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.3281 s  time_compute=0.0529 s  time_comm=0.0386 s  time_io=1.2841 s  0.079 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 20
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8332 s  time_compute=0.0542 s  time_comm=0.0381 s  time_io=0.7884 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 21
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.7727 s  time_compute=0.0539 s  time_comm=0.0398 s  time_io=0.7277 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 22
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.7661 s  time_compute=0.0536 s  time_comm=0.0370 s  time_io=0.7191 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 23
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6556 s  time_compute=0.0541 s  time_comm=0.0415 s  time_io=0.6097 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 24
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.7230 s  time_compute=0.0537 s  time_comm=0.0375 s  time_io=0.6803 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 25
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.9097 s  time_compute=0.0521 s  time_comm=0.0372 s  time_io=0.8640 s  0.078 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 26
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6654 s  time_compute=0.0537 s  time_comm=0.0370 s  time_io=0.6184 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 27
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6704 s  time_compute=0.0544 s  time_comm=0.0379 s  time_io=0.6263 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 28
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.2557 s  time_compute=0.0538 s  time_comm=0.0373 s  time_io=1.2103 s  0.080 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 29
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.3243 s  time_compute=0.0541 s  time_comm=0.0376 s  time_io=1.2799 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 30
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.2806 s  time_compute=0.0544 s  time_comm=0.0376 s  time_io=1.2351 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== CHECK n=8192 nodes=2 ranks=32: gather and mpiio files are byte-identical
+=== done 2026-11-16T22:52:09+01:00

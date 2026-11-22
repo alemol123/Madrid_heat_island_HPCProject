@@ -2,13 +2,21 @@
  *
  *   ./heat_openacc --nx 2048 --ny 2048 --steps 2000 --city synthetic --seed 42 \
  *                  --out results/field.bin --timing results/runs.csv --tag gpu \
- *                  [--acc-mode resident|naive] [--diag results/diag.csv --threshold 30]
+ *                  [--acc-mode resident|naive] [--diag results/diag.csv --threshold 29]
  *
  * Same options and output as src/serial/heat.c, plus:
  *   --acc-mode resident (default): copy the city and both grids to the GPU once,
  *                       run every step there, copy the result back once (data residency).
  *   --acc-mode naive:   copy the data to the GPU and back around every step.
- *   --diag FILE:        append peak / mean / fraction above --threshold (default 30 C)
+ *   --bc-once:          (resident mode, Dirichlet boundary) fill the ghost cells of both grids once
+ *                       before the time loop instead of every step. step() never writes ghost cells
+ *                       and a Dirichlet ghost is a constant, so the result is bitwise identical, but
+ *                       each step launches 1 kernel instead of 5 (second GPU optimization, P5).
+ *   --flush-l2 MB:      diagnostic only: before every step, write MB megabytes of a scratch array
+ *                       on the GPU, which evicts the grid from the GPU's L2 cache. Used to test
+ *                       whether a kernel is faster because its input is still in L2. It adds work
+ *                       to time_compute, so never use it for timing results.
+ *   --diag FILE:        append peak / mean / fraction above --threshold (default 29 C, same as tools/scenario_metrics.py)
  *                       of the final field to FILE (see src/common/diag.h).
  * The kernels (apply_boundary, step) are the shared ones in src/common/step.c,
  * built with nvc -acc. time_transfer = time spent in CPU<->GPU copies; it is
@@ -34,21 +42,30 @@
 
 enum { MODE_RESIDENT = 0, MODE_NAIVE = 1 };
 
+/* --flush-l2: overwrite a scratch array larger than the L2 cache (RTX 6000 Ada: 96 MB). */
+static void flush_l2(float *s, size_t n, int t)
+{
+    #pragma acc parallel loop present(s[0:n])
+    for (size_t k = 0; k < n; k++) s[k] = (float)(k + (size_t)t);
+}
+
 static void usage(const char *prog)
 {
     fprintf(stderr,
             "usage: %s [--nx N] [--ny N] [--steps N] [--city synthetic|FILE] [--seed S]\n"
             "          [--out FILE] [--timing CSV] [--tag TAG] [--bc dirichlet|neumann]\n"
-            "          [--acc-mode resident|naive] [--diag CSV] [--threshold C]\n", prog);
+            "          [--acc-mode resident|naive] [--diag CSV] [--threshold C]\n"
+            "          [--bc-once] [--flush-l2 MB]\n", prog);
 }
 
 int main(int argc, char **argv)
 {
     int nx = 256, ny = 256, steps = 1000, bc = BC_DIRICHLET, mode = MODE_RESIDENT;
+    int bc_once = 0, flush_mb = 0;
     unsigned long long seed = 42;
     const char *city_arg = "synthetic", *out_path = NULL, *csv_path = NULL, *tag = "run";
     const char *diag_path = NULL;
-    float threshold = 30.0f;
+    float threshold = T_HOT_THRESHOLD;   /* src/params.h; same as tools/scenario_metrics.py */
 
     static struct option opts[] = {
         { "nx", required_argument, 0, 'x' },     { "ny", required_argument, 0, 'y' },
@@ -58,6 +75,7 @@ int main(int argc, char **argv)
         { "bc", required_argument, 0, 'b' },     { "acc-mode", required_argument, 0, 'm' },
         { "diag", required_argument, 0, 'd' },   { "threshold", required_argument, 0, 'T' },
         { "help", no_argument, 0, 'h' },
+        { "bc-once", no_argument, 0, 'B' },      { "flush-l2", required_argument, 0, 'F' },
         { 0, 0, 0, 0 }
     };
     int ch;
@@ -83,9 +101,19 @@ int main(int argc, char **argv)
             break;
         case 'd': diag_path = optarg; break;
         case 'T': threshold = (float)atof(optarg); break;
+        case 'B': bc_once = 1; break;
+        case 'F': flush_mb = atoi(optarg); break;
         default: usage(argv[0]); return 2;
         }
     }
+
+    if (bc_once && (mode != MODE_RESIDENT || bc != BC_DIRICHLET)) {
+        /* naive mode re-creates the output grid on the GPU every step (its ghosts are not kept),
+         * and Neumann ghosts copy the interior, so they must be refreshed every step */
+        fprintf(stderr, "--bc-once needs --acc-mode resident and --bc dirichlet\n");
+        return 2;
+    }
+    if (flush_mb < 0) { usage(argv[0]); return 2; }
 
     double t_start = wtime(), t_io = 0.0, t_transfer = 0.0;
     acc_init(acc_device_nvidia);   /* start the GPU now: startup counts in time_total, not as transfer */
@@ -116,6 +144,14 @@ int main(int argc, char **argv)
 
     for (size_t k = 0; k < npad; k++) { a[k] = T_INIT; b[k] = T_INIT; }
 
+    float *scratch = NULL;
+    size_t nscratch = (size_t)flush_mb * 1024 * 1024 / sizeof(float);
+    if (nscratch > 0) {
+        scratch = malloc(nscratch * sizeof(float));
+        if (!scratch) { fprintf(stderr, "out of memory (--flush-l2)\n"); return 1; }
+        #pragma acc enter data create(scratch[0:nscratch])
+    }
+
     /* ---- time loop (ping-pong buffers) ---- */
     t0 = wtime();
     if (mode == MODE_RESIDENT) {
@@ -124,8 +160,13 @@ int main(int argc, char **argv)
         #pragma acc enter data copyin(city[0:ncell], a[0:npad], b[0:npad], c)
         t_transfer += wtime() - tt;
 
-        for (int t = 0; t < steps; t++) {
+        if (bc_once) {   /* Dirichlet ghosts are constant: fill them in both grids, once */
             apply_boundary(a, nx, ny, bc, SIDE_ALL, c.t_air);
+            apply_boundary(b, nx, ny, bc, SIDE_ALL, c.t_air);
+        }
+        for (int t = 0; t < steps; t++) {
+            if (scratch) flush_l2(scratch, nscratch, t);
+            if (!bc_once) apply_boundary(a, nx, ny, bc, SIDE_ALL, c.t_air);
             step(a, b, city, nx, ny, solar_at(t), &c);
             float *tmp = a; a = b; b = tmp;      /* a now holds the newest field */
         }
@@ -142,6 +183,7 @@ int main(int argc, char **argv)
             #pragma acc enter data copyin(city[0:ncell], a[0:npad], c) create(b[0:npad])
             t_transfer += wtime() - tt;
 
+            if (scratch) flush_l2(scratch, nscratch, t);
             apply_boundary(a, nx, ny, bc, SIDE_ALL, c.t_air);
             step(a, b, city, nx, ny, solar_at(t), &c);
 
@@ -153,6 +195,10 @@ int main(int argc, char **argv)
         }
     }
     double t_compute = wtime() - t0 - t_transfer;   /* transfers are not compute */
+    if (scratch) {
+        #pragma acc exit data delete(scratch[0:nscratch])
+        free(scratch);
+    }
 
     double sum = checksum_padded(a, nx, ny);
 
@@ -163,10 +209,11 @@ int main(int argc, char **argv)
     }
     double t_total = wtime() - t_start;
 
-    const char *version = mode == MODE_RESIDENT ? "openacc" : "openacc-naive";
+    const char *version = mode == MODE_NAIVE ? "openacc-naive" : (bc_once ? "openacc-bconce" : "openacc");
     double updates = (double)ncell * (double)steps;
-    printf("heat openacc nx=%d ny=%d steps=%d city=%s seed=%llu kernel=%s mode=%s\n", nx, ny, steps,
-           city_arg, seed, step_kernel_name(), mode == MODE_RESIDENT ? "resident" : "naive");
+    printf("heat openacc nx=%d ny=%d steps=%d city=%s seed=%llu kernel=%s mode=%s%s%s\n", nx, ny, steps,
+           city_arg, seed, step_kernel_name(), mode == MODE_RESIDENT ? "resident" : "naive",
+           bc_once ? " bc-once" : "", flush_mb > 0 ? " flush-l2" : "");
     printf("time_total=%.4f s  time_compute=%.4f s  time_transfer=%.4f s  time_io=%.4f s  %.3f ns/cell-update\n",
            t_total, t_compute, t_transfer, t_io, updates > 0 ? 1e9 * t_compute / updates : 0.0);
     printf("checksum %.10e\n", sum);

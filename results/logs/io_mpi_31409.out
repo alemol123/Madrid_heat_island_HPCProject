@@ -1,0 +1,987 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== job 31409 on fortran,haskell at 2026-11-17T00:11:22+01:00
+=== git commit: 9c00781  (0 uncommitted files outside results/)
+=== sizes="4096 8192" configs(nodes:ranks)="1:16 2:32" steps=10 reps=30 tag=ioalt csv=results/runs.csv
+built build/31409/heat_mpi
+=== output directory build/31409 is on file system type: nfs
+10.205.20.3:/share/ZFS21_DATA/hpc-home nfs    30T   10T   21T  34% /home
+=== n=4096 nodes=1 ranks=16 io=gather repeat 1  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2444 s  time_compute=0.0100 s  time_comm=0.0075 s  time_io=0.2311 s  0.059 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 1  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2481 s  time_compute=0.0222 s  time_comm=0.0147 s  time_io=0.2199 s  0.133 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 2  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2727 s  time_compute=0.0097 s  time_comm=0.0074 s  time_io=0.2596 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 2  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2729 s  time_compute=0.0233 s  time_comm=0.0169 s  time_io=0.2443 s  0.139 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 3  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2703 s  time_compute=0.0099 s  time_comm=0.0072 s  time_io=0.2573 s  0.059 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 3  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3030 s  time_compute=0.0240 s  time_comm=0.0153 s  time_io=0.2753 s  0.143 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 4  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3554 s  time_compute=0.0100 s  time_comm=0.0075 s  time_io=0.3422 s  0.060 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 4  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3509 s  time_compute=0.0236 s  time_comm=0.0159 s  time_io=0.3227 s  0.140 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 5  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3760 s  time_compute=0.0097 s  time_comm=0.0072 s  time_io=0.3630 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 5  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3020 s  time_compute=0.0231 s  time_comm=0.0167 s  time_io=0.2747 s  0.138 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 6  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2207 s  time_compute=0.0098 s  time_comm=0.0073 s  time_io=0.2077 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 6  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1648 s  time_compute=0.0230 s  time_comm=0.0165 s  time_io=0.1382 s  0.137 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 7  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2175 s  time_compute=0.0097 s  time_comm=0.0072 s  time_io=0.2045 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 7  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3428 s  time_compute=0.0237 s  time_comm=0.0163 s  time_io=0.3144 s  0.141 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 8  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.5924 s  time_compute=0.0097 s  time_comm=0.0074 s  time_io=0.5794 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 8  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2907 s  time_compute=0.0236 s  time_comm=0.0174 s  time_io=0.2630 s  0.141 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 9  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3601 s  time_compute=0.0100 s  time_comm=0.0076 s  time_io=0.3466 s  0.059 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 9  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9995 s  time_compute=0.0244 s  time_comm=0.0169 s  time_io=0.9708 s  0.145 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 10  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3443 s  time_compute=0.0097 s  time_comm=0.0071 s  time_io=0.3312 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 10  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3282 s  time_compute=0.0250 s  time_comm=0.0172 s  time_io=0.2996 s  0.149 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 11  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3247 s  time_compute=0.0098 s  time_comm=0.0076 s  time_io=0.3113 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 11  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3390 s  time_compute=0.0233 s  time_comm=0.0163 s  time_io=0.3116 s  0.139 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 12  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2406 s  time_compute=0.0098 s  time_comm=0.0071 s  time_io=0.2275 s  0.059 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 12  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2959 s  time_compute=0.0229 s  time_comm=0.0165 s  time_io=0.2678 s  0.137 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 13  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3053 s  time_compute=0.0096 s  time_comm=0.0073 s  time_io=0.2920 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 13  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2834 s  time_compute=0.0248 s  time_comm=0.0168 s  time_io=0.2548 s  0.148 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 14  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3017 s  time_compute=0.0097 s  time_comm=0.0073 s  time_io=0.2886 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 14  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3084 s  time_compute=0.0227 s  time_comm=0.0162 s  time_io=0.2808 s  0.136 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 15  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3348 s  time_compute=0.0096 s  time_comm=0.0071 s  time_io=0.3217 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 15  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2479 s  time_compute=0.0238 s  time_comm=0.0170 s  time_io=0.2198 s  0.142 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 16  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2781 s  time_compute=0.0098 s  time_comm=0.0072 s  time_io=0.2648 s  0.059 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 16  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2679 s  time_compute=0.0240 s  time_comm=0.0165 s  time_io=0.2404 s  0.143 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 17  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3650 s  time_compute=0.0095 s  time_comm=0.0073 s  time_io=0.3517 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 17  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3618 s  time_compute=0.0243 s  time_comm=0.0161 s  time_io=0.3338 s  0.145 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 18  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2792 s  time_compute=0.0096 s  time_comm=0.0073 s  time_io=0.2659 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 18  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3199 s  time_compute=0.0239 s  time_comm=0.0166 s  time_io=0.2932 s  0.143 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 19  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3169 s  time_compute=0.0096 s  time_comm=0.0072 s  time_io=0.3037 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 19  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2023 s  time_compute=0.0238 s  time_comm=0.0162 s  time_io=0.1744 s  0.142 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 20  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2356 s  time_compute=0.0096 s  time_comm=0.0074 s  time_io=0.2225 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 20  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2242 s  time_compute=0.0227 s  time_comm=0.0157 s  time_io=0.1967 s  0.135 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 21  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2279 s  time_compute=0.0097 s  time_comm=0.0074 s  time_io=0.2147 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 21  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2255 s  time_compute=0.0237 s  time_comm=0.0177 s  time_io=0.1969 s  0.141 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 22  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1135 s  time_compute=0.0095 s  time_comm=0.0071 s  time_io=0.1000 s  0.056 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 22  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1158 s  time_compute=0.0240 s  time_comm=0.0170 s  time_io=0.0881 s  0.143 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 23  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2841 s  time_compute=0.0099 s  time_comm=0.0078 s  time_io=0.2707 s  0.059 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 23  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2926 s  time_compute=0.0236 s  time_comm=0.0150 s  time_io=0.2640 s  0.140 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 24  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3004 s  time_compute=0.0097 s  time_comm=0.0072 s  time_io=0.2872 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 24  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3690 s  time_compute=0.0239 s  time_comm=0.0163 s  time_io=0.3406 s  0.143 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 25  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3180 s  time_compute=0.0098 s  time_comm=0.0074 s  time_io=0.3044 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 25  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.4106 s  time_compute=0.0241 s  time_comm=0.0177 s  time_io=0.3817 s  0.144 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 26  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3094 s  time_compute=0.0094 s  time_comm=0.0072 s  time_io=0.2963 s  0.056 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 26  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2050 s  time_compute=0.0236 s  time_comm=0.0173 s  time_io=0.1765 s  0.141 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 27  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1962 s  time_compute=0.0097 s  time_comm=0.0074 s  time_io=0.1829 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 27  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1924 s  time_compute=0.0226 s  time_comm=0.0163 s  time_io=0.1651 s  0.135 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 28  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1758 s  time_compute=0.0099 s  time_comm=0.0073 s  time_io=0.1625 s  0.059 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 28  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.2418 s  time_compute=0.0237 s  time_comm=0.0162 s  time_io=0.2147 s  0.141 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 29  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3124 s  time_compute=0.0098 s  time_comm=0.0073 s  time_io=0.2993 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 29  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3194 s  time_compute=0.0237 s  time_comm=0.0158 s  time_io=0.2923 s  0.141 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=gather repeat 30  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3137 s  time_compute=0.0097 s  time_comm=0.0069 s  time_io=0.3005 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio repeat 30  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3096 s  time_compute=0.0236 s  time_comm=0.0174 s  time_io=0.2817 s  0.140 ns/cell-update
+checksum 4.1950287375e+08
+=== CHECK n=4096 nodes=1 ranks=16: gather and mpiio files are byte-identical
+=== n=4096 nodes=2 ranks=32 io=gather repeat 1  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3187 s  time_compute=0.0042 s  time_comm=0.0033 s  time_io=0.3016 s  0.025 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 1  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3443 s  time_compute=0.0037 s  time_comm=0.0032 s  time_io=0.3299 s  0.022 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 2  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2032 s  time_compute=0.0037 s  time_comm=0.0034 s  time_io=0.1857 s  0.022 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 2  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2088 s  time_compute=0.0035 s  time_comm=0.0029 s  time_io=0.1941 s  0.021 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 3  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2893 s  time_compute=0.0037 s  time_comm=0.0030 s  time_io=0.2719 s  0.022 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 3  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3108 s  time_compute=0.0041 s  time_comm=0.0033 s  time_io=0.2963 s  0.025 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 4  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1287 s  time_compute=0.0038 s  time_comm=0.0028 s  time_io=0.1115 s  0.023 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 4  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1079 s  time_compute=0.0038 s  time_comm=0.0032 s  time_io=0.0930 s  0.023 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 5  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1291 s  time_compute=0.0042 s  time_comm=0.0033 s  time_io=0.1114 s  0.025 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 5  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1688 s  time_compute=0.0040 s  time_comm=0.0033 s  time_io=0.1551 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 6  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1899 s  time_compute=0.0038 s  time_comm=0.0030 s  time_io=0.1720 s  0.023 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 6  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2059 s  time_compute=0.0037 s  time_comm=0.0036 s  time_io=0.1911 s  0.022 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 7  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2768 s  time_compute=0.0041 s  time_comm=0.0037 s  time_io=0.2592 s  0.025 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 7  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2550 s  time_compute=0.0037 s  time_comm=0.0030 s  time_io=0.2400 s  0.022 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 8  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2456 s  time_compute=0.0041 s  time_comm=0.0035 s  time_io=0.2280 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 8  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3111 s  time_compute=0.0037 s  time_comm=0.0031 s  time_io=0.2965 s  0.022 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 9  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3503 s  time_compute=0.0038 s  time_comm=0.0033 s  time_io=0.3335 s  0.023 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 9  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3068 s  time_compute=0.0043 s  time_comm=0.0035 s  time_io=0.2913 s  0.026 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 10  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3679 s  time_compute=0.0039 s  time_comm=0.0034 s  time_io=0.3504 s  0.023 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 10  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8701 s  time_compute=0.0036 s  time_comm=0.0036 s  time_io=0.8557 s  0.022 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 11  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.4143 s  time_compute=0.0037 s  time_comm=0.0031 s  time_io=0.3965 s  0.022 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 11  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3905 s  time_compute=0.0040 s  time_comm=0.0033 s  time_io=0.3754 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 12  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3610 s  time_compute=0.0036 s  time_comm=0.0031 s  time_io=0.3435 s  0.021 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 12  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2348 s  time_compute=0.0040 s  time_comm=0.0030 s  time_io=0.2200 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 13  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3329 s  time_compute=0.0038 s  time_comm=0.0029 s  time_io=0.3153 s  0.023 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 13  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3002 s  time_compute=0.0038 s  time_comm=0.0031 s  time_io=0.2859 s  0.023 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 14  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3287 s  time_compute=0.0037 s  time_comm=0.0031 s  time_io=0.3111 s  0.022 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 14  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3057 s  time_compute=0.0037 s  time_comm=0.0029 s  time_io=0.2914 s  0.022 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 15  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3181 s  time_compute=0.0038 s  time_comm=0.0028 s  time_io=0.3010 s  0.023 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 15  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3183 s  time_compute=0.0036 s  time_comm=0.0029 s  time_io=0.3042 s  0.022 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 16  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3368 s  time_compute=0.0042 s  time_comm=0.0030 s  time_io=0.3195 s  0.025 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 16  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3725 s  time_compute=0.0039 s  time_comm=0.0034 s  time_io=0.3579 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 17  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3666 s  time_compute=0.0043 s  time_comm=0.0034 s  time_io=0.3490 s  0.025 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 17  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1500 s  time_compute=0.0040 s  time_comm=0.0032 s  time_io=0.1352 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 18  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1874 s  time_compute=0.0035 s  time_comm=0.0030 s  time_io=0.1701 s  0.021 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 18  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1159 s  time_compute=0.0039 s  time_comm=0.0032 s  time_io=0.1016 s  0.023 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 19  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1478 s  time_compute=0.0040 s  time_comm=0.0031 s  time_io=0.1307 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 19  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3993 s  time_compute=0.0041 s  time_comm=0.0035 s  time_io=0.3844 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 20  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2489 s  time_compute=0.0040 s  time_comm=0.0035 s  time_io=0.2316 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 20  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2279 s  time_compute=0.0044 s  time_comm=0.0037 s  time_io=0.2125 s  0.026 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 21  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2752 s  time_compute=0.0041 s  time_comm=0.0035 s  time_io=0.2579 s  0.025 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 21  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2383 s  time_compute=0.0040 s  time_comm=0.0033 s  time_io=0.2244 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 22  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2653 s  time_compute=0.0041 s  time_comm=0.0031 s  time_io=0.2478 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 22  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2504 s  time_compute=0.0044 s  time_comm=0.0033 s  time_io=0.2357 s  0.026 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 23  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3184 s  time_compute=0.0037 s  time_comm=0.0034 s  time_io=0.3012 s  0.022 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 23  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1651 s  time_compute=0.0041 s  time_comm=0.0034 s  time_io=0.1508 s  0.025 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 24  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2761 s  time_compute=0.0039 s  time_comm=0.0033 s  time_io=0.2582 s  0.023 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 24  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2119 s  time_compute=0.0040 s  time_comm=0.0034 s  time_io=0.1977 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 25  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1258 s  time_compute=0.0041 s  time_comm=0.0034 s  time_io=0.1083 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 25  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1062 s  time_compute=0.0042 s  time_comm=0.0032 s  time_io=0.0919 s  0.025 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 26  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1266 s  time_compute=0.0041 s  time_comm=0.0034 s  time_io=0.1089 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 26  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1697 s  time_compute=0.0041 s  time_comm=0.0034 s  time_io=0.1546 s  0.025 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 27  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1762 s  time_compute=0.0041 s  time_comm=0.0033 s  time_io=0.1587 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 27  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1600 s  time_compute=0.0042 s  time_comm=0.0031 s  time_io=0.1456 s  0.025 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 28  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2947 s  time_compute=0.0038 s  time_comm=0.0032 s  time_io=0.2775 s  0.023 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 28  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2425 s  time_compute=0.0039 s  time_comm=0.0033 s  time_io=0.2277 s  0.023 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 29  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2633 s  time_compute=0.0035 s  time_comm=0.0032 s  time_io=0.2459 s  0.021 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 29  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1731 s  time_compute=0.0039 s  time_comm=0.0033 s  time_io=0.1588 s  0.023 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=gather repeat 30  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1686 s  time_compute=0.0042 s  time_comm=0.0033 s  time_io=0.1513 s  0.025 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio repeat 30  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.1543 s  time_compute=0.0039 s  time_comm=0.0034 s  time_io=0.1393 s  0.023 ns/cell-update
+checksum 4.1950287375e+08
+=== CHECK n=4096 nodes=2 ranks=32: gather and mpiio files are byte-identical
+=== n=8192 nodes=1 ranks=16 io=gather repeat 1  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.0544 s  time_compute=0.0554 s  time_comm=0.0405 s  time_io=0.9867 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 1  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.4307 s  time_compute=0.1337 s  time_comm=0.0844 s  time_io=1.2790 s  0.199 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 2  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.7743 s  time_compute=0.0558 s  time_comm=0.0412 s  time_io=0.7060 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 2  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.8691 s  time_compute=0.1331 s  time_comm=0.0832 s  time_io=0.7188 s  0.198 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 3  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.0033 s  time_compute=0.0551 s  time_comm=0.0408 s  time_io=0.9357 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 3  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.2139 s  time_compute=0.1335 s  time_comm=0.0827 s  time_io=1.0624 s  0.199 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 4  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.3426 s  time_compute=0.0551 s  time_comm=0.0402 s  time_io=1.2750 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 4  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.8340 s  time_compute=0.1320 s  time_comm=0.0833 s  time_io=0.6831 s  0.197 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 5  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.1631 s  time_compute=0.0547 s  time_comm=0.0388 s  time_io=1.0950 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 5  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.4930 s  time_compute=0.1338 s  time_comm=0.0836 s  time_io=0.3418 s  0.199 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 6  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.2428 s  time_compute=0.0551 s  time_comm=0.0405 s  time_io=1.1746 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 6  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9333 s  time_compute=0.1325 s  time_comm=0.0799 s  time_io=0.7832 s  0.197 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 7  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6697 s  time_compute=0.0545 s  time_comm=0.0394 s  time_io=0.6017 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 7  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.8388 s  time_compute=0.1338 s  time_comm=0.0842 s  time_io=0.6873 s  0.199 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 8  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.0349 s  time_compute=0.0549 s  time_comm=0.0388 s  time_io=0.9672 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 8  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.7680 s  time_compute=0.1332 s  time_comm=0.0825 s  time_io=0.6162 s  0.199 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 9  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.7455 s  time_compute=0.0555 s  time_comm=0.0394 s  time_io=0.6764 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 9  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9058 s  time_compute=0.1432 s  time_comm=0.0886 s  time_io=0.7424 s  0.213 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 10  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6431 s  time_compute=0.0552 s  time_comm=0.0400 s  time_io=0.5748 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 10  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.5954 s  time_compute=0.1312 s  time_comm=0.0825 s  time_io=0.4435 s  0.195 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 11  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.0423 s  time_compute=0.0545 s  time_comm=0.0396 s  time_io=0.9743 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 11  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.1007 s  time_compute=0.1325 s  time_comm=0.0825 s  time_io=0.9477 s  0.197 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 12  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9988 s  time_compute=0.0549 s  time_comm=0.0391 s  time_io=0.9304 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 12  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.8068 s  time_compute=0.1323 s  time_comm=0.0819 s  time_io=0.6557 s  0.197 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 13  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.1292 s  time_compute=0.0551 s  time_comm=0.0387 s  time_io=1.0596 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 13  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.7813 s  time_compute=0.1330 s  time_comm=0.0829 s  time_io=0.6290 s  0.198 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 14  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9548 s  time_compute=0.0550 s  time_comm=0.0391 s  time_io=0.8855 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 14  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.5341 s  time_compute=0.1323 s  time_comm=0.0804 s  time_io=1.3824 s  0.197 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 15  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9404 s  time_compute=0.0556 s  time_comm=0.0406 s  time_io=0.8712 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 15  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.4736 s  time_compute=0.1329 s  time_comm=0.0834 s  time_io=0.3210 s  0.198 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 16  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.5033 s  time_compute=0.0543 s  time_comm=0.0393 s  time_io=0.4341 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 16  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.2519 s  time_compute=0.1354 s  time_comm=0.0849 s  time_io=1.0994 s  0.202 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 17  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.3094 s  time_compute=0.0556 s  time_comm=0.0401 s  time_io=1.2399 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 17  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.3100 s  time_compute=0.1310 s  time_comm=0.0817 s  time_io=1.1588 s  0.195 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 18  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.4345 s  time_compute=0.0546 s  time_comm=0.0384 s  time_io=1.3647 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 18  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.7221 s  time_compute=0.1478 s  time_comm=0.0935 s  time_io=0.5505 s  0.220 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 19  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.3733 s  time_compute=0.0542 s  time_comm=0.0387 s  time_io=1.3043 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 19  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9055 s  time_compute=0.1344 s  time_comm=0.0834 s  time_io=0.7534 s  0.200 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 20  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6369 s  time_compute=0.0549 s  time_comm=0.0390 s  time_io=0.5673 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 20  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9863 s  time_compute=0.1317 s  time_comm=0.0826 s  time_io=0.8349 s  0.196 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 21  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.8790 s  time_compute=0.0549 s  time_comm=0.0395 s  time_io=0.8108 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 21  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9413 s  time_compute=0.1314 s  time_comm=0.0848 s  time_io=0.7894 s  0.196 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 22  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6891 s  time_compute=0.0547 s  time_comm=0.0402 s  time_io=0.6189 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 22  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.8398 s  time_compute=0.1328 s  time_comm=0.0792 s  time_io=0.6860 s  0.198 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 23  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.7509 s  time_compute=0.0546 s  time_comm=0.0387 s  time_io=0.6815 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 23  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.1459 s  time_compute=0.1327 s  time_comm=0.0803 s  time_io=0.9952 s  0.198 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 24  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.1531 s  time_compute=0.0546 s  time_comm=0.0381 s  time_io=1.0842 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 24  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.5217 s  time_compute=0.1315 s  time_comm=0.0818 s  time_io=1.3702 s  0.196 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 25  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9115 s  time_compute=0.0551 s  time_comm=0.0390 s  time_io=0.8426 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 25  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.5562 s  time_compute=0.1310 s  time_comm=0.0802 s  time_io=1.4050 s  0.195 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 26  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9254 s  time_compute=0.0551 s  time_comm=0.0385 s  time_io=0.8561 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 26  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.1993 s  time_compute=0.1324 s  time_comm=0.0832 s  time_io=1.0464 s  0.197 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 27  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6441 s  time_compute=0.0548 s  time_comm=0.0384 s  time_io=0.5760 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 27  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.9818 s  time_compute=0.1322 s  time_comm=0.0833 s  time_io=0.8284 s  0.197 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 28  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.8993 s  time_compute=0.0547 s  time_comm=0.0399 s  time_io=0.8304 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 28  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.6070 s  time_compute=0.1319 s  time_comm=0.0808 s  time_io=1.4558 s  0.197 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 29  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.5822 s  time_compute=0.0545 s  time_comm=0.0403 s  time_io=0.5121 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 29  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6989 s  time_compute=0.1335 s  time_comm=0.0845 s  time_io=0.5480 s  0.199 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=gather repeat 30  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.1031 s  time_compute=0.0550 s  time_comm=0.0391 s  time_io=1.0342 s  0.082 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio repeat 30  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.7525 s  time_compute=0.1328 s  time_comm=0.0833 s  time_io=0.6016 s  0.198 ns/cell-update
+checksum 1.6780113096e+09
+=== CHECK n=8192 nodes=1 ranks=16: gather and mpiio files are byte-identical
+=== n=8192 nodes=2 ranks=32 io=gather repeat 1  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.7674 s  time_compute=0.0612 s  time_comm=0.0390 s  time_io=0.6853 s  0.091 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 1  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6445 s  time_compute=0.0604 s  time_comm=0.0409 s  time_io=0.6076 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 2  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5823 s  time_compute=0.0616 s  time_comm=0.0461 s  time_io=0.4998 s  0.092 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 2  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.4354 s  time_compute=0.0601 s  time_comm=0.0418 s  time_io=0.3975 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 3  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.0595 s  time_compute=0.0646 s  time_comm=0.0460 s  time_io=0.9738 s  0.096 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 3  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.1939 s  time_compute=0.0600 s  time_comm=0.0392 s  time_io=1.1571 s  0.089 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 4  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5039 s  time_compute=0.0606 s  time_comm=0.0430 s  time_io=0.4225 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 4  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.9675 s  time_compute=0.0596 s  time_comm=0.0379 s  time_io=0.9293 s  0.089 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 5  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.1556 s  time_compute=0.0604 s  time_comm=0.0407 s  time_io=1.0749 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 5  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.2043 s  time_compute=0.0619 s  time_comm=0.0424 s  time_io=1.1646 s  0.092 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 6  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.0519 s  time_compute=0.0609 s  time_comm=0.0396 s  time_io=0.9688 s  0.091 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 6  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.1540 s  time_compute=0.0607 s  time_comm=0.0418 s  time_io=1.1079 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 7  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.0327 s  time_compute=0.0609 s  time_comm=0.0424 s  time_io=0.9518 s  0.091 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 7  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.3969 s  time_compute=0.0644 s  time_comm=0.0422 s  time_io=1.3595 s  0.096 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 8  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8163 s  time_compute=0.0627 s  time_comm=0.0417 s  time_io=0.7328 s  0.093 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 8  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.9291 s  time_compute=0.0604 s  time_comm=0.0415 s  time_io=0.8915 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 9  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5162 s  time_compute=0.0583 s  time_comm=0.0368 s  time_io=0.4377 s  0.087 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 9  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.4277 s  time_compute=0.0646 s  time_comm=0.0432 s  time_io=0.3915 s  0.096 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 10  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.2122 s  time_compute=0.0598 s  time_comm=0.0405 s  time_io=1.1307 s  0.089 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 10  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6346 s  time_compute=0.0600 s  time_comm=0.0407 s  time_io=0.5977 s  0.089 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 11  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=7.6591 s  time_compute=0.0596 s  time_comm=0.0401 s  time_io=7.5758 s  0.089 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 11  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.0766 s  time_compute=0.0581 s  time_comm=0.0397 s  time_io=1.0388 s  0.087 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 12  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.0794 s  time_compute=0.0605 s  time_comm=0.0400 s  time_io=0.9979 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 12  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.0098 s  time_compute=0.0592 s  time_comm=0.0401 s  time_io=0.9731 s  0.088 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 13  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.0254 s  time_compute=0.0607 s  time_comm=0.0405 s  time_io=0.9449 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 13  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8407 s  time_compute=0.0610 s  time_comm=0.0406 s  time_io=0.8037 s  0.091 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 14  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.5127 s  time_compute=0.0606 s  time_comm=0.0398 s  time_io=1.4306 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 14  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.5057 s  time_compute=0.0620 s  time_comm=0.0430 s  time_io=1.4690 s  0.092 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 15  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6884 s  time_compute=0.0601 s  time_comm=0.0371 s  time_io=0.6069 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 15  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.7659 s  time_compute=0.0604 s  time_comm=0.0403 s  time_io=0.7299 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 16  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.3296 s  time_compute=0.0605 s  time_comm=0.0426 s  time_io=1.2488 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 16  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.6242 s  time_compute=0.0620 s  time_comm=0.0414 s  time_io=1.5867 s  0.092 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 17  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6660 s  time_compute=0.0602 s  time_comm=0.0384 s  time_io=0.5848 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 17  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6281 s  time_compute=0.0619 s  time_comm=0.0417 s  time_io=0.5909 s  0.092 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 18  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8964 s  time_compute=0.0599 s  time_comm=0.0395 s  time_io=0.8162 s  0.089 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 18  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5867 s  time_compute=0.0638 s  time_comm=0.0430 s  time_io=0.5502 s  0.095 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 19  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=7.7736 s  time_compute=0.0611 s  time_comm=0.0412 s  time_io=7.6907 s  0.091 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 19  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5794 s  time_compute=0.0623 s  time_comm=0.0394 s  time_io=0.5408 s  0.093 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 20  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.4121 s  time_compute=0.0599 s  time_comm=0.0400 s  time_io=1.3311 s  0.089 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 20  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.0852 s  time_compute=0.0605 s  time_comm=0.0398 s  time_io=1.0479 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 21  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.6619 s  time_compute=0.0606 s  time_comm=0.0405 s  time_io=1.5792 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 21  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.0854 s  time_compute=0.0601 s  time_comm=0.0389 s  time_io=1.0485 s  0.089 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 22  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.3757 s  time_compute=0.0610 s  time_comm=0.0393 s  time_io=1.2939 s  0.091 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 22  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.7341 s  time_compute=0.0613 s  time_comm=0.0417 s  time_io=0.6846 s  0.091 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 23  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8731 s  time_compute=0.0642 s  time_comm=0.0424 s  time_io=0.7866 s  0.096 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 23  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.1759 s  time_compute=0.0643 s  time_comm=0.0426 s  time_io=1.1267 s  0.096 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 24  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.2546 s  time_compute=0.0603 s  time_comm=0.0441 s  time_io=1.1730 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 24  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8548 s  time_compute=0.0607 s  time_comm=0.0409 s  time_io=0.8106 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 25  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6490 s  time_compute=0.0606 s  time_comm=0.0421 s  time_io=0.5678 s  0.090 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 25  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8837 s  time_compute=0.0638 s  time_comm=0.0414 s  time_io=0.8357 s  0.095 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 26  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8802 s  time_compute=0.0633 s  time_comm=0.0444 s  time_io=0.7861 s  0.094 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 26  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8872 s  time_compute=0.0610 s  time_comm=0.0418 s  time_io=0.8394 s  0.091 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 27  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5331 s  time_compute=0.0600 s  time_comm=0.0410 s  time_io=0.4414 s  0.089 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 27  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.7689 s  time_compute=0.0628 s  time_comm=0.0415 s  time_io=0.7198 s  0.094 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 28  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.7944 s  time_compute=0.0589 s  time_comm=0.0425 s  time_io=0.7129 s  0.088 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 28  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.9227 s  time_compute=0.0617 s  time_comm=0.0408 s  time_io=0.8809 s  0.092 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 29  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.7898 s  time_compute=0.0592 s  time_comm=0.0396 s  time_io=0.7080 s  0.088 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 29  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.6796 s  time_compute=0.0596 s  time_comm=0.0396 s  time_io=0.6307 s  0.089 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=gather repeat 30  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_gather.bin --io gather --timing results/runs.csv --tag ioalt_gather
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.9141 s  time_compute=0.0608 s  time_comm=0.0392 s  time_io=0.8331 s  0.091 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio repeat 30  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31409/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31409/field_mpiio.bin --io mpiio --timing results/runs.csv --tag ioalt_mpiio
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5754 s  time_compute=0.0598 s  time_comm=0.0390 s  time_io=0.5272 s  0.089 ns/cell-update
+checksum 1.6780113096e+09
+=== CHECK n=8192 nodes=2 ranks=32: gather and mpiio files are byte-identical
+=== done 2026-11-17T00:19:29+01:00

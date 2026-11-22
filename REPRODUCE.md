@@ -41,6 +41,7 @@ Single run:
 | Compiler flags before/after | `sbatch slurm/p1_flags.sh` | rows tagged `flags_*`, vectorization reports in `build/<jobid>/*/vec.txt` |
 | Serial baseline with the AVX-512 kernel (reference for all parallel speed-ups) | `sbatch --export=ALL,TAG=baseline_avx512 slurm/p1_baseline.sh` | rows tagged `baseline_avx512` |
 | Kernel code variants (+ perf counters if available) | `sbatch slurm/p1_opt.sh` | rows tagged `opt_*` (version `serial-opt`); each variant is checked against the reference kernel |
+| Halo-exchange tests for MPI (1, 2, 3, 5 ranks over 2 nodes) + `make check` | `sbatch slurm/p1_halo.sh` | log in `results/logs/p1_halo_*.out`; locally: `make test-mpi` |
 
 Jobs used in the report: 27714 (baseline), 27715 (sizes), 27716 (flags) at commit 36cd286, and
 27718 (code variants) at commit 520c642; 7 Nov 2026, node fortran. Figures and tables:
@@ -59,3 +60,26 @@ The reference file in `tests/ref/` was made with:
 ## 4. Other versions
 
 (P2, P3, P4, P5: add your commands here.)
+
+### MPI (P3)
+
+The account limit is 64 CPUs per user, and with `--hint=nomultithread` each rank takes
+a whole core (2 CPUs). So the sweeps use at most 32 ranks; `scaling_mpi.sh` skips the
+64-rank point by itself.
+
+| Experiment | Command | Output |
+|---|---|---|
+| Correctness, with and without `--overlap` (1–4 ranks, bitwise vs serial) | `sbatch slurm/p3_overlap_check.sh` | job 31598, ALL PASSED |
+| Strong scaling, 1 node, 1–32 ranks, 4096², 2000 steps, 3 repeats | `sbatch --ntasks=32 --export=ALL,TAG=mpi_strong,CSV=results/p3_runs.csv slurm/scaling_mpi.sh` | job 31601, tag `mpi_strong` |
+| Same, 2 nodes (16 ranks per node) | `sbatch --nodes=2 --ntasks=32 --ntasks-per-node=16 --export=ALL,TAG=mpi_strong_2node,CSV=results/p3_runs.csv slurm/scaling_mpi.sh` | job 31602, tag `mpi_strong_2node` |
+| Overlap, 1 node | `sbatch --ntasks=32 --export=ALL,TAG=mpi_overlap,EXTRA=--overlap,CSV=results/p3_runs.csv slurm/scaling_mpi.sh` | job 31603, tag `mpi_overlap` |
+| Overlap, 2 nodes | `sbatch --nodes=2 --ntasks=32 --ntasks-per-node=16 --export=ALL,TAG=mpi_overlap_2node,EXTRA=--overlap,CSV=results/p3_runs.csv slurm/scaling_mpi.sh` | job 31604, tag `mpi_overlap_2node` |
+
+All four sweeps ran on 17 Nov 2026 at commit adc54c8. Figures and tables:
+
+```bash
+python3 analysis/plots.py speedup --csv results/p3_runs.csv --tags mpi_strong mpi_overlap --x ranks --labels "1 node" "1 node + overlap" --title "MPI strong scaling, 4096x4096, 1 node" --out results/plots/p3_strong_1node.png
+python3 analysis/plots.py speedup --csv results/p3_runs.csv --tags mpi_strong mpi_strong_2node --x ranks --labels "1 node" "2 nodes" --title "MPI strong scaling: 1 vs 2 nodes" --out results/plots/p3_1vs2_nodes.png
+python3 analysis/plots.py speedup --csv results/p3_runs.csv --tags mpi_strong_2node mpi_overlap_2node --x ranks --labels "2 nodes" "2 nodes + overlap" --title "MPI strong scaling, 4096x4096, 2 nodes" --out results/plots/p3_strong_2node.png
+python3 analysis/plots.py breakdown --csv results/p3_runs.csv --tags mpi_strong mpi_overlap mpi_strong_2node mpi_overlap_2node --out results/plots/p3_breakdown.png
+```

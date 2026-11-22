@@ -1,0 +1,154 @@
+
+Currently Loaded Modules:
+  1) nvhpc/25.7
+
+
+
+/usr/bin/gcc
+/usr/bin/mpicc
+/data/software/tools/nvhpc/Linux_x86_64/25.7/compilers/bin/nvc
+=== job 28685 on haskell at 2026-11-12T01:00:31+01:00
+=== git commit: ce9e080  (0 uncommitted files outside results/)
+=== tool=nsys acc_mode=naive nx=2048 ny=2048 steps=200 city=synthetic seed=42 kernel=. extra=
+name, memory.total [MiB], driver_version
+NVIDIA RTX 6000 Ada Generation, 49140 MiB, 580.126.09
+
+nvc 25.7-0 64-bit target on x86-64 Linux -tp znver5
+NVIDIA Nsight Systems version 2025.3.1.90-253135822126v0
+src/openacc/heat_openacc.c:
+main:
+    125, Generating enter data copyin(b[:npad],a[:npad],city[:ncell],c)
+    137, Generating update self(a[:npad])
+         Generating exit data delete(b[:npad],a[:npad],city[:ncell],c)
+    143, Generating enter data copyin(a[:npad])
+         Generating enter data create(b[:npad])
+         Generating enter data copyin(c,city[:ncell])
+    150, Generating exit data copyout(b[:npad])
+         Generating exit data delete(city[:ncell],c,a[:npad])
+src/common/step.c:
+apply_boundary:
+     46, Generating present(T[:npad])
+         Generating implicit firstprivate(i,nx)
+         Generating NVIDIA GPU code
+         48, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     48, Generating implicit firstprivate(t_air,neumann)
+     51, Generating present(T[:npad])
+         Generating implicit firstprivate(i,nx)
+         Generating NVIDIA GPU code
+         53, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     53, Generating implicit firstprivate(neumann,t_air,ny)
+     56, Generating present(T[:npad])
+         Generating implicit firstprivate(j,ny)
+         Generating NVIDIA GPU code
+         58, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     58, Generating implicit firstprivate(neumann,nx,w,t_air)
+     61, Generating present(T[:npad])
+         Generating implicit firstprivate(j,ny)
+         Generating NVIDIA GPU code
+         63, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     63, Generating implicit firstprivate(neumann,nx,w,t_air)
+step_rows:
+    122, Generating present(city[:ncity],in[:npad],out[:npad],c[:1])
+         Generating implicit firstprivate(nx,j1,j0,j)
+         Generating NVIDIA GPU code
+        124, #pragma acc loop gang, vector(128) collapse(2) /* blockIdx.x threadIdx.x */
+        125,   /* blockIdx.x threadIdx.x collapsed */
+    125, Generating implicit firstprivate(w,t_air,solar)
+src/common/io.c:
+src/common/diag.c:
+built build/28685/heat_openacc with: nvc -O3 -acc -gpu=ccnative -Minfo=accel
+=== command: build/28685/heat_openacc --nx 2048 --ny 2048 --steps 200 --city synthetic --seed 42 --acc-mode naive
+=== nsys profile -> results/profiles/nsys_naive_2048_28685.nsys-rep
+WARNING: CPU IP/backtrace sampling not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+WARNING: CPU context switch tracing not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+heat openacc nx=2048 ny=2048 steps=200 city=synthetic seed=42 kernel=openacc-gpu mode=naive
+time_total=0.7349 s  time_compute=0.0128 s  time_transfer=0.4041 s  time_io=0.0137 s  0.015 ns/cell-update
+checksum 1.1084441161e+08
+Collecting data...
+Generating '/var/tmp/nsys-report-6f14.qdstrm'
+[1/7] [0%                          ] nsys_naive_2048_28685.nsys-rep[1/7] [0%                          ] nsys_naive_2048_28685.nsys-rep[1/7] [========41%                 ] nsys_naive_2048_28685.nsys-rep[1/7] [===========52%              ] nsys_naive_2048_28685.nsys-rep[1/7] [===============67%          ] nsys_naive_2048_28685.nsys-rep[1/7] [===================81%      ] nsys_naive_2048_28685.nsys-rep[1/7] [====================84%     ] nsys_naive_2048_28685.nsys-rep[1/7] [=====================87%    ] nsys_naive_2048_28685.nsys-rep[1/7] [========================100%] nsys_naive_2048_28685.nsys-rep[1/7] [========================100%] nsys_naive_2048_28685.nsys-rep
+[2/7] [0%                          ] nsys_naive_2048_28685.sqlite[2/7] [1%                          ] nsys_naive_2048_28685.sqlite[2/7] [2%                          ] nsys_naive_2048_28685.sqlite[2/7] [3%                          ] nsys_naive_2048_28685.sqlite[2/7] [4%                          ] nsys_naive_2048_28685.sqlite[2/7] [5%                          ] nsys_naive_2048_28685.sqlite[2/7] [6%                          ] nsys_naive_2048_28685.sqlite[2/7] [7%                          ] nsys_naive_2048_28685.sqlite[2/7] [8%                          ] nsys_naive_2048_28685.sqlite[2/7] [9%                          ] nsys_naive_2048_28685.sqlite[2/7] [10%                         ] nsys_naive_2048_28685.sqlite[2/7] [11%                         ] nsys_naive_2048_28685.sqlite[2/7] [12%                         ] nsys_naive_2048_28685.sqlite[2/7] [13%                         ] nsys_naive_2048_28685.sqlite[2/7] [14%                         ] nsys_naive_2048_28685.sqlite[2/7] [=15%                        ] nsys_naive_2048_28685.sqlite[2/7] [=16%                        ] nsys_naive_2048_28685.sqlite[2/7] [=17%                        ] nsys_naive_2048_28685.sqlite[2/7] [==18%                       ] nsys_naive_2048_28685.sqlite[2/7] [==19%                       ] nsys_naive_2048_28685.sqlite[2/7] [==20%                       ] nsys_naive_2048_28685.sqlite[2/7] [==21%                       ] nsys_naive_2048_28685.sqlite[2/7] [===22%                      ] nsys_naive_2048_28685.sqlite[2/7] [===23%                      ] nsys_naive_2048_28685.sqlite[2/7] [===24%                      ] nsys_naive_2048_28685.sqlite[2/7] [====25%                     ] nsys_naive_2048_28685.sqlite[2/7] [====26%                     ] nsys_naive_2048_28685.sqlite[2/7] [====27%                     ] nsys_naive_2048_28685.sqlite[2/7] [====28%                     ] nsys_naive_2048_28685.sqlite[2/7] [=====29%                    ] nsys_naive_2048_28685.sqlite[2/7] [=====30%                    ] nsys_naive_2048_28685.sqlite[2/7] [=====31%                    ] nsys_naive_2048_28685.sqlite[2/7] [=====32%                    ] nsys_naive_2048_28685.sqlite[2/7] [======33%                   ] nsys_naive_2048_28685.sqlite[2/7] [======34%                   ] nsys_naive_2048_28685.sqlite[2/7] [======35%                   ] nsys_naive_2048_28685.sqlite[2/7] [=======36%                  ] nsys_naive_2048_28685.sqlite[2/7] [=======37%                  ] nsys_naive_2048_28685.sqlite[2/7] [=======38%                  ] nsys_naive_2048_28685.sqlite[2/7] [=======39%                  ] nsys_naive_2048_28685.sqlite[2/7] [========40%                 ] nsys_naive_2048_28685.sqlite[2/7] [========41%                 ] nsys_naive_2048_28685.sqlite[2/7] [========42%                 ] nsys_naive_2048_28685.sqlite[2/7] [=========43%                ] nsys_naive_2048_28685.sqlite[2/7] [=========44%                ] nsys_naive_2048_28685.sqlite[2/7] [=========45%                ] nsys_naive_2048_28685.sqlite[2/7] [=========46%                ] nsys_naive_2048_28685.sqlite[2/7] [==========47%               ] nsys_naive_2048_28685.sqlite[2/7] [==========48%               ] nsys_naive_2048_28685.sqlite[2/7] [==========49%               ] nsys_naive_2048_28685.sqlite[2/7] [===========50%              ] nsys_naive_2048_28685.sqlite[2/7] [===========51%              ] nsys_naive_2048_28685.sqlite[2/7] [===========52%              ] nsys_naive_2048_28685.sqlite[2/7] [===========53%              ] nsys_naive_2048_28685.sqlite[2/7] [============54%             ] nsys_naive_2048_28685.sqlite[2/7] [============55%             ] nsys_naive_2048_28685.sqlite[2/7] [============56%             ] nsys_naive_2048_28685.sqlite[2/7] [============57%             ] nsys_naive_2048_28685.sqlite[2/7] [=============58%            ] nsys_naive_2048_28685.sqlite[2/7] [=============59%            ] nsys_naive_2048_28685.sqlite[2/7] [=============60%            ] nsys_naive_2048_28685.sqlite[2/7] [==============61%           ] nsys_naive_2048_28685.sqlite[2/7] [==============62%           ] nsys_naive_2048_28685.sqlite[2/7] [==============63%           ] nsys_naive_2048_28685.sqlite[2/7] [==============64%           ] nsys_naive_2048_28685.sqlite[2/7] [===============65%          ] nsys_naive_2048_28685.sqlite[2/7] [===============66%          ] nsys_naive_2048_28685.sqlite[2/7] [===============67%          ] nsys_naive_2048_28685.sqlite[2/7] [================68%         ] nsys_naive_2048_28685.sqlite[2/7] [================69%         ] nsys_naive_2048_28685.sqlite[2/7] [================70%         ] nsys_naive_2048_28685.sqlite[2/7] [================71%         ] nsys_naive_2048_28685.sqlite[2/7] [=================72%        ] nsys_naive_2048_28685.sqlite[2/7] [=================73%        ] nsys_naive_2048_28685.sqlite[2/7] [=================74%        ] nsys_naive_2048_28685.sqlite[2/7] [==================75%       ] nsys_naive_2048_28685.sqlite[2/7] [==================76%       ] nsys_naive_2048_28685.sqlite[2/7] [==================77%       ] nsys_naive_2048_28685.sqlite[2/7] [==================78%       ] nsys_naive_2048_28685.sqlite[2/7] [===================79%      ] nsys_naive_2048_28685.sqlite[2/7] [===================80%      ] nsys_naive_2048_28685.sqlite[2/7] [===================81%      ] nsys_naive_2048_28685.sqlite[2/7] [===================82%      ] nsys_naive_2048_28685.sqlite[2/7] [====================83%     ] nsys_naive_2048_28685.sqlite[2/7] [====================84%     ] nsys_naive_2048_28685.sqlite[2/7] [====================85%     ] nsys_naive_2048_28685.sqlite[2/7] [=====================86%    ] nsys_naive_2048_28685.sqlite[2/7] [=====================87%    ] nsys_naive_2048_28685.sqlite[2/7] [=====================88%    ] nsys_naive_2048_28685.sqlite[2/7] [=====================89%    ] nsys_naive_2048_28685.sqlite[2/7] [======================90%   ] nsys_naive_2048_28685.sqlite[2/7] [======================91%   ] nsys_naive_2048_28685.sqlite[2/7] [======================92%   ] nsys_naive_2048_28685.sqlite[2/7] [=======================93%  ] nsys_naive_2048_28685.sqlite[2/7] [=======================94%  ] nsys_naive_2048_28685.sqlite[2/7] [=======================95%  ] nsys_naive_2048_28685.sqlite[2/7] [=======================96%  ] nsys_naive_2048_28685.sqlite[2/7] [========================97% ] nsys_naive_2048_28685.sqlite[2/7] [========================98% ] nsys_naive_2048_28685.sqlite[2/7] [========================99% ] nsys_naive_2048_28685.sqlite[2/7] [========================100%] nsys_naive_2048_28685.sqlite[2/7] [========================100%] nsys_naive_2048_28685.sqlite
+[3/7] Executing 'cuda_api_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls  Avg (ns)   Med (ns)   Min (ns)  Max (ns)  StdDev (ns)          Name
+ --------  ---------------  ---------  ---------  ---------  --------  --------  -----------  --------------------
+     52.4        215767983        200  1078839.9  1077808.0    997601   1175193      17650.5  cuMemcpyDtoHAsync_v2
+     43.0        177256437        600   295427.4   135695.0      2133    834581     322722.2  cuMemcpyHtoDAsync_v2
+      3.7         15375943       2400     6406.6      636.0       300     45577      12586.7  cuStreamSynchronize
+      0.7          2693258       1000     2693.3     2444.0      2153     18928       1183.7  cuLaunchKernel
+      0.1           467970          1   467970.0   467970.0    467970    467970          0.0  cuMemAllocHost_v2
+      0.1           319170          5    63834.0    73909.0      6119     87328      32875.9  cuMemAlloc_v2
+      0.0           108670          1   108670.0   108670.0    108670    108670          0.0  cuModuleLoadDataEx
+      0.0             1611          3      537.0      440.0       290       881        307.2  cuCtxSetCurrent
+
+[4/7] Executing 'cuda_gpu_kern_sum' stats report
+
+ Time (%)  Total Time (ns)  Instances  Avg (ns)  Med (ns)  Min (ns)  Max (ns)  StdDev (ns)                     Name
+ --------  ---------------  ---------  --------  --------  --------  --------  -----------  ------------------------------------------
+     82.9          3718525        200   18592.6   18976.0     17376     19104        683.3  _17src_common_step_c_step_rows_122_gpu
+      4.6           204257        200    1021.3    1024.0       928      1088         43.1  _17src_common_step_c_apply_boundary_61_gpu
+      4.5           204002        200    1020.0    1024.0       928      1057         43.9  _17src_common_step_c_apply_boundary_56_gpu
+      4.0           179746        200     898.7     896.0       800      1184         42.3  _17src_common_step_c_apply_boundary_51_gpu
+      4.0           177508        200     887.5     896.0       800      1152         41.3  _17src_common_step_c_apply_boundary_46_gpu
+
+[5/7] Executing 'cuda_gpu_mem_time_sum' stats report
+
+ Time (%)  Total Time (ns)  Count  Avg (ns)   Med (ns)   Min (ns)  Max (ns)  StdDev (ns)           Operation
+ --------  ---------------  -----  ---------  ---------  --------  --------  -----------  ----------------------------
+     53.3        202862143    200  1014310.7  1013241.5    929961   1111370      17452.0  [CUDA memcpy Device-to-Host]
+     46.7        177800031    600   296333.4   161793.0       320    820552     310445.2  [CUDA memcpy Host-to-Device]
+
+[6/7] Executing 'cuda_gpu_mem_size_sum' stats report
+
+ Total (MB)  Count  Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)           Operation
+ ----------  -----  --------  --------  --------  --------  -----------  ----------------------------
+   4200.876    600     7.001     4.194     0.000    16.810        7.150  [CUDA memcpy Host-to-Device]
+   3362.000    200    16.810    16.810    16.810    16.810        0.000  [CUDA memcpy Device-to-Host]
+
+[7/7] Executing 'openacc_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls  Avg (ns)   Med (ns)   Min (ns)  Max (ns)  StdDev (ns)                 Name
+ --------  ---------------  ---------  ---------  ---------  --------  --------  -----------  -----------------------------------
+     26.1        216514452        200  1082572.3  1081168.0   1021336   1179158      17241.6  Exit Data@heat_openacc.c:150
+     26.0        215860855        200  1079304.3  1078224.5    998903   1175583      17615.8  Enqueue Download@heat_openacc.c:150
+     22.6        187489571        200   937447.9   928003.0    920086   1438070      47133.9  Enter Data@heat_openacc.c:143
+     21.4        177551424        600   295919.0   136126.0      2644    835571     322714.6  Enqueue Upload@heat_openacc.c:143
+      1.1          8908593        200    44543.0    45217.0      9895     46058       3247.2  Wait@heat_openacc.c:143
+      0.6          4872200        200    24361.0    24547.0     22533     35382       1378.8  Compute Construct@step.c:122
+      0.5          4283233        400    10708.1    10165.0       610     21401       9991.6  Wait@step.c:122
+      0.2          1482106        200     7410.5     6890.0      6310     33329       2384.0  Compute Construct@step.c:46
+      0.2          1373927        200     6869.6     6649.5      6159     13790        936.6  Compute Construct@step.c:56
+      0.2          1348061        200     6740.3     6500.0      6029     14051        975.0  Compute Construct@step.c:51
+      0.2          1346235        200     6731.2     6559.5      6149     13640        845.0  Compute Construct@step.c:61
+      0.1           765754        400     1914.4     1718.0       611      6009       1180.3  Wait@step.c:56
+      0.1           765354        400     1913.4     1838.0       610      3505       1140.5  Wait@step.c:61
+      0.1           736421        200     3682.1     3205.0      2804     20711       1915.2  Enqueue Launch@step.c:46
+      0.1           734464        400     1836.2     1121.5       620      3285       1047.4  Wait@step.c:46
+      0.1           734043        400     1835.1     1237.0       600      5979       1058.1  Wait@step.c:51
+      0.1           632336        200     3161.7     2975.0      2634     10115        901.2  Enqueue Launch@step.c:51
+      0.1           612909        200     3064.5     2884.0      2614     10455        909.6  Enqueue Launch@step.c:56
+      0.1           597968        200     2989.8     2814.0      2524     13530       1113.6  Enqueue Launch@step.c:122
+      0.1           596057        200     2980.3     2829.0      2533      9884        831.5  Enqueue Launch@step.c:61
+      0.0           312500        200     1562.5     1512.0      1332      5308        330.8  Enter Data@step.c:122
+      0.0           275203        200     1376.0     1352.0      1131      3886        248.1  Enter Data@step.c:46
+      0.0           259073        200     1295.4     1312.0      1052      2023        155.0  Enter Data@step.c:51
+      0.0           251756        200     1258.8     1286.5      1051      2023        156.4  Enter Data@step.c:61
+      0.0           248967        200     1244.8     1222.0      1051      1852        130.0  Enter Data@step.c:56
+      0.0           147904        200      739.5      701.0       651      1322         97.8  Wait@heat_openacc.c:150
+      0.0           128030        200      640.1      601.0       580      1121         87.8  Exit Data@step.c:122
+      0.0            83649        200      418.2      361.0       340      6670        449.7  Exit Data@step.c:46
+      0.0            77289        200      386.4      351.0       340       791         64.7  Exit Data@step.c:56
+      0.0            76933        200      384.7      351.0       340      1442         94.8  Exit Data@step.c:51
+      0.0            71344        200      356.7      341.0       330       651         39.6  Exit Data@step.c:61
+      0.0                0          4        0.0        0.0         0         0          0.0  Alloc@heat_openacc.c:143
+      0.0                0        800        0.0        0.0         0         0          0.0  Create@heat_openacc.c:143
+      0.0                0        800        0.0        0.0         0         0          0.0  Delete@heat_openacc.c:150
+
+Generated:
+	/home/hpcb02/Madrid_heat_island_HPCProject/results/profiles/nsys_naive_2048_28685.nsys-rep
+	/home/hpcb02/Madrid_heat_island_HPCProject/results/profiles/nsys_naive_2048_28685.sqlite
+=== done 2026-11-12T01:00:35+01:00

@@ -1,0 +1,131 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== job 31351 on fortran,haskell at 2026-11-16T22:10:21+01:00
+=== git commit: 108ebb3  (0 uncommitted files outside results/)
+=== sizes="4096 8192" configs(nodes:ranks)="1:16 2:32" steps=10 reps=3 tag=io csv=results/runs.csv
+built build/31351/heat_mpi
+=== output directory build/31351 is on file system type: nfs
+10.205.20.3:/share/ZFS21_DATA/hpc-home nfs    30T  9.8T   21T  33% /home
+=== n=4096 nodes=1 ranks=16 io=gather  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31351/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31351/field_gather.bin --io gather --timing results/runs.csv --tag io_gather
+=== repeat 1
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3072 s  time_compute=0.0098 s  time_comm=0.0039 s  time_io=0.2920 s  0.058 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 2
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3282 s  time_compute=0.0238 s  time_comm=0.0212 s  time_io=0.3002 s  0.142 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 3
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3462 s  time_compute=0.0099 s  time_comm=0.0041 s  time_io=0.3323 s  0.059 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=1 ranks=16 io=mpiio  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31351/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31351/field_mpiio.bin --io mpiio --timing results/runs.csv --tag io_mpiio
+=== repeat 1
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.2875 s  time_compute=0.0250 s  time_comm=0.0234 s  time_io=1.2592 s  0.149 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 2
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.4378 s  time_compute=0.0095 s  time_comm=0.0027 s  time_io=1.4249 s  0.057 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 3
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3494 s  time_compute=0.0253 s  time_comm=0.0234 s  time_io=0.3214 s  0.151 ns/cell-update
+checksum 4.1950287375e+08
+=== CHECK n=4096 nodes=1 ranks=16: gather and mpiio files are byte-identical
+=== n=4096 nodes=2 ranks=32 io=gather  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31351/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31351/field_gather.bin --io gather --timing results/runs.csv --tag io_gather
+=== repeat 1
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2853 s  time_compute=0.0040 s  time_comm=0.0035 s  time_io=0.2675 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 2
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.2188 s  time_compute=0.0042 s  time_comm=0.0037 s  time_io=0.2001 s  0.025 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 3
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.5688 s  time_compute=0.0043 s  time_comm=0.0037 s  time_io=0.5504 s  0.025 ns/cell-update
+checksum 4.1950287375e+08
+=== n=4096 nodes=2 ranks=32 io=mpiio  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31351/heat_mpi --nx 4096 --ny 4096 --steps 10 --city synthetic --seed 42 --out build/31351/field_mpiio.bin --io mpiio --timing results/runs.csv --tag io_mpiio
+=== repeat 1
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3308 s  time_compute=0.0040 s  time_comm=0.0038 s  time_io=0.3160 s  0.024 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 2
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3046 s  time_compute=0.0037 s  time_comm=0.0034 s  time_io=0.2894 s  0.022 ns/cell-update
+checksum 4.1950287375e+08
+=== repeat 3
+heat mpi nx=4096 ny=4096 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.3494 s  time_compute=0.0039 s  time_comm=0.0035 s  time_io=0.3342 s  0.023 ns/cell-update
+checksum 4.1950287375e+08
+=== CHECK n=4096 nodes=2 ranks=32: gather and mpiio files are byte-identical
+=== n=8192 nodes=1 ranks=16 io=gather  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31351/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31351/field_gather.bin --io gather --timing results/runs.csv --tag io_gather
+=== repeat 1
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.3103 s  time_compute=0.0554 s  time_comm=0.0037 s  time_io=1.2403 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 2
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6625 s  time_compute=0.2060 s  time_comm=0.1722 s  time_io=0.4176 s  0.307 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 3
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.6945 s  time_compute=0.0544 s  time_comm=0.0062 s  time_io=0.6254 s  0.081 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=1 ranks=16 io=mpiio  command: srun --mpi=pmix -N 1 -n 16 --cpus-per-task=1 --cpu-bind=cores build/31351/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31351/field_mpiio.bin --io mpiio --timing results/runs.csv --tag io_mpiio
+=== repeat 1
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.0555 s  time_compute=0.2094 s  time_comm=0.1787 s  time_io=0.8356 s  0.312 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 2
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.1064 s  time_compute=0.0559 s  time_comm=0.0067 s  time_io=1.0369 s  0.083 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 3
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=1.6586 s  time_compute=0.2086 s  time_comm=0.1781 s  time_io=1.4406 s  0.311 ns/cell-update
+checksum 1.6780113096e+09
+=== CHECK n=8192 nodes=1 ranks=16: gather and mpiio files are byte-identical
+=== n=8192 nodes=2 ranks=32 io=gather  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31351/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31351/field_gather.bin --io gather --timing results/runs.csv --tag io_gather
+=== repeat 1
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8665 s  time_compute=0.0814 s  time_comm=0.0732 s  time_io=0.7501 s  0.121 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 2
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.0610 s  time_compute=0.0803 s  time_comm=0.0740 s  time_io=0.9565 s  0.120 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 3
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.3805 s  time_compute=0.0813 s  time_comm=0.0724 s  time_io=1.2749 s  0.121 ns/cell-update
+checksum 1.6780113096e+09
+=== n=8192 nodes=2 ranks=32 io=mpiio  command: srun --mpi=pmix -N 2 -n 32 --cpus-per-task=1 --cpu-bind=cores build/31351/heat_mpi --nx 8192 --ny 8192 --steps 10 --city synthetic --seed 42 --out build/31351/field_mpiio.bin --io mpiio --timing results/runs.csv --tag io_mpiio
+=== repeat 1
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=1.7581 s  time_compute=0.0829 s  time_comm=0.0784 s  time_io=1.7160 s  0.124 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 2
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.9849 s  time_compute=0.0827 s  time_comm=0.0750 s  time_io=0.9414 s  0.123 ns/cell-update
+checksum 1.6780113096e+09
+=== repeat 3
+heat mpi nx=8192 ny=8192 steps=10 city=synthetic seed=42 ranks=32 kernel=avx512-permute
+time_total=0.8986 s  time_compute=0.0812 s  time_comm=0.0750 s  time_io=0.8563 s  0.121 ns/cell-update
+checksum 1.6780113096e+09
+=== CHECK n=8192 nodes=2 ranks=32: gather and mpiio files are byte-identical
+=== done 2026-11-16T22:11:17+01:00

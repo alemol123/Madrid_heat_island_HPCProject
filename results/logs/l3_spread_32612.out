@@ -1,0 +1,356 @@
+
+Currently Loaded Modules:
+  1) GCCcore/13.2.0                    10) libfabric/1.19.0-GCCcore-13.2.0
+  2) GCC/13.2.0                        11) PMIx/4.2.6-GCCcore-13.2.0
+  3) numactl/2.0.16-GCCcore-13.2.0     12) UCC/1.2.0-GCCcore-13.2.0
+  4) libxml2/2.11.5-GCCcore-13.2.0     13) OpenMPI/4.1.6-GCC-13.2.0
+  5) libpciaccess/0.17-GCCcore-13.2.0  14) Tcl/8.6.13-GCCcore-13.2.0
+  6) hwloc/2.9.2-GCCcore-13.2.0        15) SQLite/3.43.1-GCCcore-13.2.0
+  7) OpenSSL/1.1                       16) libffi/3.4.4-GCCcore-13.2.0
+  8) libevent/2.1.12-GCCcore-13.2.0    17) Python/3.11.5-GCCcore-13.2.0
+  9) UCX/1.15.0-GCCcore-13.2.0
+
+
+
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/GCCcore/13.2.0/bin/gcc
+/cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/amd/zen2/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+=== job 32612 on fortran at 2026-11-19T03:34:01+01:00
+=== git commit: 4ec16d8  (0 uncommitted files outside results/)
+=== nx=8192 steps=59 ranks='8 16' reps=5 tag=l3spread topology=results/fortran_topology.txt
+built build/32612/heat_mpi
+=== CPUs of this allocation: 0-15,128-143,256-271,384-399
+spread: 8 ranks over 4 L3 caches {0: 2, 4: 2, 16: 2, 20: 2} (allocation has 32 cores on 4 L3 caches)
+=== ranks=8 spread CPUs: 0,8,128,136,1,9,129,137
+=== ranks=8 repeat 1 placement=default  command: srun --mpi=pmix -n 8 --cpus-per-task=1 --cpu-bind=verbose,cores build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_default
+cpu-bind=MASK - fortran, task  0  0 [2636642]: mask 0x10000000000000000000000000000000000000000000000000000000000000001 set
+cpu-bind=MASK - fortran, task  1  1 [2636643]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  2  2 [2636644]: mask 0x20000000000000000000000000000000000000000000000000000000000000002 set
+cpu-bind=MASK - fortran, task  3  3 [2636645]: mask 0x2000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  4  4 [2636646]: mask 0x40000000000000000000000000000000000000000000000000000000000000004 set
+cpu-bind=MASK - fortran, task  5  5 [2636647]: mask 0x4000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  6  6 [2636648]: mask 0x80000000000000000000000000000000000000000000000000000000000000008 set
+cpu-bind=MASK - fortran, task  7  7 [2636649]: mask 0x8000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=8 kernel=avx512-permute
+time_total=0.3641 s  time_compute=0.3163 s  time_comm=0.0135 s  time_io=0.0262 s  0.080 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=8 repeat 1 placement=spread  command: srun --mpi=pmix -n 8 --cpus-per-task=4 --cpu-bind=verbose,map_cpu:0,8,128,136,1,9,129,137 build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_spread
+srun: Job step's --cpus-per-task value exceeds that of job (4 > 1). Job step may never run.
+cpu-bind=MAP  - fortran, task  0  0 [2636695]: mask 0x1 set
+cpu-bind=MAP  - fortran, task  1  1 [2636696]: mask 0x100 set
+cpu-bind=MAP  - fortran, task  2  2 [2636697]: mask 0x100000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  3  3 [2636698]: mask 0x10000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  4  4 [2636699]: mask 0x2 set
+cpu-bind=MAP  - fortran, task  5  5 [2636700]: mask 0x200 set
+cpu-bind=MAP  - fortran, task  6  6 [2636701]: mask 0x200000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  7  7 [2636702]: mask 0x20000000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=8 kernel=avx512-permute
+time_total=0.2211 s  time_compute=0.1753 s  time_comm=0.0186 s  time_io=0.0251 s  0.044 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=8 repeat 2 placement=default  command: srun --mpi=pmix -n 8 --cpus-per-task=1 --cpu-bind=verbose,cores build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_default
+cpu-bind=MASK - fortran, task  0  0 [2636748]: mask 0x10000000000000000000000000000000000000000000000000000000000000001 set
+cpu-bind=MASK - fortran, task  1  1 [2636749]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  2  2 [2636750]: mask 0x20000000000000000000000000000000000000000000000000000000000000002 set
+cpu-bind=MASK - fortran, task  3  3 [2636751]: mask 0x2000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  4  4 [2636752]: mask 0x40000000000000000000000000000000000000000000000000000000000000004 set
+cpu-bind=MASK - fortran, task  5  5 [2636753]: mask 0x4000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  6  6 [2636754]: mask 0x80000000000000000000000000000000000000000000000000000000000000008 set
+cpu-bind=MASK - fortran, task  7  7 [2636755]: mask 0x8000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=8 kernel=avx512-permute
+time_total=0.3635 s  time_compute=0.3153 s  time_comm=0.0181 s  time_io=0.0260 s  0.080 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=8 repeat 2 placement=spread  command: srun --mpi=pmix -n 8 --cpus-per-task=4 --cpu-bind=verbose,map_cpu:0,8,128,136,1,9,129,137 build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_spread
+srun: Job step's --cpus-per-task value exceeds that of job (4 > 1). Job step may never run.
+cpu-bind=MAP  - fortran, task  0  0 [2636805]: mask 0x1 set
+cpu-bind=MAP  - fortran, task  1  1 [2636806]: mask 0x100 set
+cpu-bind=MAP  - fortran, task  2  2 [2636807]: mask 0x100000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  3  3 [2636808]: mask 0x10000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  4  4 [2636809]: mask 0x2 set
+cpu-bind=MAP  - fortran, task  5  5 [2636810]: mask 0x200 set
+cpu-bind=MAP  - fortran, task  6  6 [2636811]: mask 0x200000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  7  7 [2636812]: mask 0x20000000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=8 kernel=avx512-permute
+time_total=0.2216 s  time_compute=0.1776 s  time_comm=0.0198 s  time_io=0.0248 s  0.045 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=8 repeat 3 placement=default  command: srun --mpi=pmix -n 8 --cpus-per-task=1 --cpu-bind=verbose,cores build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_default
+cpu-bind=MASK - fortran, task  0  0 [2636859]: mask 0x10000000000000000000000000000000000000000000000000000000000000001 set
+cpu-bind=MASK - fortran, task  1  1 [2636860]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  2  2 [2636861]: mask 0x20000000000000000000000000000000000000000000000000000000000000002 set
+cpu-bind=MASK - fortran, task  3  3 [2636862]: mask 0x2000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  4  4 [2636863]: mask 0x40000000000000000000000000000000000000000000000000000000000000004 set
+cpu-bind=MASK - fortran, task  5  5 [2636864]: mask 0x4000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  6  6 [2636865]: mask 0x80000000000000000000000000000000000000000000000000000000000000008 set
+cpu-bind=MASK - fortran, task  7  7 [2636866]: mask 0x8000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=8 kernel=avx512-permute
+time_total=0.3617 s  time_compute=0.3142 s  time_comm=0.0121 s  time_io=0.0257 s  0.079 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=8 repeat 3 placement=spread  command: srun --mpi=pmix -n 8 --cpus-per-task=4 --cpu-bind=verbose,map_cpu:0,8,128,136,1,9,129,137 build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_spread
+srun: Job step's --cpus-per-task value exceeds that of job (4 > 1). Job step may never run.
+cpu-bind=MAP  - fortran, task  0  0 [2636913]: mask 0x1 set
+cpu-bind=MAP  - fortran, task  1  1 [2636914]: mask 0x100 set
+cpu-bind=MAP  - fortran, task  2  2 [2636915]: mask 0x100000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  3  3 [2636916]: mask 0x10000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  4  4 [2636917]: mask 0x2 set
+cpu-bind=MAP  - fortran, task  5  5 [2636918]: mask 0x200 set
+cpu-bind=MAP  - fortran, task  6  6 [2636919]: mask 0x200000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  7  7 [2636920]: mask 0x20000000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=8 kernel=avx512-permute
+time_total=0.2204 s  time_compute=0.1763 s  time_comm=0.0183 s  time_io=0.0247 s  0.045 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=8 repeat 4 placement=default  command: srun --mpi=pmix -n 8 --cpus-per-task=1 --cpu-bind=verbose,cores build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_default
+cpu-bind=MASK - fortran, task  0  0 [2636969]: mask 0x10000000000000000000000000000000000000000000000000000000000000001 set
+cpu-bind=MASK - fortran, task  1  1 [2636970]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  2  2 [2636971]: mask 0x20000000000000000000000000000000000000000000000000000000000000002 set
+cpu-bind=MASK - fortran, task  3  3 [2636972]: mask 0x2000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  4  4 [2636973]: mask 0x40000000000000000000000000000000000000000000000000000000000000004 set
+cpu-bind=MASK - fortran, task  5  5 [2636974]: mask 0x4000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  6  6 [2636975]: mask 0x80000000000000000000000000000000000000000000000000000000000000008 set
+cpu-bind=MASK - fortran, task  7  7 [2636976]: mask 0x8000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=8 kernel=avx512-permute
+time_total=0.3628 s  time_compute=0.3154 s  time_comm=0.0143 s  time_io=0.0257 s  0.080 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=8 repeat 4 placement=spread  command: srun --mpi=pmix -n 8 --cpus-per-task=4 --cpu-bind=verbose,map_cpu:0,8,128,136,1,9,129,137 build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_spread
+srun: Job step's --cpus-per-task value exceeds that of job (4 > 1). Job step may never run.
+cpu-bind=MAP  - fortran, task  0  0 [2637056]: mask 0x1 set
+cpu-bind=MAP  - fortran, task  1  1 [2637057]: mask 0x100 set
+cpu-bind=MAP  - fortran, task  2  2 [2637058]: mask 0x100000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  3  3 [2637059]: mask 0x10000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  4  4 [2637060]: mask 0x2 set
+cpu-bind=MAP  - fortran, task  5  5 [2637061]: mask 0x200 set
+cpu-bind=MAP  - fortran, task  6  6 [2637062]: mask 0x200000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  7  7 [2637063]: mask 0x20000000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=8 kernel=avx512-permute
+time_total=0.2209 s  time_compute=0.1767 s  time_comm=0.0178 s  time_io=0.0247 s  0.045 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=8 repeat 5 placement=default  command: srun --mpi=pmix -n 8 --cpus-per-task=1 --cpu-bind=verbose,cores build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_default
+cpu-bind=MASK - fortran, task  0  0 [2637109]: mask 0x10000000000000000000000000000000000000000000000000000000000000001 set
+cpu-bind=MASK - fortran, task  1  1 [2637110]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  2  2 [2637111]: mask 0x20000000000000000000000000000000000000000000000000000000000000002 set
+cpu-bind=MASK - fortran, task  3  3 [2637112]: mask 0x2000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  4  4 [2637113]: mask 0x40000000000000000000000000000000000000000000000000000000000000004 set
+cpu-bind=MASK - fortran, task  5  5 [2637114]: mask 0x4000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  6  6 [2637115]: mask 0x80000000000000000000000000000000000000000000000000000000000000008 set
+cpu-bind=MASK - fortran, task  7  7 [2637116]: mask 0x8000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=8 kernel=avx512-permute
+time_total=0.3624 s  time_compute=0.3149 s  time_comm=0.0106 s  time_io=0.0258 s  0.080 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=8 repeat 5 placement=spread  command: srun --mpi=pmix -n 8 --cpus-per-task=4 --cpu-bind=verbose,map_cpu:0,8,128,136,1,9,129,137 build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_spread
+srun: Job step's --cpus-per-task value exceeds that of job (4 > 1). Job step may never run.
+cpu-bind=MAP  - fortran, task  0  0 [2637167]: mask 0x1 set
+cpu-bind=MAP  - fortran, task  1  1 [2637168]: mask 0x100 set
+cpu-bind=MAP  - fortran, task  2  2 [2637169]: mask 0x100000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  3  3 [2637170]: mask 0x10000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  4  4 [2637171]: mask 0x2 set
+cpu-bind=MAP  - fortran, task  5  5 [2637172]: mask 0x200 set
+cpu-bind=MAP  - fortran, task  6  6 [2637173]: mask 0x200000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  7  7 [2637174]: mask 0x20000000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=8 kernel=avx512-permute
+time_total=0.2221 s  time_compute=0.1779 s  time_comm=0.0201 s  time_io=0.0247 s  0.045 ns/cell-update
+checksum 1.6881705547e+09
+spread: 16 ranks over 4 L3 caches {0: 4, 4: 4, 16: 4, 20: 4} (allocation has 32 cores on 4 L3 caches)
+=== ranks=16 spread CPUs: 0,8,128,136,1,9,129,137,2,10,130,138,3,11,131,139
+=== ranks=16 repeat 1 placement=default  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=verbose,cores build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_default
+cpu-bind=MASK - fortran, task  0  0 [2637222]: mask 0x10000000000000000000000000000000000000000000000000000000000000001 set
+cpu-bind=MASK - fortran, task  1  1 [2637223]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  2  2 [2637224]: mask 0x20000000000000000000000000000000000000000000000000000000000000002 set
+cpu-bind=MASK - fortran, task  3  3 [2637225]: mask 0x2000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  4  4 [2637226]: mask 0x40000000000000000000000000000000000000000000000000000000000000004 set
+cpu-bind=MASK - fortran, task  5  5 [2637227]: mask 0x4000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  6  6 [2637228]: mask 0x80000000000000000000000000000000000000000000000000000000000000008 set
+cpu-bind=MASK - fortran, task  7  7 [2637229]: mask 0x8000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  8  8 [2637230]: mask 0x100000000000000000000000000000000000000000000000000000000000000010 set
+cpu-bind=MASK - fortran, task  9  9 [2637231]: mask 0x10000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task 10 10 [2637232]: mask 0x200000000000000000000000000000000000000000000000000000000000000020 set
+cpu-bind=MASK - fortran, task 11 11 [2637233]: mask 0x20000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task 12 12 [2637234]: mask 0x400000000000000000000000000000000000000000000000000000000000000040 set
+cpu-bind=MASK - fortran, task 13 13 [2637235]: mask 0x40000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task 14 14 [2637236]: mask 0x800000000000000000000000000000000000000000000000000000000000000080 set
+cpu-bind=MASK - fortran, task 15 15 [2637237]: mask 0x80000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3418 s  time_compute=0.3134 s  time_comm=0.0289 s  time_io=0.0129 s  0.079 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=16 repeat 1 placement=spread  command: srun --mpi=pmix -n 16 --cpus-per-task=2 --cpu-bind=verbose,map_cpu:0,8,128,136,1,9,129,137,2,10,130,138,3,11,131,139 build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_spread
+srun: Job step's --cpus-per-task value exceeds that of job (2 > 1). Job step may never run.
+cpu-bind=MAP  - fortran, task  0  0 [2637302]: mask 0x1 set
+cpu-bind=MAP  - fortran, task  1  1 [2637303]: mask 0x100 set
+cpu-bind=MAP  - fortran, task  2  2 [2637304]: mask 0x100000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  3  3 [2637305]: mask 0x10000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  4  4 [2637306]: mask 0x2 set
+cpu-bind=MAP  - fortran, task  5  5 [2637307]: mask 0x200 set
+cpu-bind=MAP  - fortran, task  6  6 [2637308]: mask 0x200000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  7  7 [2637309]: mask 0x20000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  8  8 [2637310]: mask 0x4 set
+cpu-bind=MAP  - fortran, task  9  9 [2637311]: mask 0x400 set
+cpu-bind=MAP  - fortran, task 10 10 [2637312]: mask 0x400000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task 11 11 [2637313]: mask 0x40000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task 12 12 [2637314]: mask 0x8 set
+cpu-bind=MAP  - fortran, task 13 13 [2637315]: mask 0x800 set
+cpu-bind=MAP  - fortran, task 14 14 [2637316]: mask 0x800000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task 15 15 [2637317]: mask 0x80000000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1694 s  time_compute=0.1434 s  time_comm=0.0138 s  time_io=0.0125 s  0.036 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=16 repeat 2 placement=default  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=verbose,cores build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_default
+cpu-bind=MASK - fortran, task  0  0 [2637379]: mask 0x10000000000000000000000000000000000000000000000000000000000000001 set
+cpu-bind=MASK - fortran, task  1  1 [2637380]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  2  2 [2637381]: mask 0x20000000000000000000000000000000000000000000000000000000000000002 set
+cpu-bind=MASK - fortran, task  3  3 [2637382]: mask 0x2000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  4  4 [2637383]: mask 0x40000000000000000000000000000000000000000000000000000000000000004 set
+cpu-bind=MASK - fortran, task  5  5 [2637384]: mask 0x4000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  6  6 [2637385]: mask 0x80000000000000000000000000000000000000000000000000000000000000008 set
+cpu-bind=MASK - fortran, task  7  7 [2637386]: mask 0x8000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  8  8 [2637387]: mask 0x100000000000000000000000000000000000000000000000000000000000000010 set
+cpu-bind=MASK - fortran, task  9  9 [2637388]: mask 0x10000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task 10 10 [2637389]: mask 0x200000000000000000000000000000000000000000000000000000000000000020 set
+cpu-bind=MASK - fortran, task 11 11 [2637390]: mask 0x20000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task 12 12 [2637391]: mask 0x400000000000000000000000000000000000000000000000000000000000000040 set
+cpu-bind=MASK - fortran, task 13 13 [2637392]: mask 0x40000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task 14 14 [2637393]: mask 0x800000000000000000000000000000000000000000000000000000000000000080 set
+cpu-bind=MASK - fortran, task 15 15 [2637394]: mask 0x80000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3467 s  time_compute=0.3179 s  time_comm=0.0440 s  time_io=0.0132 s  0.080 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=16 repeat 2 placement=spread  command: srun --mpi=pmix -n 16 --cpus-per-task=2 --cpu-bind=verbose,map_cpu:0,8,128,136,1,9,129,137,2,10,130,138,3,11,131,139 build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_spread
+srun: Job step's --cpus-per-task value exceeds that of job (2 > 1). Job step may never run.
+cpu-bind=MAP  - fortran, task  0  0 [2637456]: mask 0x1 set
+cpu-bind=MAP  - fortran, task  1  1 [2637457]: mask 0x100 set
+cpu-bind=MAP  - fortran, task  2  2 [2637458]: mask 0x100000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  3  3 [2637459]: mask 0x10000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  4  4 [2637460]: mask 0x2 set
+cpu-bind=MAP  - fortran, task  5  5 [2637461]: mask 0x200 set
+cpu-bind=MAP  - fortran, task  6  6 [2637462]: mask 0x200000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  7  7 [2637463]: mask 0x20000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  8  8 [2637464]: mask 0x4 set
+cpu-bind=MAP  - fortran, task  9  9 [2637465]: mask 0x400 set
+cpu-bind=MAP  - fortran, task 10 10 [2637466]: mask 0x400000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task 11 11 [2637467]: mask 0x40000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task 12 12 [2637468]: mask 0x8 set
+cpu-bind=MAP  - fortran, task 13 13 [2637469]: mask 0x800 set
+cpu-bind=MAP  - fortran, task 14 14 [2637470]: mask 0x800000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task 15 15 [2637471]: mask 0x80000000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1690 s  time_compute=0.1419 s  time_comm=0.0134 s  time_io=0.0124 s  0.036 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=16 repeat 3 placement=default  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=verbose,cores build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_default
+cpu-bind=MASK - fortran, task  0  0 [2637533]: mask 0x10000000000000000000000000000000000000000000000000000000000000001 set
+cpu-bind=MASK - fortran, task  1  1 [2637534]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  2  2 [2637535]: mask 0x20000000000000000000000000000000000000000000000000000000000000002 set
+cpu-bind=MASK - fortran, task  3  3 [2637536]: mask 0x2000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  4  4 [2637537]: mask 0x40000000000000000000000000000000000000000000000000000000000000004 set
+cpu-bind=MASK - fortran, task  5  5 [2637538]: mask 0x4000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  6  6 [2637539]: mask 0x80000000000000000000000000000000000000000000000000000000000000008 set
+cpu-bind=MASK - fortran, task  7  7 [2637540]: mask 0x8000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  8  8 [2637541]: mask 0x100000000000000000000000000000000000000000000000000000000000000010 set
+cpu-bind=MASK - fortran, task  9  9 [2637542]: mask 0x10000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task 10 10 [2637543]: mask 0x200000000000000000000000000000000000000000000000000000000000000020 set
+cpu-bind=MASK - fortran, task 11 11 [2637544]: mask 0x20000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task 12 12 [2637545]: mask 0x400000000000000000000000000000000000000000000000000000000000000040 set
+cpu-bind=MASK - fortran, task 13 13 [2637546]: mask 0x40000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task 14 14 [2637547]: mask 0x800000000000000000000000000000000000000000000000000000000000000080 set
+cpu-bind=MASK - fortran, task 15 15 [2637548]: mask 0x80000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3447 s  time_compute=0.3154 s  time_comm=0.0603 s  time_io=0.0131 s  0.080 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=16 repeat 3 placement=spread  command: srun --mpi=pmix -n 16 --cpus-per-task=2 --cpu-bind=verbose,map_cpu:0,8,128,136,1,9,129,137,2,10,130,138,3,11,131,139 build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_spread
+srun: Job step's --cpus-per-task value exceeds that of job (2 > 1). Job step may never run.
+cpu-bind=MAP  - fortran, task  0  0 [2637629]: mask 0x1 set
+cpu-bind=MAP  - fortran, task  1  1 [2637630]: mask 0x100 set
+cpu-bind=MAP  - fortran, task  2  2 [2637631]: mask 0x100000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  3  3 [2637632]: mask 0x10000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  4  4 [2637633]: mask 0x2 set
+cpu-bind=MAP  - fortran, task  5  5 [2637634]: mask 0x200 set
+cpu-bind=MAP  - fortran, task  6  6 [2637635]: mask 0x200000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  7  7 [2637636]: mask 0x20000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  8  8 [2637637]: mask 0x4 set
+cpu-bind=MAP  - fortran, task  9  9 [2637638]: mask 0x400 set
+cpu-bind=MAP  - fortran, task 10 10 [2637639]: mask 0x400000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task 11 11 [2637640]: mask 0x40000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task 12 12 [2637641]: mask 0x8 set
+cpu-bind=MAP  - fortran, task 13 13 [2637642]: mask 0x800 set
+cpu-bind=MAP  - fortran, task 14 14 [2637643]: mask 0x800000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task 15 15 [2637644]: mask 0x80000000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1710 s  time_compute=0.1440 s  time_comm=0.0158 s  time_io=0.0124 s  0.036 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=16 repeat 4 placement=default  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=verbose,cores build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_default
+cpu-bind=MASK - fortran, task  0  0 [2637710]: mask 0x10000000000000000000000000000000000000000000000000000000000000001 set
+cpu-bind=MASK - fortran, task  1  1 [2637711]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  2  2 [2637712]: mask 0x20000000000000000000000000000000000000000000000000000000000000002 set
+cpu-bind=MASK - fortran, task  3  3 [2637713]: mask 0x2000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  4  4 [2637714]: mask 0x40000000000000000000000000000000000000000000000000000000000000004 set
+cpu-bind=MASK - fortran, task  5  5 [2637715]: mask 0x4000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  6  6 [2637716]: mask 0x80000000000000000000000000000000000000000000000000000000000000008 set
+cpu-bind=MASK - fortran, task  7  7 [2637717]: mask 0x8000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  8  8 [2637718]: mask 0x100000000000000000000000000000000000000000000000000000000000000010 set
+cpu-bind=MASK - fortran, task  9  9 [2637719]: mask 0x10000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task 10 10 [2637720]: mask 0x200000000000000000000000000000000000000000000000000000000000000020 set
+cpu-bind=MASK - fortran, task 11 11 [2637721]: mask 0x20000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task 12 12 [2637722]: mask 0x400000000000000000000000000000000000000000000000000000000000000040 set
+cpu-bind=MASK - fortran, task 13 13 [2637723]: mask 0x40000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task 14 14 [2637724]: mask 0x800000000000000000000000000000000000000000000000000000000000000080 set
+cpu-bind=MASK - fortran, task 15 15 [2637725]: mask 0x80000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3435 s  time_compute=0.3141 s  time_comm=0.0376 s  time_io=0.0127 s  0.079 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=16 repeat 4 placement=spread  command: srun --mpi=pmix -n 16 --cpus-per-task=2 --cpu-bind=verbose,map_cpu:0,8,128,136,1,9,129,137,2,10,130,138,3,11,131,139 build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_spread
+srun: Job step's --cpus-per-task value exceeds that of job (2 > 1). Job step may never run.
+cpu-bind=MAP  - fortran, task  0  0 [2637787]: mask 0x1 set
+cpu-bind=MAP  - fortran, task  1  1 [2637788]: mask 0x100 set
+cpu-bind=MAP  - fortran, task  2  2 [2637789]: mask 0x100000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  3  3 [2637790]: mask 0x10000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  4  4 [2637791]: mask 0x2 set
+cpu-bind=MAP  - fortran, task  5  5 [2637792]: mask 0x200 set
+cpu-bind=MAP  - fortran, task  6  6 [2637793]: mask 0x200000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  7  7 [2637794]: mask 0x20000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  8  8 [2637795]: mask 0x4 set
+cpu-bind=MAP  - fortran, task  9  9 [2637796]: mask 0x400 set
+cpu-bind=MAP  - fortran, task 10 10 [2637797]: mask 0x400000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task 11 11 [2637798]: mask 0x40000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task 12 12 [2637799]: mask 0x8 set
+cpu-bind=MAP  - fortran, task 13 13 [2637800]: mask 0x800 set
+cpu-bind=MAP  - fortran, task 14 14 [2637801]: mask 0x800000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task 15 15 [2637802]: mask 0x80000000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1707 s  time_compute=0.1431 s  time_comm=0.0129 s  time_io=0.0124 s  0.036 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=16 repeat 5 placement=default  command: srun --mpi=pmix -n 16 --cpus-per-task=1 --cpu-bind=verbose,cores build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_default
+cpu-bind=MASK - fortran, task  0  0 [2637866]: mask 0x10000000000000000000000000000000000000000000000000000000000000001 set
+cpu-bind=MASK - fortran, task  1  1 [2637867]: mask 0x1000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  2  2 [2637868]: mask 0x20000000000000000000000000000000000000000000000000000000000000002 set
+cpu-bind=MASK - fortran, task  3  3 [2637869]: mask 0x2000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  4  4 [2637870]: mask 0x40000000000000000000000000000000000000000000000000000000000000004 set
+cpu-bind=MASK - fortran, task  5  5 [2637871]: mask 0x4000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  6  6 [2637872]: mask 0x80000000000000000000000000000000000000000000000000000000000000008 set
+cpu-bind=MASK - fortran, task  7  7 [2637873]: mask 0x8000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task  8  8 [2637874]: mask 0x100000000000000000000000000000000000000000000000000000000000000010 set
+cpu-bind=MASK - fortran, task  9  9 [2637875]: mask 0x10000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task 10 10 [2637876]: mask 0x200000000000000000000000000000000000000000000000000000000000000020 set
+cpu-bind=MASK - fortran, task 11 11 [2637877]: mask 0x20000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task 12 12 [2637878]: mask 0x400000000000000000000000000000000000000000000000000000000000000040 set
+cpu-bind=MASK - fortran, task 13 13 [2637879]: mask 0x40000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000 set
+cpu-bind=MASK - fortran, task 14 14 [2637880]: mask 0x800000000000000000000000000000000000000000000000000000000000000080 set
+cpu-bind=MASK - fortran, task 15 15 [2637881]: mask 0x80000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.3429 s  time_compute=0.3134 s  time_comm=0.0498 s  time_io=0.0131 s  0.079 ns/cell-update
+checksum 1.6881705547e+09
+=== ranks=16 repeat 5 placement=spread  command: srun --mpi=pmix -n 16 --cpus-per-task=2 --cpu-bind=verbose,map_cpu:0,8,128,136,1,9,129,137,2,10,130,138,3,11,131,139 build/32612/heat_mpi --nx 8192 --ny 8192 --steps 59 --city synthetic --seed 42 --timing results/runs.csv --tag l3spread_spread
+srun: Job step's --cpus-per-task value exceeds that of job (2 > 1). Job step may never run.
+cpu-bind=MAP  - fortran, task  0  0 [2637944]: mask 0x1 set
+cpu-bind=MAP  - fortran, task  1  1 [2637945]: mask 0x100 set
+cpu-bind=MAP  - fortran, task  2  2 [2637946]: mask 0x100000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  3  3 [2637947]: mask 0x10000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  4  4 [2637948]: mask 0x2 set
+cpu-bind=MAP  - fortran, task  5  5 [2637949]: mask 0x200 set
+cpu-bind=MAP  - fortran, task  6  6 [2637950]: mask 0x200000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  7  7 [2637951]: mask 0x20000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task  8  8 [2637952]: mask 0x4 set
+cpu-bind=MAP  - fortran, task  9  9 [2637953]: mask 0x400 set
+cpu-bind=MAP  - fortran, task 10 10 [2637954]: mask 0x400000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task 11 11 [2637955]: mask 0x40000000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task 12 12 [2637956]: mask 0x8 set
+cpu-bind=MAP  - fortran, task 13 13 [2637957]: mask 0x800 set
+cpu-bind=MAP  - fortran, task 14 14 [2637958]: mask 0x800000000000000000000000000000000 set
+cpu-bind=MAP  - fortran, task 15 15 [2637959]: mask 0x80000000000000000000000000000000000 set
+heat mpi nx=8192 ny=8192 steps=59 city=synthetic seed=42 ranks=16 kernel=avx512-permute
+time_total=0.1693 s  time_compute=0.1430 s  time_comm=0.0082 s  time_io=0.0124 s  0.036 ns/cell-update
+checksum 1.6881705547e+09
+=== done 2026-11-19T03:34:28+01:00

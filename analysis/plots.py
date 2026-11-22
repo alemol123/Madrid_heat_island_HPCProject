@@ -115,7 +115,7 @@ def finish(fig, axes, out, title, table):
         axes[0].set_title(title, fontsize=10, loc="left")
     fig.tight_layout()
     out.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out, dpi=200)
+    fig.savefig(out, dpi=200, bbox_inches="tight")
     plt.close(fig)
     md = out.with_suffix(".md")
     md.write_text("\n".join(table) + "\n")
@@ -167,7 +167,7 @@ def cmd_breakdown(a):
     fig, ax = plt.subplots(figsize=(7, 0.6 * len(s) + 1.6))
     y = list(range(len(s)))[::-1]
     left = [0.0] * len(s)
-    for col, name, color in PARTS + [("time_other", "other (setup)", "#cfcdc6")]:
+    for col, name, color in PARTS + [("time_other", "other (setup)", "#b5b2aa")]:
         vals = s[col].tolist()
         if not any(v > 0 for v in vals):
             continue
@@ -179,7 +179,7 @@ def cmd_breakdown(a):
     ax.set_yticklabels(s.label, fontsize=8)
     ax.set_xlim(0, s.time_total.max() * 1.18)
     ax.set_xlabel("Time (s), mean of repeats")
-    ax.legend(frameon=False, fontsize=8, loc="lower right")
+    ax.legend(frameon=False, fontsize=8, loc="upper center", bbox_to_anchor=(0.5, -0.30), ncol=5)
     table = ["| Run | Compute (s) | Communication (s) | Transfer (s) | I/O (s) | Total (s) |",
              "|---|---|---|---|---|---|"]
     for r in s.itertuples():
@@ -224,6 +224,8 @@ def cmd_sensitivity(a):
         for r in g.itertuples():
             table.append(f"| {name_of(tag, a)} | {getattr(r, a.x)} | "
                          f"{fmt(getattr(r, a.metric), getattr(r, a.metric + '_std'))} |")
+    if a.logy:
+        ax.set_yscale("log")
     if a.logx:
         xs = sorted(s[a.x].unique())
         ax.set_xscale("log", base=2)
@@ -255,6 +257,7 @@ def main():
     se.add_argument("--x", default="nx")
     se.add_argument("--metric", default="ns", choices=TIMES + ["ns"])
     se.add_argument("--logx", action="store_true")
+    se.add_argument("--logy", action="store_true", help="log-scale y axis (values spanning >10x)")
     a = p.parse_args()
     if a.out is None:
         a.out = Path("results/plots") / f"{a.cmd}.png"
